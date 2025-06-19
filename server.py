@@ -6,7 +6,7 @@ class CORSRequestHandler(SimpleHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         super().end_headers()
 
-def run_server(port=8000):
+def run_server(port=8080):
     server_address = ('', port)
     httpd = HTTPServer(server_address, CORSRequestHandler)
     print(f"Server running on http://localhost:{port}")
