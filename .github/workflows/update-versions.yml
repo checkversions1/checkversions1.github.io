@@ -27,7 +27,7 @@ jobs:
         shell: pwsh
         run: |
           # Run the script from its location
-          ./versions/Get-VMwareToolsVersions.ps1
+          ./Get-VMwareToolsVersions.ps1
 
       - name: Commit and push if changed
         run: |
