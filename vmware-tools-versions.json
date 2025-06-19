@@ -1,62 +1,62 @@
 [
   {
-    "BuildNumber": "24697584",
     "ReleaseDate": "05/12/2025",
     "ToolInternalVersion": "12450",
-    "Version": "VMware Tools 12.5.2"
+    "Version": "VMware Tools 12.5.2",
+    "BuildNumber": "24697584"
   },
   {
-    "BuildNumber": "24649672",
     "ReleaseDate": "03/25/2025",
     "ToolInternalVersion": "12449",
-    "Version": "VMware Tools 12.5.1"
+    "Version": "VMware Tools 12.5.1",
+    "BuildNumber": "24649672"
   },
   {
-    "BuildNumber": "24276846",
     "ReleaseDate": "10/08/2024",
     "ToolInternalVersion": "12448",
-    "Version": "VMware Tools 12.5.0"
+    "Version": "VMware Tools 12.5.0",
+    "BuildNumber": "24276846"
   },
   {
-    "BuildNumber": "23787635",
     "ReleaseDate": "06/07/2024",
     "ToolInternalVersion": "12421",
-    "Version": "VMware Tools 12.4.5"
+    "Version": "VMware Tools 12.4.5",
+    "BuildNumber": "23787635"
   },
   {
-    "BuildNumber": "23259341",
     "ReleaseDate": "03/21/2024",
     "ToolInternalVersion": "12416",
-    "Version": "VMware Tools 12.4.0"
+    "Version": "VMware Tools 12.4.0",
+    "BuildNumber": "23259341"
   },
   {
-    "BuildNumber": "22544099",
     "ReleaseDate": "10/26/2023",
     "ToolInternalVersion": "12389",
-    "Version": "VMware Tools 12.3.5"
+    "Version": "VMware Tools 12.3.5",
+    "BuildNumber": "22544099"
   },
   {
-    "BuildNumber": "22234872",
     "ReleaseDate": "08/31/2023",
     "ToolInternalVersion": "12384",
-    "Version": "VMware Tools 12.3.0"
+    "Version": "VMware Tools 12.3.0",
+    "BuildNumber": "22234872"
   },
   {
-    "BuildNumber": "21855600",
     "ReleaseDate": "06/13/2023",
     "ToolInternalVersion": "12357",
-    "Version": "VMware Tools 12.2.5"
+    "Version": "VMware Tools 12.2.5",
+    "BuildNumber": "21855600"
   },
   {
-    "BuildNumber": "21223074",
     "ReleaseDate": "03/07/2023",
     "ToolInternalVersion": "12352",
-    "Version": "VMware Tools 12.2.0"
+    "Version": "VMware Tools 12.2.0",
+    "BuildNumber": "21223074"
   },
   {
-    "BuildNumber": "20735119",
     "ReleaseDate": "11/29/2022",
     "ToolInternalVersion": "12325",
-    "Version": "VMware Tools 12.1.5"
+    "Version": "VMware Tools 12.1.5",
+    "BuildNumber": "20735119"
   }
 ]
