@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMware Tools Version Tracker</title>
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJESURBVFhH7ZY/SBthHMbf9+6SJrGJMWmTVFQcKlKLIA4OFicHEYfSoSAOzh0EcexQsDgIhQ6C4OJQsDg4FBwKDg4OBQcHEQcRB0XUGGNq/u/ufd/LGZMzJnf3XgQ75AsPd+/dvff53v3e3XuPGAwGg+E/xpr+TUQQBJBlOWqFQiGKxSKi0SgkSYrOjUQi0XmPQqvVwvn5Oer1OqLRx8+EHQgC6vU6ms0mXNeFrusQRRGCIEDTNMRiMaRSKSSTyZ4QnudB0zQ4jgPbthGPx6GqanQOTYjneY9CkCXHcdBut6NQw+LfAr7vI5/P4+rqCorydDwSoFQq4eDgAHt7e9jY2EAymRwqxL8FuK6L/f19XF5eYnZ2FhsbG5iYmBgqxD8F+L6P4+NjnJ2dYXp6GrlcDuPj4x+FeP36A7548y1yL0Lc39/j5OQEhUIBU1NTWFtbQyaT6QnxTCzh7Xc/8GZlHvlSHb/KdyOLCG0BhHMOy7JQKpVwfn6O8fFxrK6uYm5uDpqmQVVVxGIxvJr/jLmlL/H9VxmZtIaF2bGRRYS2AMJ1XZTLZRSLRTQaDSwvL2NxcRGpVAqyLOPy5g4Ly5/w/VcFS7NJLM+lRxYR+gKIIAhQrVZxe3uLer2O7e1tzMzMoFKpYHxqBqc3QGYshp2XU5AEYWQRz1IAQbeCpmlIp9OYn5/H7u4u0uk0dnd3n0XEsxZAkAjLsuD7Pubn57G1tfVsIoYSQP/iNE37p4hhYDAYDIb/FEH4A7F/dNYxKHzUAAAAAElFTkSuQmCC">
+    <style>
+        :root {
+            --primary-color: #0091DA;
+            --secondary-color: #002538;
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .last-updated {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+        }
+
+        .latest-version {
+            background: var(--card-background);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary-color);
+        }
+
+        .latest-version h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .latest-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+
+        .version-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .version-card {
+            background: var(--card-background);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .version-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .version-info {
+            margin: 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .version-info:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .version-info label {
+            display: block;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .version-info span {
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c00;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: #666;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .version-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>VMware Tools Version Tracker</h1>
+            <div class="last-updated">Last updated: <span id="lastUpdated">Loading...</span></div>
+        </header>
+
+        <div id="errorMessage" class="error-message">
+            Error loading version data. Please try again later.
+        </div>
+
+        <div class="latest-version" id="latestVersion">
+            <!-- Latest version will be inserted here -->
+        </div>
+
+        <div class="version-grid" id="versionGrid">
+            <!-- Version cards will be inserted here -->
+        </div>
+
+        <footer>
+            <p>Data is automatically updated every 4 hours via GitHub Actions.</p>
+            <p>View the <a href="https://github.com/USERNAME/REPO" target="_blank" rel="noopener">source code on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Get the base URL for GitHub Pages
+        const baseUrl = window.location.pathname.replace(/\/$/, '');
+        
+        async function loadVersions() {
+            try {
+                const response = await fetch(baseUrl + '/vmware-tools-versions.json');
+                const versions = await response.json();
+                
+                // Update latest version
+                const latest = versions[0];
+                document.getElementById('latestVersion').innerHTML = `
+                    <h2>
+                        ${latest.Version}
+                        <span class="latest-badge">Latest Release</span>
+                    </h2>
+                    <div class="version-info">
+                        <label>Release Date</label>
+                        <span>${latest.ReleaseDate}</span>
+                    </div>
+                    <div class="version-info">
+                        <label>Build Number</label>
+                        <span>${latest.BuildNumber}</span>
+                    </div>
+                    <div class="version-info">
+                        <label>Tool Internal Version</label>
+                        <span>${latest.ToolInternalVersion}</span>
+                    </div>
+                `;
+
+                // Update version history
+                const versionGrid = document.getElementById('versionGrid');
+                versions.slice(1).forEach(version => {
+                    const card = document.createElement('div');
+                    card.className = 'version-card';
+                    card.innerHTML = `
+                        <div class="version-info">
+                            <label>Version</label>
+                            <span>${version.Version}</span>
+                        </div>
+                        <div class="version-info">
+                            <label>Release Date</label>
+                            <span>${version.ReleaseDate}</span>
+                        </div>
+                        <div class="version-info">
+                            <label>Build Number</label>
+                            <span>${version.BuildNumber}</span>
+                        </div>
+                        <div class="version-info">
+                            <label>Tool Internal Version</label>
+                            <span>${version.ToolInternalVersion}</span>
+                        </div>
+                    `;
+                    versionGrid.appendChild(card);
+                });
+
+                // Update last updated time
+                const lastUpdated = new Date().toLocaleString();
+                document.getElementById('lastUpdated').textContent = lastUpdated;
+                
+                // Hide error message if it was shown
+                document.getElementById('errorMessage').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading versions:', error);
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+
+        // Load versions when the page loads
+        document.addEventListener('DOMContentLoaded', loadVersions);
+    </script>
+</body>
+</html> 
