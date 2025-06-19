@@ -5,472 +5,450 @@ $esxiJsonPath = Join-Path $scriptPath "vmware-esxi-versions.json"
 $vcenterJsonPath = Join-Path $scriptPath "vmware-vcenter-versions.json"
 $vcfJsonPath = Join-Path $scriptPath "vmware-cloud-foundation-versions.json"
 
-# Define all VMware Tools versions
-$vmwareTools = @(
-    @{
-        Version = "VMware Tools 12.5.2"
-        ReleaseDate = "05/12/2025"
-        BuildNumber = "24697584"
-        ToolInternalVersion = "12450"
-    },
-    @{
-        Version = "VMware Tools 12.5.1"
-        ReleaseDate = "03/25/2025"
-        BuildNumber = "24649672"
-        ToolInternalVersion = "12449"
-    },
-    @{
-        Version = "VMware Tools 12.5.0"
-        ReleaseDate = "10/08/2024"
-        BuildNumber = "24276846"
-        ToolInternalVersion = "12448"
-    },
-    @{
-        Version = "VMware Tools 12.4.5"
-        ReleaseDate = "06/07/2024"
-        BuildNumber = "23787635"
-        ToolInternalVersion = "12421"
-    },
-    @{
-        Version = "VMware Tools 12.4.0"
-        ReleaseDate = "03/21/2024"
-        BuildNumber = "23259341"
-        ToolInternalVersion = "12416"
-    },
-    @{
-        Version = "VMware Tools 12.3.5"
-        ReleaseDate = "10/26/2023"
-        BuildNumber = "22544099"
-        ToolInternalVersion = "12389"
-    },
-    @{
-        Version = "VMware Tools 12.3.0"
-        ReleaseDate = "08/31/2023"
-        BuildNumber = "22234872"
-        ToolInternalVersion = "12384"
-    },
-    @{
-        Version = "VMware Tools 12.2.5"
-        ReleaseDate = "06/13/2023"
-        BuildNumber = "21855600"
-        ToolInternalVersion = "12357"
-    },
-    @{
-        Version = "VMware Tools 12.2.0"
-        ReleaseDate = "03/07/2023"
-        BuildNumber = "21223074"
-        ToolInternalVersion = "12352"
-    },
-    @{
-        Version = "VMware Tools 12.1.5"
-        ReleaseDate = "11/29/2022"
-        BuildNumber = "20735119"
-        ToolInternalVersion = "12325"
+# --- VMware Tools Version Scraping ---
+
+$toolsUrl = "https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html"
+
+Write-Host "Scraping VMware Tools versions from Broadcom KB..." -ForegroundColor Green
+
+try {
+    $response = Invoke-WebRequest -Uri $toolsUrl -UseBasicParsing
+    $html = $response.Content
+
+    # Find all tables
+    $tablePattern = "<table[\s\S]*?<\/table>"
+    $tables = [regex]::Matches($html, $tablePattern)
+    Write-Host "Found $($tables.Count) tables in the HTML." -ForegroundColor Yellow
+    for ($i = 0; $i -lt $tables.Count; $i++) {
+        Write-Host "Table $i preview: $($tables[$i].Value.Substring(0, [Math]::Min(500, $tables[$i].Value.Length)))" -ForegroundColor Gray
     }
-)
 
-# Define ESXi 8.0 versions (latest first)
-$esxi80Versions = @(
-    @{
-        Version = "ESXi 8.0 P05"
-        ReleaseName = "ESXi 8.0 Update 3e"
-        ReleaseDate = "2025/04/10"
-        BuildNumber = "24674464"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.3 EP4"
-        ReleaseName = "ESXi 8.0 Update 3d"
-        ReleaseDate = "2025/03/04"
-        BuildNumber = "24585383"
-        AvailableAs = "Patch"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0 Update 2d"
-        ReleaseName = "ESXi 8.0 Update 2d"
-        ReleaseDate = "2025/03/04"
-        BuildNumber = "24585300"
-        AvailableAs = "Patch"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.3 EP3"
-        ReleaseName = "ESXi 8.0 Update 3c"
-        ReleaseDate = "2024/12/12"
-        BuildNumber = "24414501"
-        AvailableAs = "Patch"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.0e"
-        ReleaseName = "ESXi 8.0e"
-        ReleaseDate = "2025/03/11"
-        BuildNumber = "24569005"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.3 P04"
-        ReleaseName = "ESXi 8.0 Update 3b"
-        ReleaseDate = "2024/09/17"
-        BuildNumber = "24280767"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.3"
-        ReleaseName = "ESXi 8.0 Update 3"
-        ReleaseDate = "2024/06/25"
-        BuildNumber = "24022510"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.2 EP2"
-        ReleaseName = "ESXi 8.0 Update 2c"
-        ReleaseDate = "2024/05/21"
-        BuildNumber = "23825572"
-        AvailableAs = "Patch"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.1 U1d"
-        ReleaseName = "ESXi 8.0 Update 1d"
-        ReleaseDate = "2024/03/05"
-        BuildNumber = "23299997"
-        AvailableAs = "Patch"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.2 P03"
-        ReleaseName = "ESXi 8.0 Update 2b"
-        ReleaseDate = "2024/02/29"
-        BuildNumber = "23305546"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.2"
-        ReleaseName = "ESXi 8.0 Update 2"
-        ReleaseDate = "2023/09/21"
-        BuildNumber = "22380479"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.1 P02"
-        ReleaseName = "ESXi 8.0 Update 1c"
-        ReleaseDate = "2023/07/27"
-        BuildNumber = "22088125"
-        AvailableAs = "Patch"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.1 EP1"
-        ReleaseName = "ESXi 8.0 Update 1a"
-        ReleaseDate = "2023/06/01"
-        BuildNumber = "21813344"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.1"
-        ReleaseName = "ESXi 8.0 Update 1"
-        ReleaseDate = "2023/04/18"
-        BuildNumber = "21495797"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.0 EP2"
-        ReleaseName = "ESXi 8.0c"
-        ReleaseDate = "2023/03/30"
-        BuildNumber = "21493926"
-        AvailableAs = "Patch"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.0 P01"
-        ReleaseName = "ESXi 8.0b"
-        ReleaseDate = "2023/02/14"
-        BuildNumber = "21203435"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.0 EP1"
-        ReleaseName = "ESXi 8.0a"
-        ReleaseDate = "2022/12/08"
-        BuildNumber = "20842819"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
-    },
-    @{
-        Version = "ESXi 8.0.0"
-        ReleaseName = "ESXi 8.0 GA"
-        ReleaseDate = "2022/10/11"
-        BuildNumber = "20513097"
-        AvailableAs = "ISO"
-        MajorVersion = "8.0"
+    $vmwareTools = @()
+    
+    # Process each table to find VMware Tools versions
+    for ($i = 0; $i -lt $tables.Count; $i++) {
+        $table = $tables[$i].Value
+        
+        # Look for tables that contain VMware Tools version information
+        if ($table -match "VMware Tools|Tools Version|Build Number") {
+            $rowPattern = "<tr[\s\S]*?<\/tr>"
+            $rows = [regex]::Matches($table, $rowPattern)
+            
+            # Find the header row and determine column indices
+            $headerCols = @()
+            if ($rows.Count -gt 0) {
+                $headerCols = [regex]::Matches($rows[0].Value, "<t[dh][^>]*>([\s\S]*?)<\/t[dh]>") | ForEach-Object { $_.Groups[1].Value.Trim() -replace '<.*?>','' }
+            }
+            
+            # Clean up header columns: remove HTML entities and extra whitespace
+            $headerCols = $headerCols | ForEach-Object { $_ -replace '&nbsp;', '' -replace '\s+', ' ' -replace '^\s+|\s+$', '' }
+
+            # Find column indices for different fields
+            $versionIdx = ($headerCols | ForEach-Object { $_.ToLower() }) | Select-String -Pattern "version|tools" | ForEach-Object { [array]::IndexOf($headerCols, $_.InputObject) }
+            $dateIdx = ($headerCols | ForEach-Object { $_.ToLower() }) | Select-String -Pattern "date|release" | ForEach-Object { [array]::IndexOf($headerCols, $_.InputObject) }
+            $buildIdx = ($headerCols | ForEach-Object { $_.ToLower() }) | Select-String -Pattern "build" | ForEach-Object { [array]::IndexOf($headerCols, $_.InputObject) }
+            $internalIdx = ($headerCols | ForEach-Object { $_.ToLower() }) | Select-String -Pattern "internal" | ForEach-Object { [array]::IndexOf($headerCols, $_.InputObject) }
+            
+            # Set fallback indices if not found
+            if ($versionIdx.Count -eq 0) { $versionIdx = 0 } else { $versionIdx = $versionIdx[0] }
+            if ($dateIdx.Count -eq 0) { $dateIdx = 1 } else { $dateIdx = $dateIdx[0] }
+            if ($buildIdx.Count -eq 0) { $buildIdx = 2 } else { $buildIdx = $buildIdx[0] }
+            if ($internalIdx.Count -eq 0) { $internalIdx = 3 } else { $internalIdx = $internalIdx[0] }
+
+            # Debug: Show header columns and their indices
+            Write-Host "Table $i headers: $($headerCols -join ' | ')" -ForegroundColor Cyan
+            Write-Host "Column indices - Version: $versionIdx, Date: $dateIdx, Build: $buildIdx, Internal: $internalIdx" -ForegroundColor Cyan
+
+            for ($j = 1; $j -lt $rows.Count; $j++) { # skip header row
+                $cols = [regex]::Matches($rows[$j].Value, "<t[dh][^>]*>([\s\S]*?)<\/t[dh]>") | ForEach-Object { $_.Groups[1].Value.Trim() -replace '<.*?>','' }
+                
+                # Look for VMware Tools version patterns
+                if ($cols.Count -ge 2) {
+                    $versionMatch = $cols -join " " | Select-String -Pattern "(VMware Tools \d+\.\d+\.\d+)" -AllMatches
+                    if ($versionMatch.Matches.Count -gt 0) {
+                        $toolsVersion = $versionMatch.Matches[0].Groups[1].Value
+                        
+                        # Extract additional information
+                        $releaseDate = if ($cols.Count -gt $dateIdx) { $cols[$dateIdx] } else { "Unknown" }
+                        $buildNumber = if ($cols.Count -gt $buildIdx) { $cols[$buildIdx] } else { "Unknown" }
+                        $toolInternalVersion = if ($cols.Count -gt $internalIdx) { $cols[$internalIdx] } else { "Unknown" }
+                        
+                        # Clean up the data
+                        $releaseDate = $releaseDate -replace '\s+', ' ' -replace '^\s+|\s+$', ''
+                        $buildNumber = $buildNumber -replace '\s+', ' ' -replace '^\s+|\s+$', ''
+                        $toolInternalVersion = $toolInternalVersion -replace '\s+', ' ' -replace '^\s+|\s+$', ''
+                        
+                        # Additional validation and correction
+                        # If releaseDate looks like a number (internal version), try to find actual date in the row
+                        if ($releaseDate -match '^\d+$' -and $releaseDate.Length -lt 6) {
+                            $rowText = $cols -join " "
+                            $dateMatch = $rowText | Select-String -Pattern '(\d{1,2}/\d{1,2}/\d{4})' -AllMatches
+                            if ($dateMatch.Matches.Count -gt 0) {
+                                $releaseDate = $dateMatch.Matches[0].Groups[1].Value
+                            }
+                        }
+                        
+                        # If buildNumber looks like internal version, try to find actual build number
+                        if ($buildNumber -match '^\d+$' -and $buildNumber.Length -lt 6) {
+                            $rowText = $cols -join " "
+                            $buildMatch = $rowText | Select-String -Pattern '(\d{8,})' -AllMatches
+                            if ($buildMatch.Matches.Count -gt 0) {
+                                $buildNumber = $buildMatch.Matches[0].Groups[1].Value
+                            }
+                        }
+                        
+                        # Debug: Show extracted data for first few rows
+                        if ($j -le 3) {
+                            Write-Host "Row $j - Version: $toolsVersion, Date: $releaseDate, Build: $buildNumber, Internal: $toolInternalVersion" -ForegroundColor Yellow
+                        }
+                        
+                        $vmwareTools += [PSCustomObject]@{
+                            Version = $toolsVersion
+                            ReleaseDate = $releaseDate
+                            BuildNumber = $buildNumber
+                            ToolInternalVersion = $toolInternalVersion
+                        }
+                    }
+                }
+            }
+        }
     }
-)
+    
+    # Remove duplicates and sort by version (newest first)
+    $vmwareTools = $vmwareTools | Sort-Object Version -Unique | Sort-Object { [version]($_.Version -replace 'VMware Tools ', '') } -Descending
+    
+    Write-Host "Extracted $($vmwareTools.Count) VMware Tools versions" -ForegroundColor Yellow
+    $vmwareTools | ConvertTo-Json -Depth 10 | Out-File -FilePath $toolsJsonPath -Encoding UTF8
+    Write-Host "VMware Tools versions saved to: $toolsJsonPath" -ForegroundColor Green
+} catch {
+    Write-Host "Failed to scrape VMware Tools versions: $_" -ForegroundColor Red
+    # Fallback to hardcoded data if scraping fails
+    $vmwareTools = @(
+        @{
+            Version = "VMware Tools 12.5.2"
+            ReleaseDate = "05/12/2025"
+            BuildNumber = "24697584"
+            ToolInternalVersion = "12450"
+        },
+        @{
+            Version = "VMware Tools 12.5.1"
+            ReleaseDate = "03/25/2025"
+            BuildNumber = "24649672"
+            ToolInternalVersion = "12449"
+        },
+        @{
+            Version = "VMware Tools 12.5.0"
+            ReleaseDate = "10/08/2024"
+            BuildNumber = "24276846"
+            ToolInternalVersion = "12448"
+        }
+    )
+    $vmwareTools | ConvertTo-Json -Depth 10 | Out-File -FilePath $toolsJsonPath -Encoding UTF8
+    Write-Host "Using fallback VMware Tools data" -ForegroundColor Yellow
+}
 
-# Define ESXi 7.0 versions (latest first)
-$esxi70Versions = @(
-    @{
-        Version = "ESXi 7.0.3 P10"
-        ReleaseName = "ESXi 7.0 Update 3v"
-        ReleaseDate = "2025/04/10"
-        BuildNumber = "24674464"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3 P09"
-        ReleaseName = "ESXi 7.0 Update 3u"
-        ReleaseDate = "2025/03/04"
-        BuildNumber = "24585383"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3 P08"
-        ReleaseName = "ESXi 7.0 Update 3t"
-        ReleaseDate = "2024/12/12"
-        BuildNumber = "24414501"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3 P07"
-        ReleaseName = "ESXi 7.0 Update 3s"
-        ReleaseDate = "2024/09/17"
-        BuildNumber = "24280767"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3 P06"
-        ReleaseName = "ESXi 7.0 Update 3r"
-        ReleaseDate = "2024/06/25"
-        BuildNumber = "24022510"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3 P05"
-        ReleaseName = "ESXi 7.0 Update 3q"
-        ReleaseDate = "2024/05/21"
-        BuildNumber = "23825572"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3 P04"
-        ReleaseName = "ESXi 7.0 Update 3p"
-        ReleaseDate = "2024/03/05"
-        BuildNumber = "23299997"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3 P03"
-        ReleaseName = "ESXi 7.0 Update 3o"
-        ReleaseDate = "2024/02/29"
-        BuildNumber = "23305546"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3 P02"
-        ReleaseName = "ESXi 7.0 Update 3n"
-        ReleaseDate = "2023/12/12"
-        BuildNumber = "23000000"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3 P01"
-        ReleaseName = "ESXi 7.0 Update 3m"
-        ReleaseDate = "2023/09/21"
-        BuildNumber = "22380479"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.3"
-        ReleaseName = "ESXi 7.0 Update 3"
-        ReleaseDate = "2023/07/27"
-        BuildNumber = "22088125"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.2 P06"
-        ReleaseName = "ESXi 7.0 Update 2f"
-        ReleaseDate = "2023/06/01"
-        BuildNumber = "21813344"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.2 P05"
-        ReleaseName = "ESXi 7.0 Update 2e"
-        ReleaseDate = "2023/04/18"
-        BuildNumber = "21495797"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.2 P04"
-        ReleaseName = "ESXi 7.0 Update 2d"
-        ReleaseDate = "2023/03/30"
-        BuildNumber = "21493926"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.2 P03"
-        ReleaseName = "ESXi 7.0 Update 2c"
-        ReleaseDate = "2023/02/14"
-        BuildNumber = "21203435"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.2 P02"
-        ReleaseName = "ESXi 7.0 Update 2b"
-        ReleaseDate = "2022/12/08"
-        BuildNumber = "20842819"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.2 P01"
-        ReleaseName = "ESXi 7.0 Update 2a"
-        ReleaseDate = "2022/10/11"
-        BuildNumber = "20513097"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.2"
-        ReleaseName = "ESXi 7.0 Update 2"
-        ReleaseDate = "2022/09/15"
-        BuildNumber = "20328353"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.1 P05"
-        ReleaseName = "ESXi 7.0 Update 1e"
-        ReleaseDate = "2022/08/25"
-        BuildNumber = "20191270"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.1 P04"
-        ReleaseName = "ESXi 7.0 Update 1d"
-        ReleaseDate = "2022/07/12"
-        BuildNumber = "19898904"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.1 P03"
-        ReleaseName = "ESXi 7.0 Update 1c"
-        ReleaseDate = "2022/05/19"
-        BuildNumber = "19482537"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.1 P02"
-        ReleaseName = "ESXi 7.0 Update 1b"
-        ReleaseDate = "2022/03/15"
-        BuildNumber = "19193900"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.1 P01"
-        ReleaseName = "ESXi 7.0 Update 1a"
-        ReleaseDate = "2022/01/27"
-        BuildNumber = "18905247"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.1"
-        ReleaseName = "ESXi 7.0 Update 1"
-        ReleaseDate = "2021/12/07"
-        BuildNumber = "18426014"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.0 P05"
-        ReleaseName = "ESXi 7.0d"
-        ReleaseDate = "2021/11/09"
-        BuildNumber = "18128368"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.0 P04"
-        ReleaseName = "ESXi 7.0c"
-        ReleaseDate = "2021/09/28"
-        BuildNumber = "17867351"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.0 P03"
-        ReleaseName = "ESXi 7.0b"
-        ReleaseDate = "2021/08/17"
-        BuildNumber = "17630552"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.0 P02"
-        ReleaseName = "ESXi 7.0a"
-        ReleaseDate = "2021/06/29"
-        BuildNumber = "17325551"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.0 P01"
-        ReleaseName = "ESXi 7.0 Express Patch 1"
-        ReleaseDate = "2021/05/25"
-        BuildNumber = "17168206"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
-    },
-    @{
-        Version = "ESXi 7.0.0"
-        ReleaseName = "ESXi 7.0 GA"
-        ReleaseDate = "2021/04/02"
-        BuildNumber = "16850804"
-        AvailableAs = "ISO"
-        MajorVersion = "7.0"
+# --- ESXi Version Scraping ---
+
+$esxiUrl = "https://knowledge.broadcom.com/external/article?legacyId=2143832"
+
+Write-Host "Scraping ESXi versions from Broadcom KB..." -ForegroundColor Green
+
+try {
+    $response = Invoke-WebRequest -Uri $esxiUrl -UseBasicParsing
+    $html = $response.Content
+
+    # Find all tables
+    $tablePattern = "<table[\s\S]*?<\/table>"
+    $tables = [regex]::Matches($html, $tablePattern)
+    Write-Host "Found $($tables.Count) tables in the HTML." -ForegroundColor Yellow
+
+    $esxiVersions = @()
+    
+    # Process each table to find ESXi version information
+    for ($i = 0; $i -lt $tables.Count; $i++) {
+        $table = $tables[$i].Value
+        
+        # Look for tables that contain ESXi version information
+        if ($table -match "ESXi|Version|Build Number|Release Date") {
+            $rowPattern = "<tr[\s\S]*?<\/tr>"
+            $rows = [regex]::Matches($table, $rowPattern)
+            
+            # Find the header row and determine column indices
+            $headerCols = @()
+            if ($rows.Count -gt 0) {
+                $headerCols = [regex]::Matches($rows[0].Value, "<t[dh][^>]*>([\s\S]*?)<\/t[dh]>") | ForEach-Object { $_.Groups[1].Value.Trim() -replace '<.*?>','' }
+            }
+            
+            # Clean up header columns: remove HTML entities and extra whitespace
+            $headerCols = $headerCols | ForEach-Object { $_ -replace '&nbsp;', '' -replace '\s+', ' ' -replace '^\s+|\s+$', '' }
+
+            # Find column indices for different fields
+            $versionIdx = ($headerCols | ForEach-Object { $_.ToLower() }) | Select-String -Pattern "version|release" | ForEach-Object { [array]::IndexOf($headerCols, $_.InputObject) }
+            $releaseNameIdx = ($headerCols | ForEach-Object { $_.ToLower() }) | Select-String -Pattern "release name|name" | ForEach-Object { [array]::IndexOf($headerCols, $_.InputObject) }
+            $dateIdx = ($headerCols | ForEach-Object { $_.ToLower() }) | Select-String -Pattern "date|release date" | ForEach-Object { [array]::IndexOf($headerCols, $_.InputObject) }
+            $buildIdx = ($headerCols | ForEach-Object { $_.ToLower() }) | Select-String -Pattern "build" | ForEach-Object { [array]::IndexOf($headerCols, $_.InputObject) }
+            $availableIdx = ($headerCols | ForEach-Object { $_.ToLower() }) | Select-String -Pattern "available|type" | ForEach-Object { [array]::IndexOf($headerCols, $_.InputObject) }
+            
+            # Set fallback indices if not found - use more intelligent fallbacks
+            if ($versionIdx.Count -eq 0 -or $versionIdx[0] -eq -1) { 
+                $versionIdx = 0
+                for ($k = 0; $k -lt $headerCols.Count; $k++) {
+                    if ($headerCols[$k] -match "ESXi|Version|\d+\.\d+") {
+                        $versionIdx = $k
+                        break
+                    }
+                }
+            } else { $versionIdx = $versionIdx[0] }
+            if ($releaseNameIdx.Count -eq 0 -or $releaseNameIdx[0] -eq -1) { 
+                $releaseNameIdx = 1
+                for ($k = 0; $k -lt $headerCols.Count; $k++) {
+                    if ($headerCols[$k] -match "Release|Name|Update") {
+                        $releaseNameIdx = $k
+                        break
+                    }
+                }
+            } else { $releaseNameIdx = $releaseNameIdx[0] }
+            if ($dateIdx.Count -eq 0 -or $dateIdx[0] -eq -1) { 
+                $dateIdx = 2
+                for ($k = 0; $k -lt $headerCols.Count; $k++) {
+                    if ($headerCols[$k] -match "Date|Release") {
+                        $dateIdx = $k
+                        break
+                    }
+                }
+            } else { $dateIdx = $dateIdx[0] }
+            if ($buildIdx.Count -eq 0 -or $buildIdx[0] -eq -1) { 
+                $buildIdx = 3
+                for ($k = 0; $k -lt $headerCols.Count; $k++) {
+                    if ($headerCols[$k] -match "Build") {
+                        $buildIdx = $k
+                        break
+                    }
+                }
+            } else { $buildIdx = $buildIdx[0] }
+            if ($availableIdx.Count -eq 0 -or $availableIdx[0] -eq -1) { 
+                $availableIdx = 4
+                for ($k = 0; $k -lt $headerCols.Count; $k++) {
+                    if ($headerCols[$k] -match "Available|Type|ISO|Patch") {
+                        $availableIdx = $k
+                        break
+                    }
+                }
+            } else { $availableIdx = $availableIdx[0] }
+
+            # Skip this table if any index is still -1 (invalid)
+            if ($versionIdx -eq -1 -or $releaseNameIdx -eq -1 -or $dateIdx -eq -1 -or $buildIdx -eq -1 -or $availableIdx -eq -1) {
+                Write-Host "Skipping table $i due to invalid column indices." -ForegroundColor Red
+                continue
+            }
+
+            # Ensure dateIdx is different from releaseNameIdx
+            if ($dateIdx -eq $releaseNameIdx) {
+                # Try to find a different column for date
+                for ($k = 0; $k -lt $headerCols.Count; $k++) {
+                    if ($k -ne $releaseNameIdx -and $headerCols[$k] -match "Date") {
+                        $dateIdx = $k
+                        break
+                    }
+                }
+                # If still the same, use the next column
+                if ($dateIdx -eq $releaseNameIdx) {
+                    $dateIdx = $releaseNameIdx + 1
+                    if ($dateIdx -ge $headerCols.Count) {
+                        $dateIdx = $releaseNameIdx - 1
+                    }
+                }
+            }
+
+            # Debug: Show header columns and their indices
+            Write-Host "Table $i headers: $($headerCols -join ' | ')" -ForegroundColor Cyan
+            Write-Host "Column indices - Version: $versionIdx, ReleaseName: $releaseNameIdx, Date: $dateIdx, Build: $buildIdx, Available: $availableIdx" -ForegroundColor Cyan
+
+            for ($j = 1; $j -lt $rows.Count; $j++) { # skip header row
+                $cols = [regex]::Matches($rows[$j].Value, "<t[dh][^>]*>([\s\S]*?)<\/t[dh]>") | ForEach-Object { $_.Groups[1].Value.Trim() -replace '<.*?>','' }
+                
+                # Look for ESXi version patterns
+                if ($cols.Count -ge 2) {
+                    # First try to find ESXi version in the version column
+                    $esxiVersion = ""
+                    if ($cols.Count -gt $versionIdx) {
+                        $versionText = $cols[$versionIdx]
+                        $versionMatch = $versionText | Select-String -Pattern "(ESXi \d+\.\d+[^\s]*)" -AllMatches
+                        if ($versionMatch.Matches.Count -gt 0) {
+                            $esxiVersion = $versionMatch.Matches[0].Groups[1].Value
+                        }
+                    }
+                    
+                    # If not found in version column, search all columns
+                    if (-not $esxiVersion) {
+                        $versionMatch = $cols -join " " | Select-String -Pattern "(ESXi \d+\.\d+[^\s]*)" -AllMatches
+                        if ($versionMatch.Matches.Count -gt 0) {
+                            $esxiVersion = $versionMatch.Matches[0].Groups[1].Value
+                        }
+                    }
+                    
+                    if ($esxiVersion) {
+                        # Extract additional information
+                        $releaseName = if ($cols.Count -gt $releaseNameIdx) { $cols[$releaseNameIdx] } else { $esxiVersion }
+                        $releaseDate = if ($cols.Count -gt $dateIdx) { $cols[$dateIdx] } else { "Unknown" }
+                        $buildNumber = if ($cols.Count -gt $buildIdx) { $cols[$buildIdx] } else { "Unknown" }
+                        $availableAs = if ($cols.Count -gt $availableIdx) { $cols[$availableIdx] } else { "Unknown" }
+                        
+                        # Clean up the data
+                        $releaseName = $releaseName -replace '\s+', ' ' -replace '^\s+|\s+$', ''
+                        $releaseDate = $releaseDate -replace '\s+', ' ' -replace '^\s+|\s+$', ''
+                        $buildNumber = $buildNumber -replace '\s+', ' ' -replace '^\s+|\s+$', ''
+                        $availableAs = $availableAs -replace '\s+', ' ' -replace '^\s+|\s+$', ''
+                        
+                        # Determine major version
+                        $majorVersion = if ($esxiVersion -match "8\.\d+") { "8.0" } elseif ($esxiVersion -match "7\.\d+") { "7.0" } else { "Unknown" }
+                        
+                        # Fix version extraction: if version is just "ESXi 8.0", "ESXi 7.0", or "ESXi 7.0.3" but releaseName has more detail, use releaseName
+                        if (($esxiVersion -match "^ESXi \d+\.\d+$" -or $esxiVersion -match "^ESXi \d+\.\d+\.\d+$") -and $releaseName -match "ESXi \d+\.\d+") {
+                            # Extract the full version from releaseName (e.g., "ESXi 8.0 Update 3e" -> "ESXi 8.0.3 P05")
+                            if ($releaseName -match "Update \d+[a-z]") {
+                                $updateMatch = $releaseName | Select-String -Pattern "Update (\d+[a-z])" -AllMatches
+                                if ($updateMatch.Matches.Count -gt 0) {
+                                    $updateSuffix = $updateMatch.Matches[0].Groups[1].Value
+                                    # Map update suffixes to version suffixes for both 8.0 and 7.0
+                                    $versionSuffix = switch ($updateSuffix) {
+                                        # ESXi 8.0
+                                        "3e" { "P05" }
+                                        "3d" { "EP4" }
+                                        "3c" { "EP3" }
+                                        "3b" { "P04" }
+                                        "3a" { "P03" }
+                                        # ESXi 7.0
+                                        "3v" { "P10" }
+                                        "3u" { "P09" }
+                                        "3t" { "P08" }
+                                        "3s" { "P07" }
+                                        "3r" { "P06" }
+                                        "3q" { "P05" }
+                                        "3p" { "P04" }
+                                        "3o" { "P03" }
+                                        "3n" { "P02" }
+                                        "3m" { "P01" }
+                                        default { $updateSuffix }
+                                    }
+                                    # If version is ESXi 7.0.3 or ESXi 8.0.3, append the patch suffix
+                                    if ($esxiVersion -match "^ESXi \d+\.\d+\.\d+$") {
+                                        $esxiVersion = $esxiVersion + " " + $versionSuffix
+                                    } else {
+                                        # For ESXi 8.0 or 7.0, keep previous logic
+                                        $esxiVersion = $esxiVersion + " " + $versionSuffix
+                                    }
+                                }
+                            }
+                        }
+                        
+                        # Additional validation and correction
+                        # If releaseDate looks like a release name (contains "Update" or "ESXi"), try to find actual date in the row
+                        if ($releaseDate -match "Update|ESXi|Release") {
+                            $rowText = $cols -join " "
+                            # Try different date patterns
+                            $dateMatch = $rowText | Select-String -Pattern '(\d{4}/\d{1,2}/\d{1,2})' -AllMatches
+                            if ($dateMatch.Matches.Count -gt 0) {
+                                $releaseDate = $dateMatch.Matches[0].Groups[1].Value
+                            } else {
+                                $dateMatch = $rowText | Select-String -Pattern '(\d{1,2}/\d{1,2}/\d{4})' -AllMatches
+                                if ($dateMatch.Matches.Count -gt 0) {
+                                    $releaseDate = $dateMatch.Matches[0].Groups[1].Value
+                                } else {
+                                    $dateMatch = $rowText | Select-String -Pattern '(\d{4}-\d{1,2}-\d{1,2})' -AllMatches
+                                    if ($dateMatch.Matches.Count -gt 0) {
+                                        $releaseDate = $dateMatch.Matches[0].Groups[1].Value
+                                    } else {
+                                        $releaseDate = "Unknown"
+                                    }
+                                }
+                            }
+                        }
+                        
+                        # If buildNumber looks like internal version, try to find actual build number
+                        if ($buildNumber -match '^\d+$' -and $buildNumber.Length -lt 6) {
+                            $rowText = $cols -join " "
+                            $buildMatch = $rowText | Select-String -Pattern '(\d{8,})' -AllMatches
+                            if ($buildMatch.Matches.Count -gt 0) {
+                                $buildNumber = $buildMatch.Matches[0].Groups[1].Value
+                            }
+                        }
+                        
+                        # If releaseName is empty or same as version, try to extract from row
+                        if (-not $releaseName -or $releaseName -eq $esxiVersion) {
+                            $rowText = $cols -join " "
+                            $releaseMatch = $rowText | Select-String -Pattern "(Update \d+[a-z]?|P\d+|EP\d+)" -AllMatches
+                            if ($releaseMatch.Matches.Count -gt 0) {
+                                $releaseName = $esxiVersion + " " + $releaseMatch.Matches[0].Groups[1].Value
+                            }
+                        }
+                        
+                        # Debug: Show extracted data for first few rows
+                        if ($j -le 3) {
+                            Write-Host "Row $j - Version: $esxiVersion, ReleaseName: $releaseName, Date: $releaseDate, Build: $buildNumber, Available: $availableAs" -ForegroundColor Yellow
+                        }
+                        
+                        $esxiVersions += [PSCustomObject]@{
+                            Version = $esxiVersion
+                            ReleaseName = $releaseName
+                            ReleaseDate = $releaseDate
+                            BuildNumber = $buildNumber
+                            AvailableAs = $availableAs
+                            MajorVersion = $majorVersion
+                        }
+                    }
+                }
+            }
+        }
     }
-)
-
-# Process VMware Tools versions
-Write-Host "Processing VMware Tools versions..." -ForegroundColor Green
-$vmwareTools = $vmwareTools | Sort-Object { [datetime]::ParseExact($_.ReleaseDate, "MM/dd/yyyy", $null) } -Descending
-$vmwareTools | ConvertTo-Json -Depth 10 | Out-File -FilePath $toolsJsonPath -Encoding UTF8
-
-# Process ESXi versions
-Write-Host "Processing VMware ESXi versions..." -ForegroundColor Green
-$allESXiVersions = $esxi80Versions + $esxi70Versions
-$allESXiVersions = $allESXiVersions | Sort-Object { [datetime]::ParseExact($_.ReleaseDate, "yyyy/MM/dd", $null) } -Descending
-$allESXiVersions | ConvertTo-Json -Depth 10 | Out-File -FilePath $esxiJsonPath -Encoding UTF8
+    
+    # Remove duplicates and sort by version (newest first) with better error handling
+    $esxiVersions = $esxiVersions | Sort-Object Version -Unique
+    
+    # Custom sorting function to handle version strings with letters
+    $esxiVersions = $esxiVersions | Sort-Object {
+        $versionStr = $_.Version -replace 'ESXi ', ''
+        # Extract numeric parts and handle letters
+        if ($versionStr -match '(\d+)\.(\d+)\.(\d+)([a-zA-Z]*)') {
+            $major = [int]$matches[1]
+            $minor = [int]$matches[2]
+            $patch = [int]$matches[3]
+            $letter = $matches[4]
+            # Create sortable string: major.minor.patch.letter_priority
+            $letterPriority = if ($letter -eq '') { 999 } else { [int][char]$letter }
+            "$major.$minor.$patch.$letterPriority"
+        } else {
+            $versionStr
+        }
+    } -Descending
+    
+    Write-Host "Extracted $($esxiVersions.Count) ESXi versions" -ForegroundColor Yellow
+    $esxiVersions | ConvertTo-Json -Depth 10 | Out-File -FilePath $esxiJsonPath -Encoding UTF8
+    Write-Host "ESXi versions saved to: $esxiJsonPath" -ForegroundColor Green
+} catch {
+    Write-Host "Failed to scrape ESXi versions: $_" -ForegroundColor Red
+    # Fallback to hardcoded data if scraping fails
+    $esxiVersions = @(
+        @{
+            Version = "ESXi 8.0 P05"
+            ReleaseName = "ESXi 8.0 Update 3e"
+            ReleaseDate = "2025/04/10"
+            BuildNumber = "24674464"
+            AvailableAs = "ISO"
+            MajorVersion = "8.0"
+        },
+        @{
+            Version = "ESXi 7.0.3 P10"
+            ReleaseName = "ESXi 7.0 Update 3v"
+            ReleaseDate = "2025/04/10"
+            BuildNumber = "24674464"
+            AvailableAs = "ISO"
+            MajorVersion = "7.0"
+        }
+    )
+    $esxiVersions | ConvertTo-Json -Depth 10 | Out-File -FilePath $esxiJsonPath -Encoding UTF8
+    Write-Host "Using fallback ESXi data" -ForegroundColor Yellow
+}
 
 # --- vCenter Server Version Scraping ---
 
@@ -629,8 +607,28 @@ try {
 
 # Display summary information
 $latestTools = $vmwareTools[0]
-$latestESXi80 = $esxi80Versions[0]
-$latestESXi70 = $esxi70Versions[0]
+
+# Get latest ESXi versions from the scraped data
+function Get-LatestByDate($versions, $major) {
+    $dateFormats = @('yyyy/MM/dd','yyyy-MM-dd','MM/dd/yyyy','dd/MM/yyyy')
+    $filtered = $versions | Where-Object { $_.MajorVersion -eq $major -and $_.ReleaseDate -ne 'Unknown' }
+    $sorted = $filtered | Sort-Object {
+        $d = $_.ReleaseDate
+        foreach ($fmt in $dateFormats) {
+            try { return [datetime]::ParseExact($d, $fmt, $null) } catch {}
+        }
+        return [datetime]0
+    } -Descending
+    if ($sorted.Count -gt 0) {
+        Write-Host ("Selected latest ESXi $($major): $($sorted[0].Version) | $($sorted[0].ReleaseName) | $($sorted[0].ReleaseDate) | $($sorted[0].BuildNumber)") -ForegroundColor Green
+        return $sorted[0]
+    } else {
+        Write-Host ("No valid ESXi $($major) version found!") -ForegroundColor Red
+        return $null
+    }
+}
+$latestESXi80 = Get-LatestByDate $esxiVersions '8.0'
+$latestESXi70 = Get-LatestByDate $esxiVersions '7.0'
 
 # Get latest vCenter versions from the scraped data
 $latestVCenter80 = $vcenterVersions | Where-Object { $_.Version -match "^8\." } | Select-Object -First 1
@@ -704,7 +702,7 @@ Write-Host "  VMware Cloud Foundation: $vcfJsonPath" -ForegroundColor White
 Write-Host ""
 Write-Host "Total versions tracked:" -ForegroundColor Cyan
 Write-Host "  VMware Tools: $($vmwareTools.Count)" -ForegroundColor White
-Write-Host "  VMware ESXi: $($allESXiVersions.Count)" -ForegroundColor White
+Write-Host "  VMware ESXi: $($esxiVersions.Count)" -ForegroundColor White
 Write-Host "  VMware vCenter: $($vcenterVersions.Count)" -ForegroundColor White
 Write-Host "  VMware Cloud Foundation: $($vcfVersions.Count)" -ForegroundColor White
 Write-Host ("=" * 60) -ForegroundColor Cyan
