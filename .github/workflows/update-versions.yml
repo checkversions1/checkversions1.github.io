@@ -29,17 +29,9 @@ jobs:
           # Run the script from its location
           ./GetVMwareVersions.ps1
 
-      - name: Save last updated timestamp
-        shell: pwsh
-        run: |
-          $timestamp = Get-Date -Format "o"
-          $jsonObject = @{ lastUpdated = $timestamp }
-          $jsonContent = $jsonObject | ConvertTo-Json -Compress
-          Set-Content -Path "last-updated.json" -Value $jsonContent
-
       - name: Commit and push if changed
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update VMware Tools versions" && git push) 
+          git add vmware-tools-versions.json vmware-esxi-versions.json vmware-vcenter-versions.json vmware-cloud-foundation-versions.json last-updated.json
+          git status --porcelain | grep -q . && (git commit -m "Update VMware Tools versions" && git push) || echo "No changes to commit" 
