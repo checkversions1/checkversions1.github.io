@@ -39,9 +39,3 @@ Thumbs.db
 # Ignore all json files by default
 *.json
 
-# But do not ignore these specific json files
-!vmware-tools-versions.json
-!vmware-esxi-versions.json
-!vmware-vcenter-versions.json
-!vmware-cloud-foundation-versions.json
-!last-updated.json
