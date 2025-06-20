@@ -732,3 +732,15 @@ Write-Host "  VMware ESXi: $($esxiVersions.Count)" -ForegroundColor White
 Write-Host "  VMware vCenter: $($vcenterVersions.Count)" -ForegroundColor White
 Write-Host "  VMware Cloud Foundation: $($vcfVersions.Count)" -ForegroundColor White
 Write-Host ("=" * 60) -ForegroundColor Cyan
+
+# Save last updated timestamp
+try {
+    $timestamp = Get-Date -Format "o"
+    $jsonObject = @{ lastUpdated = $timestamp }
+    $jsonContent = $jsonObject | ConvertTo-Json -Compress
+    $lastUpdatedPath = Join-Path $scriptPath "last-updated.json"
+    Set-Content -Path $lastUpdatedPath -Value $jsonContent
+    Write-Host "Last updated timestamp saved to: $lastUpdatedPath" -ForegroundColor Green
+} catch {
+    Write-Host "Failed to save last updated timestamp: $_" -ForegroundColor Red
+}
