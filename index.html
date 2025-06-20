@@ -285,8 +285,54 @@
                 const vcfResponse = await fetch(baseUrl + '/vmware-cloud-foundation-versions.json');
                 const vcfVersions = await vcfResponse.json();
                 
+                // Load last updated timestamp
+                const updatedResponse = await fetch(baseUrl + '/last-updated.json');
+                const updatedData = await updatedResponse.json();
+                const lastUpdated = new Date(updatedData.lastUpdated).toLocaleString();
+                document.getElementById('lastUpdated').textContent = lastUpdated;
+
+                // --- Helper function to parse dates ---
+                const parseDate = (dateString) => {
+                    // Handles yyyy/MM/dd, MM/dd/yyyy, yyyy-MM-dd, and "dd Mon yyyy"
+                    if (!dateString || dateString === 'Unknown') return null;
+                    const partsSlash = dateString.split('/');
+                    const partsDash = dateString.split('-');
+                    const partsWords = dateString.split(' ');
+
+                    if (partsSlash.length === 3) {
+                        if (partsSlash[0].length === 4) return new Date(dateString); // yyyy/MM/dd
+                        return new Date(`${partsSlash[2]}-${partsSlash[0]}-${partsSlash[1]}`); // MM/dd/yyyy
+                    }
+                    if (partsDash.length === 3) {
+                        return new Date(dateString); // yyyy-MM-dd
+                    }
+                    if (partsWords.length === 3) {
+                        return new Date(dateString); // dd Mon yyyy
+                    }
+                    return null;
+                };
+
+                // --- Filter and Sort Versions ---
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const getLatestVersion = (versions) => {
+                    const sorted = versions
+                        .map(v => ({ ...v, parsedDate: parseDate(v.ReleaseDate) }))
+                        .filter(v => v.parsedDate && v.parsedDate <= today)
+                        .sort((a, b) => b.parsedDate - a.parsedDate);
+                    return sorted.length > 0 ? sorted[0] : versions[0]; // Fallback to first if all are future
+                };
+
+                const getLatestByMajor = (versions, major) => {
+                    const filteredByMajor = versions.filter(v => v.MajorVersion === major);
+                    return getLatestVersion(filteredByMajor);
+                };
+                
+                // --- Update UI ---
+
                 // Update latest VMware Tools version
-                const latestTools = toolsVersions[0];
+                const latestTools = getLatestVersion(toolsVersions);
                 document.getElementById('latestVersion').innerHTML = `
                     <h2>
                         ${latestTools.Version}
@@ -307,8 +353,8 @@
                 `;
 
                 // Update latest ESXi versions
-                const latestESXi80 = esxiVersions.find(v => v.MajorVersion === "8.0");
-                const latestESXi70 = esxiVersions.find(v => v.MajorVersion === "7.0");
+                const latestESXi80 = getLatestByMajor(esxiVersions, "8.0");
+                const latestESXi70 = getLatestByMajor(esxiVersions, "7.0");
                 
                 document.getElementById('latestESXiVersion').innerHTML = `
                     <h2>
@@ -343,31 +389,31 @@
                             <h3 style="color: var(--primary-color); margin-top: 0;">ESXi 7.0</h3>
                             <div class="version-info">
                                 <label>Version</label>
-                                <span>${latestESXi70.Version}</span>
+                                <span>${latestESXi70 ? latestESXi70.Version : 'N/A'}</span>
                             </div>
                             <div class="version-info">
                                 <label>Release Name</label>
-                                <span>${latestESXi70.ReleaseName}</span>
+                                <span>${latestESXi70 ? latestESXi70.ReleaseName : 'N/A'}</span>
                             </div>
                             <div class="version-info">
                                 <label>Release Date</label>
-                                <span>${latestESXi70.ReleaseDate}</span>
+                                <span>${latestESXi70 ? latestESXi70.ReleaseDate : 'N/A'}</span>
                             </div>
                             <div class="version-info">
                                 <label>Build Number</label>
-                                <span>${latestESXi70.BuildNumber}</span>
+                                <span>${latestESXi70 ? latestESXi70.BuildNumber : 'N/A'}</span>
                             </div>
                             <div class="version-info">
                                 <label>Available As</label>
-                                <span>${latestESXi70.AvailableAs}</span>
+                                <span>${latestESXi70 ? latestESXi70.AvailableAs : 'N/A'}</span>
                             </div>
                         </div>
                     </div>
                 `;
 
                 // Update latest vCenter versions
-                const latestVCenter80 = vcenterVersions.find(v => v.MajorVersion === "8.0");
-                const latestVCenter70 = vcenterVersions.find(v => v.MajorVersion === "7.0");
+                const latestVCenter80 = getLatestByMajor(vcenterVersions, "8.0");
+                const latestVCenter70 = getLatestByMajor(vcenterVersions, "7.0");
                 
                 document.getElementById('latestVCenterVersion').innerHTML = `
                     <h2>
@@ -398,26 +444,26 @@
                             <h3 style="color: var(--primary-color); margin-top: 0;">vCenter 7.0</h3>
                             <div class="version-info">
                                 <label>Version</label>
-                                <span>${latestVCenter70.Version}</span>
+                                <span>${latestVCenter70 ? latestVCenter70.Version : 'N/A'}</span>
                             </div>
                             <div class="version-info">
                                 <label>Release Name</label>
-                                <span>${latestVCenter70.ReleaseName}</span>
+                                <span>${latestVCenter70 ? latestVCenter70.ReleaseName : 'N/A'}</span>
                             </div>
                             <div class="version-info">
                                 <label>Release Date</label>
-                                <span>${latestVCenter70.ReleaseDate}</span>
+                                <span>${latestVCenter70 ? latestVCenter70.ReleaseDate : 'N/A'}</span>
                             </div>
                             <div class="version-info">
                                 <label>Build Number</label>
-                                <span>${latestVCenter70.BuildNumber}</span>
+                                <span>${latestVCenter70 ? latestVCenter70.BuildNumber : 'N/A'}</span>
                             </div>
                         </div>
                     </div>
                 `;
 
                 // Update latest VCF version
-                const latestVCF = vcfVersions[0];
+                const latestVCF = getLatestVersion(vcfVersions);
                 
                 document.getElementById('latestVCFVersion').innerHTML = `
                     <h2>
@@ -442,10 +488,6 @@
                     </div>
                 `;
 
-                // Update last updated time
-                const lastUpdated = new Date().toLocaleString();
-                document.getElementById('lastUpdated').textContent = lastUpdated;
-                
                 // Hide error message if it was shown
                 document.getElementById('errorMessage').style.display = 'none';
             } catch (error) {

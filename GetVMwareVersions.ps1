@@ -606,7 +606,33 @@ try {
 }
 
 # Display summary information
-$latestTools = $vmwareTools[0]
+# Filter VMware Tools to only include versions with a release date in the past
+$today = (Get-Date).Date
+$dateFormats = @('MM/dd/yyyy', 'yyyy-MM-dd', 'dd/MM/yyyy') # Supported date formats
+$releasedTools = @($vmwareTools | Where-Object {
+    if ($_.ReleaseDate -eq 'Unknown') { return $false }
+    $parsedDate = $null
+    foreach ($format in $dateFormats) {
+        try {
+            $parsedDate = [datetime]::ParseExact($_.ReleaseDate, $format, [System.Globalization.CultureInfo]::InvariantCulture)
+            break # Exit loop if parsing succeeds
+        } catch {}
+    }
+    # Check if a date was parsed and if it's in the past or today
+    if ($parsedDate) {
+        return $parsedDate -le $today
+    }
+    return $false # If parsing fails, exclude the item
+})
+
+if ($releasedTools.Count -gt 0) {
+    # The list is already sorted by version descending, so the first one is the latest released
+    $latestTools = $releasedTools[0]
+} else {
+    Write-Host "Warning: Could not find a VMware Tools version with a valid past or current release date. Displaying the highest version number found." -ForegroundColor Yellow
+    # Fallback to the original behavior if no released versions are found
+    $latestTools = $vmwareTools[0]
+}
 
 # Get latest ESXi versions from the scraped data
 function Get-LatestByDate($versions, $major) {

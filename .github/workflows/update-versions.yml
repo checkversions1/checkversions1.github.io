@@ -29,6 +29,14 @@ jobs:
           # Run the script from its location
           ./GetVMwareVersions.ps1
 
+      - name: Save last updated timestamp
+        shell: pwsh
+        run: |
+          $timestamp = Get-Date -Format "o"
+          $jsonObject = @{ lastUpdated = $timestamp }
+          $jsonContent = $jsonObject | ConvertTo-Json -Compress
+          Set-Content -Path "last-updated.json" -Value $jsonContent
+
       - name: Commit and push if changed
         run: |
           git config --local user.email "action@github.com"

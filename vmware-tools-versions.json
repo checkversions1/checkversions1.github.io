@@ -1,5 +1,11 @@
 [
   {
+    "Version": "VMware Tools 13.0.0",
+    "ReleaseDate": "06/18/2025",
+    "BuildNumber": "24696409",
+    "ToolInternalVersion": "13312"
+  },
+  {
     "Version": "VMware Tools 12.5.2",
     "ReleaseDate": "05/12/2025",
     "BuildNumber": "24697584",
