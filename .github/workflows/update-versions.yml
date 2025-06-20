@@ -2,7 +2,7 @@ name: Update VMware Tools Versions
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # Runs every 4 hours
+    - cron: '0 */1 * * *'  # Runs every 4 hours
   workflow_dispatch:  # Allows manual trigger
 
 jobs:
