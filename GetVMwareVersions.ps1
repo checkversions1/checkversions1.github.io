@@ -4,6 +4,7 @@ $toolsJsonPath = Join-Path $scriptPath "vmware-tools-versions.json"
 $esxiJsonPath = Join-Path $scriptPath "vmware-esxi-versions.json"
 $vcenterJsonPath = Join-Path $scriptPath "vmware-vcenter-versions.json"
 $vcfJsonPath = Join-Path $scriptPath "vmware-cloud-foundation-versions.json"
+$lastUpdatedPath = Join-Path $scriptPath "last-updated.json"
 
 # --- VMware Tools Version Scraping ---
 
