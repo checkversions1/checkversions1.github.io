@@ -1,20 +1,20 @@
 [
   {
-    "BuildNumber": "24697584",
-    "ReleaseDate": "05/12/2025",
     "ToolInternalVersion": "12450",
+    "ReleaseDate": "05/12/2025",
+    "BuildNumber": "24697584",
     "Version": "VMware Tools 12.5.2"
   },
   {
-    "BuildNumber": "24649672",
-    "ReleaseDate": "03/25/2025",
     "ToolInternalVersion": "12449",
+    "ReleaseDate": "03/25/2025",
+    "BuildNumber": "24649672",
     "Version": "VMware Tools 12.5.1"
   },
   {
-    "BuildNumber": "24276846",
-    "ReleaseDate": "10/08/2024",
     "ToolInternalVersion": "12448",
+    "ReleaseDate": "10/08/2024",
+    "BuildNumber": "24276846",
     "Version": "VMware Tools 12.5.0"
   }
 ]

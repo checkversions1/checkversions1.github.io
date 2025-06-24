@@ -1,17 +1,17 @@
 [
   {
-    "AvailableAs": "ISO",
-    "ReleaseName": "ESXi 8.0 Update 3e",
     "ReleaseDate": "2025/04/10",
     "Version": "ESXi 8.0 P05",
+    "ReleaseName": "ESXi 8.0 Update 3e",
+    "AvailableAs": "ISO",
     "MajorVersion": "8.0",
     "BuildNumber": "24674464"
   },
   {
-    "AvailableAs": "ISO",
-    "ReleaseName": "ESXi 7.0 Update 3v",
     "ReleaseDate": "2025/04/10",
     "Version": "ESXi 7.0.3 P10",
+    "ReleaseName": "ESXi 7.0 Update 3v",
+    "AvailableAs": "ISO",
     "MajorVersion": "7.0",
     "BuildNumber": "24674464"
   }
