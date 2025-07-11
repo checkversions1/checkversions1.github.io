@@ -4,405 +4,153 @@
     "ReleaseName": "vCenter Server 8.0 Update 3e",
     "ReleaseDate": "2025-04-11",
     "BuildNumber": "24674346",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.3.00400",
     "ReleaseName": "vCenter Server 8.0 Update 3d",
     "ReleaseDate": "2024-10-21",
     "BuildNumber": "24322831",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.3.00300",
     "ReleaseName": "vCenter Server 8.0 Update 3c",
     "ReleaseDate": "2024-10-09",
     "BuildNumber": "24305161",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.3.00200",
     "ReleaseName": "vCenter Server 8.0 Update 3b",
     "ReleaseDate": "2024-09-17",
     "BuildNumber": "24262322",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.3.00100",
     "ReleaseName": "vCenter Server 8.0 Update 3a",
     "ReleaseDate": "2024-07-18",
     "BuildNumber": "24091160",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.3.00000",
     "ReleaseName": "vCenter Server 8.0 Update 3",
     "ReleaseDate": "2024-06-25",
     "BuildNumber": "24022515",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.2.00500",
     "ReleaseName": "vCenter Server 8.0 Update 2e",
     "ReleaseDate": "2024-10-21",
     "BuildNumber": "24321653",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.2.00400",
     "ReleaseName": "vCenter Server 8.0 Update 2d",
     "ReleaseDate": "2024-06-17",
     "BuildNumber": "23929136&nbsp;",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.2.00300",
     "ReleaseName": "vCenter Server 8.0 Update 2c",
     "ReleaseDate": "2024-03-26",
     "BuildNumber": "23504390",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.2.00200",
     "ReleaseName": "vCenter Server 8.0 Update 2b",
     "ReleaseDate": "2024-03-04",
     "BuildNumber": "23319993",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.2.00100",
     "ReleaseName": "vCenter Server 8.0 Update 2a",
     "ReleaseDate": "2023-10-26",
     "BuildNumber": "22617221",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.2.00000",
     "ReleaseName": "vCenter Server 8.0 Update 2",
     "ReleaseDate": "2023-09-21",
     "BuildNumber": "22385739",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.1.00500",
     "ReleaseName": "vCenter Server 8.0 Update 1e",
     "ReleaseDate": "2024-06-12",
     "BuildNumber": "24005165",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.1.00400",
     "ReleaseName": "vCenter Server 8.0 Update 1d",
     "ReleaseDate": "2023-10-24",
     "BuildNumber": "22368047",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.1.00300",
     "ReleaseName": "vCenter Server 8.0 Update 1c",
     "ReleaseDate": "2023-07-27",
     "BuildNumber": "22088981",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.1.00200",
     "ReleaseName": "vCenter Server 8.0 Update 1b",
     "ReleaseDate": "2023-06-22",
     "BuildNumber": "21860503",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.1.00100",
     "ReleaseName": "vCenter Server 8.0 Update 1a",
     "ReleaseDate": "2023-06-01",
     "BuildNumber": "21815093",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.1.00000",
     "ReleaseName": "vCenter Server 8.0 Update 1",
     "ReleaseDate": "2023-04-18",
     "BuildNumber": "21560480",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.0.10300",
     "ReleaseName": "vCenter Server 8.0c",
     "ReleaseDate": "2023-03-30",
     "BuildNumber": "21457384",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.0.10200",
     "ReleaseName": "vCenter Server 8.0b",
     "ReleaseDate": "2023-02-14",
     "BuildNumber": "21216066",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.0.10100",
     "ReleaseName": "vCenter Server 8.0a",
     "ReleaseDate": "2022-12-16",
     "BuildNumber": "20920323",
-    "MajorVersion": "8.0"
+    "MajorVersion": "7.0"
   },
   {
     "Version": "8.0.0.10000",
     "ReleaseName": "vCenter Server 8.0 GA&nbsp;",
     "ReleaseDate": "2022-10-11",
     "BuildNumber": "20519528",
-    "MajorVersion": "8.0"
-  },
-  {
-    "Version": "7.0.3.02400",
-    "ReleaseName": "vCenter Server 7.0 Update 3v",
-    "ReleaseDate": "2025-05-20",
-    "BuildNumber": "24730281",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.02300",
-    "ReleaseName": "vCenter Server 7.0 Update 3u",
-    "ReleaseDate": "2025-04-01",
-    "BuildNumber": "24614210",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.02200",
-    "ReleaseName": "vCenter Server 7.0 Update 3t",
-    "ReleaseDate": "2024-10-21",
-    "BuildNumber": "24322018",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.02100",
-    "ReleaseName": "vCenter Server 7.0 Update 3s",
-    "ReleaseDate": "2024-09-17",
-    "BuildNumber": "24201990",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.02000",
-    "ReleaseName": "vCenter Server 7.0 Update 3r",
-    "ReleaseDate": "2024-06-17",
-    "BuildNumber": "24026615",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01900",
-    "ReleaseName": "vCenter Server 7.0 Update 3q",
-    "ReleaseDate": "2024-05-21",
-    "BuildNumber": "23788036",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01800",
-    "ReleaseName": "vCenter Server 7.0 Update 3p",
-    "ReleaseDate": "2023-12-07",
-    "BuildNumber": "22837322",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01700",
-    "ReleaseName": "vCenter Server 7.0 Update 3o",
-    "ReleaseDate": "2023-09-28",
-    "BuildNumber": "22357613",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01600",
-    "ReleaseName": "vCenter Server 7.0 Update 3n",
-    "ReleaseDate": "2023-07-07",
-    "BuildNumber": "21958406",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01500",
-    "ReleaseName": "vCenter Server 7.0 Update 3m",
-    "ReleaseDate": "2023-06-22",
-    "BuildNumber": "21784236",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01400",
-    "ReleaseName": "vCenter Server 7.0 Update 3l",
-    "ReleaseDate": "2023-03-30",
-    "BuildNumber": "21477706",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01300",
-    "ReleaseName": "vCenter Server 7.0 Update 3k",
-    "ReleaseDate": "2023-02-23",
-    "BuildNumber": "21290409",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01200",
-    "ReleaseName": "vCenter Server 7.0 Update 3j",
-    "ReleaseDate": "2022-12-22",
-    "BuildNumber": "20990077",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01100",
-    "ReleaseName": "vCenter Server 7.0 Update 3i",
-    "ReleaseDate": "2022-12-08",
-    "BuildNumber": "20845200",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.01000",
-    "ReleaseName": "vCenter Server 7.0 Update 3h",
-    "ReleaseDate": "2022-09-13",
-    "BuildNumber": "20395099",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.00800",
-    "ReleaseName": "vCenter Server 7.0 Update 3g",
-    "ReleaseDate": "2022-07-23",
-    "BuildNumber": "20150588",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.00700",
-    "ReleaseName": "vCenter Server 7.0 Update 3f",
-    "ReleaseDate": "2022-07-12",
-    "BuildNumber": "20051473",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.00600",
-    "ReleaseName": "vCenter Server 7.0 Update 3e",
-    "ReleaseDate": "2022-05-12",
-    "BuildNumber": "19717403",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.00500",
-    "ReleaseName": "vCenter Server 7.0 Update 3d",
-    "ReleaseDate": "2022-03-29",
-    "BuildNumber": "19480866",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.00300",
-    "ReleaseName": "vCenter Server 7.0 Update 3c",
-    "ReleaseDate": "2022-01-27",
-    "BuildNumber": "19234570",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.00100",
-    "ReleaseName": "vCenter Server 7.0 Update 3a",
-    "ReleaseDate": "2021-10-21",
-    "BuildNumber": "18778458",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.3.00000",
-    "ReleaseName": "vCenter Server 7.0 Update 3",
-    "ReleaseDate": "2021-10-05",
-    "BuildNumber": "18700403",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.2.00500",
-    "ReleaseName": "vCenter Server 7.0 Update 2d",
-    "ReleaseDate": "2021-09-21",
-    "BuildNumber": "18455184",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.2.00400",
-    "ReleaseName": "vCenter Server 7.0 Update 2c",
-    "ReleaseDate": "2021-08-24",
-    "BuildNumber": "18356314",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.2.00200",
-    "ReleaseName": "vCenter Server 7.0 Update 2b",
-    "ReleaseDate": "2021-05-25",
-    "BuildNumber": "17958471",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.2.00100",
-    "ReleaseName": "vCenter Server 7.0 Update 2a",
-    "ReleaseDate": "2021-04-27",
-    "BuildNumber": "17920168",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.2.00000",
-    "ReleaseName": "vCenter Server 7.0 Update 2",
-    "ReleaseDate": "2021-03-09",
-    "BuildNumber": "17694817",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.1.00300",
-    "ReleaseName": "vCenter Server 7.0 Update 1d",
-    "ReleaseDate": "2021-02-02",
-    "BuildNumber": "17491101",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.1.00200",
-    "ReleaseName": "vCenter Server 7.0 Update 1c",
-    "ReleaseDate": "2020-12-17",
-    "BuildNumber": "17327517",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.1.00100",
-    "ReleaseName": "vCenter Server 7.0 Update 1a",
-    "ReleaseDate": "2020-10-22",
-    "BuildNumber": "17004997",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.1.00000",
-    "ReleaseName": "vCenter Server 7.0 Update 1",
-    "ReleaseDate": "2020-10-06",
-    "BuildNumber": "16860138",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.0.10700",
-    "ReleaseName": "vCenter Server 7.0.0d",
-    "ReleaseDate": "2020-08-25",
-    "BuildNumber": "16749653",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.0.10600",
-    "ReleaseName": "vCenter Server 7.0.0c",
-    "ReleaseDate": "2020-07-30",
-    "BuildNumber": "16620007",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.0.10400",
-    "ReleaseName": "vCenter Server 7.0.0b",
-    "ReleaseDate": "2020-06-23",
-    "BuildNumber": "16386292",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.0.10300",
-    "ReleaseName": "vCenter Server 7.0.0a",
-    "ReleaseDate": "2020-05-19",
-    "BuildNumber": "16189094",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "7.0.0.10100",
-    "ReleaseName": "vCenter Server 7.0 GA",
-    "ReleaseDate": "2020-04-02",
-    "BuildNumber": "15952498",
     "MajorVersion": "7.0"
   }
 ]
