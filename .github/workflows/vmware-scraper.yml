@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: VMware Versions Scraper
 
 on:
@@ -35,4 +36,43 @@ jobs:
         git config --local user.name "GitHub Action"
         git add vmware-versions.json vmware-versions-display.html
         git diff --quiet && git diff --staged --quiet || git commit -m "Update VMware versions - $(date)"
+=======
+name: VMware Versions Scraper
+
+on:
+  schedule:
+    # Run every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+
+jobs:
+  scrape-vmware-versions:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run VMware scraper
+      run: |
+        python vmware_tools_scraper.py
+        
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add vmware-versions.json vmware-versions-display.html
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update VMware versions - $(date)"
+>>>>>>> 1f73458c16c71be7418bad7aeb90161665a3624b
         git push 
