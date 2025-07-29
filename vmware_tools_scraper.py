@@ -642,6 +642,8 @@ class VMwareVersionScraper:
             True if successful, False otherwise
         """
         try:
+            # Get last updated timestamp
+            last_updated = self.get_timestamp()
             # Generate HTML content
             html_content = f"""
 <!DOCTYPE html>
