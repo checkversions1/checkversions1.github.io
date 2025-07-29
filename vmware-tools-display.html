@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMware Tools Version Information</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .content {
+            padding: 30px;
+        }
+        .version-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+        }
+        .version-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .info-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-value {
+            font-size: 1.2em;
+            color: #34495e;
+            font-weight: 500;
+        }
+        .status {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .refresh-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .refresh-btn:hover {
+            background: #2980b9;
+        }
+        .note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border-left: 4px solid #ffc107;
+        }
+        @media (max-width: 600px) {
+            .version-info {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>VMware Tools Version</h1>
+            <p>Latest version information from Broadcom Knowledge Base</p>
+        </div>
+        <div class="content">
+            <div class="status">
+                <strong>✓ Status:</strong> Last updated on 2025-07-29 09:26:51
+            </div>
+            
+            <div class="version-card">
+                <h2>Latest Version Details</h2>
+                <div class="version-info">
+                    <div class="info-item">
+                        <div class="info-label">Version</div>
+                        <div class="info-value">13.0.1</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Release Date</div>
+                        <div class="info-value">07/15/2025</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Build Number</div>
+                        <div class="info-value">24843032</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Tool Internal Version</div>
+                        <div class="info-value">13313</div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <button class="refresh-btn" onclick="location.reload()">Refresh Page</button>
+        </div>
+        <div class="footer">
+            <p>Data source: <a href="https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html" target="_blank">Broadcom Knowledge Base</a></p>
+            <p>Generated by Python script on 2025-07-29 09:26:51</p>
+        </div>
+    </div>
+</body>
+</html>
