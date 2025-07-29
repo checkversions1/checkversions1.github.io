@@ -659,7 +659,7 @@ class VMwareVersionScraper:
         
         body {{
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            html_content = f""" 
             min-height: 100vh;
             padding: 20px;
         }}
@@ -679,7 +679,8 @@ class VMwareVersionScraper:
             padding: 30px;
             text-align: center;
         }}
-        
+            <p>Latest version information for VMware products</p>
+            <p style='font-size:1em;color:#eee;margin-top:10px;'>Last updated: {last_updated}</p>
         .header h1 {{
             font-size: 2.5em;
             margin-bottom: 10px;
