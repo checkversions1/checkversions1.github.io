@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 class VMwareVersionScraper:
     def __init__(self, output_path: str = "vmware-versions.json", 
-                 web_page_path: str = "index.html"):
+                 web_page_path: str = "vmware-versions.html"):
         self.output_path = output_path
         self.web_page_path = web_page_path
         
