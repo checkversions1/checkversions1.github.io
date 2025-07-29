@@ -661,7 +661,6 @@ class VMwareVersionScraper:
         
         body {{
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            html_content = f""" 
             min-height: 100vh;
             padding: 20px;
         }}
