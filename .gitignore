@@ -202,5 +202,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+.json
+.html
 vmware-versions.json
 *.html
