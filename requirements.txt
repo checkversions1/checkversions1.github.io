@@ -1,6 +1,0 @@
-<<<<<<< HEAD
-requests>=2.31.0
-=======
-requests>=2.31.0
->>>>>>> 1f73458c16c71be7418bad7aeb90161665a3624b
-pathlib2>=2.3.7; python_version < "3.4" 
