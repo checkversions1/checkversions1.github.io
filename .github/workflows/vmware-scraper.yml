@@ -31,12 +31,15 @@ jobs:
     - name: Run VMware scraper
       run: |
         python vmware_tools_scraper.py
+    - name: Rename vmware-versions.html to index.html
+      run: mv vmware-versions.html index.html
+      shell: bash
         
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add -f vmware-versions.json vmware-versions.html
+        git add -f vmware-versions.json index.html
         git diff --quiet && git diff --staged --quiet || git commit -m "Update VMware versions - $(date)"
         git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF}
       env:
