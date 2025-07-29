@@ -33,9 +33,9 @@ if errorlevel 1 (
     echo.
     echo Generated files:
     echo - vmware-tools-versions.json (version history)
-    echo - index.html (web display)
+    echo - vmware-versions.html (web display)
     echo.
-    echo You can open index.html in your browser to view the results.
+    echo You can open vmware-versions.html in your browser to view the results.
     echo.
     pause
 ) 

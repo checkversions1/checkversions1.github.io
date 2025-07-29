@@ -1087,8 +1087,8 @@ def main():
     parser = argparse.ArgumentParser(description='VMware Versions Scraper')
     parser.add_argument('--output', '-o', default='vmware-versions.json',
                        help='Path for the JSON file (default: vmware-versions.json)')
-    parser.add_argument('--webpage', '-w', default='index.html',
-                       help='Path for the HTML display page (default: index.html)')
+    parser.add_argument('--webpage', '-w', default='vmware-versions.html',
+                       help='Path for the HTML display page (default: vmware-versions.html)')
     
     args = parser.parse_args()
     

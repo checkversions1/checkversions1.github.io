@@ -15,7 +15,7 @@ This Python script automatically scrapes the latest VMware Tools version from th
 
 - `vmware_tools_scraper.py` - Main Python script
 - `vmware-tools-versions.json` - JSON file storing version history
-- `index.html` - Generated HTML display page
+- `vmware-versions.html` - Generated HTML display page
 - `requirements.txt` - Python dependencies
 - `README_Python.md` - This documentation file
 
@@ -60,7 +60,7 @@ python vmware_tools_scraper.py --output custom-versions.json --webpage custom-di
 ### Command Line Arguments
 
 - `--output`, `-o`: Path for the JSON file (default: `vmware-tools-versions.json`)
-- `--webpage`, `-w`: Path for the HTML display page (default: `index.html`)
+- `--webpage`, `-w`: Path for the HTML display page (default: `vmware-versions.html`)
 
 ### Programmatic Usage
 
