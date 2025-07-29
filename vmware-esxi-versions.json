@@ -120,50 +120,42 @@
     "MajorVersion": "8.0"
   },
   {
-    "Version": "ESXi 7.0.3 3j",
-    "ReleaseName": "ESXi 7.0 Update 3j",
-    "ReleaseDate": "2023/01/31",
-    "BuildNumber": "21053776",
+    "Version": "ESXi 7.0.3 3k",
+    "ReleaseName": "ESXi 7.0 Update 3k",
+    "ReleaseDate": "2023/02/21",
+    "BuildNumber": "21313628",
     "AvailableAs": "Patch",
     "MajorVersion": "7.0"
   },
   {
-    "Version": "ESXi 7.0.3 P06",
-    "ReleaseName": "ESXi 7.0 Update 3r",
-    "ReleaseDate": "2024/12/12",
-    "BuildNumber": "24411414",
+    "Version": "ESXi 7.0.3 3l",
+    "ReleaseName": "ESXi 7.0 Update 3l",
+    "ReleaseDate": "2023/03/30",
+    "BuildNumber": "21424296",
+    "AvailableAs": "ISO",
+    "MajorVersion": "7.0"
+  },
+  {
+    "Version": "ESXi 7.0.3 3w",
+    "ReleaseName": "ESXi 7.0 Update 3w",
+    "ReleaseDate": "2025/07/15",
+    "BuildNumber": "24784741",
     "AvailableAs": "Patch",
     "MajorVersion": "7.0"
   },
   {
-    "Version": "ESXi 7.0.3 P05",
-    "ReleaseName": "ESXi 7.0 Update 3q",
-    "ReleaseDate": "2024/05/21",
-    "BuildNumber": "23794027",
-    "AvailableAs": "Patch",
+    "Version": "ESXi 7.0.3 EP3",
+    "ReleaseName": "ESXi 7.0 Update 3c",
+    "ReleaseDate": "2022/01/27",
+    "BuildNumber": "19193900",
+    "AvailableAs": "ISO",
     "MajorVersion": "7.0"
   },
   {
-    "Version": "ESXi 7.0.3 P04",
-    "ReleaseName": "ESXi 7.0 Update 3p",
-    "ReleaseDate": "2024/04/11",
-    "BuildNumber": "23307199",
-    "AvailableAs": "Patch",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "ESXi 7.0.3 P03",
-    "ReleaseName": "ESXi 7.0 Update 3o",
-    "ReleaseDate": "2023/09/28",
-    "BuildNumber": "22348816",
-    "AvailableAs": "Patch",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "ESXi 7.0.3 P02",
-    "ReleaseName": "ESXi 7.0 Update 3n",
-    "ReleaseDate": "2023/07/07",
-    "BuildNumber": "21930508",
+    "Version": "ESXi 7.0.3 EP4",
+    "ReleaseName": "ESXi 7.0 Update 3d",
+    "ReleaseDate": "2022/03/29",
+    "BuildNumber": "19482537",
     "AvailableAs": "ISO",
     "MajorVersion": "7.0"
   },
@@ -176,35 +168,59 @@
     "MajorVersion": "7.0"
   },
   {
-    "Version": "ESXi 7.0.3 EP4",
-    "ReleaseName": "ESXi 7.0 Update 3d",
-    "ReleaseDate": "2022/03/29",
-    "BuildNumber": "19482537",
-    "AvailableAs": "ISO",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "ESXi 7.0.3 EP3",
-    "ReleaseName": "ESXi 7.0 Update 3c",
-    "ReleaseDate": "2022/01/27",
-    "BuildNumber": "19193900",
-    "AvailableAs": "ISO",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "ESXi 7.0.3 3l",
-    "ReleaseName": "ESXi 7.0 Update 3l",
-    "ReleaseDate": "2023/03/30",
-    "BuildNumber": "21424296",
-    "AvailableAs": "ISO",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "ESXi 7.0.3 3k",
-    "ReleaseName": "ESXi 7.0 Update 3k",
-    "ReleaseDate": "2023/02/21",
-    "BuildNumber": "21313628",
+    "Version": "ESXi 7.0.3 P07",
+    "ReleaseName": "ESXi 7.0 Update 3s",
+    "ReleaseDate": "2025/03/04",
+    "BuildNumber": "24585291",
     "AvailableAs": "Patch",
+    "MajorVersion": "7.0"
+  },
+  {
+    "Version": "ESXi 7.0.3 P03",
+    "ReleaseName": "ESXi 7.0 Update 3o",
+    "ReleaseDate": "2023/09/28",
+    "BuildNumber": "22348816",
+    "AvailableAs": "Patch",
+    "MajorVersion": "7.0"
+  },
+  {
+    "Version": "ESXi 7.0.3 P04",
+    "ReleaseName": "ESXi 7.0 Update 3p",
+    "ReleaseDate": "2024/04/11",
+    "BuildNumber": "23307199",
+    "AvailableAs": "Patch",
+    "MajorVersion": "7.0"
+  },
+  {
+    "Version": "ESXi 7.0.3 P05",
+    "ReleaseName": "ESXi 7.0 Update 3q",
+    "ReleaseDate": "2024/05/21",
+    "BuildNumber": "23794027",
+    "AvailableAs": "Patch",
+    "MajorVersion": "7.0"
+  },
+  {
+    "Version": "ESXi 7.0.3 P06",
+    "ReleaseName": "ESXi 7.0 Update 3r",
+    "ReleaseDate": "2024/12/12",
+    "BuildNumber": "24411414",
+    "AvailableAs": "Patch",
+    "MajorVersion": "7.0"
+  },
+  {
+    "Version": "ESXi 7.0.3 3j",
+    "ReleaseName": "ESXi 7.0 Update 3j",
+    "ReleaseDate": "2023/01/31",
+    "BuildNumber": "21053776",
+    "AvailableAs": "Patch",
+    "MajorVersion": "7.0"
+  },
+  {
+    "Version": "ESXi 7.0.3 P02",
+    "ReleaseName": "ESXi 7.0 Update 3n",
+    "ReleaseDate": "2023/07/07",
+    "BuildNumber": "21930508",
+    "AvailableAs": "ISO",
     "MajorVersion": "7.0"
   },
   {
@@ -212,14 +228,6 @@
     "ReleaseName": "ESXi 7.0 Update 3v",
     "ReleaseDate": "2025/05/20",
     "BuildNumber": "24723872",
-    "AvailableAs": "Patch",
-    "MajorVersion": "7.0"
-  },
-  {
-    "Version": "ESXi 7.0.3 P07",
-    "ReleaseName": "ESXi 7.0 Update 3s",
-    "ReleaseDate": "2025/03/04",
-    "BuildNumber": "24585291",
     "AvailableAs": "Patch",
     "MajorVersion": "7.0"
   },
@@ -345,9 +353,9 @@
   },
   {
     "Version": "ESXi 6.7",
-    "ReleaseName": "ESXi670-202004002",
-    "ReleaseDate": "2020/04/28",
-    "BuildNumber": "16075168",
+    "ReleaseName": "ESXi670-201806001",
+    "ReleaseDate": "2018/06/28",
+    "BuildNumber": "8941472",
     "AvailableAs": "Patch",
     "MajorVersion": "Unknown"
   },
@@ -377,9 +385,9 @@
   },
   {
     "Version": "ESXi 6.5",
-    "ReleaseName": "ESXi650-201808001",
-    "ReleaseDate": "2018/08/14",
-    "BuildNumber": "9298722",
+    "ReleaseName": "ESXi650-201903001",
+    "ReleaseDate": "2019/03/28",
+    "BuildNumber": "13004031",
     "AvailableAs": "Patch",
     "MajorVersion": "Unknown"
   },
@@ -393,9 +401,9 @@
   },
   {
     "Version": "ESXi 6.0",
-    "ReleaseName": "ESXi600-201810001",
-    "ReleaseDate": "2018/10/23",
-    "BuildNumber": "10474991",
+    "ReleaseName": "ESXi600-201809001",
+    "ReleaseDate": "2018/09/13",
+    "BuildNumber": "9919195",
     "AvailableAs": "&nbsp;",
     "MajorVersion": "Unknown"
   },
