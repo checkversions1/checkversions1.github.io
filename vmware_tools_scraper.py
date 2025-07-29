@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 class VMwareVersionScraper:
     def __init__(self, output_path: str = "vmware-versions.json", 
-                 web_page_path: str = "vmware-versions-display.html"):
+                 web_page_path: str = "index.html"):
         self.output_path = output_path
         self.web_page_path = web_page_path
         
@@ -1087,8 +1087,8 @@ def main():
     parser = argparse.ArgumentParser(description='VMware Versions Scraper')
     parser.add_argument('--output', '-o', default='vmware-versions.json',
                        help='Path for the JSON file (default: vmware-versions.json)')
-    parser.add_argument('--webpage', '-w', default='vmware-versions-display.html',
-                       help='Path for the HTML display page (default: vmware-versions-display.html)')
+    parser.add_argument('--webpage', '-w', default='index.html',
+                       help='Path for the HTML display page (default: index.html)')
     
     args = parser.parse_args()
     
