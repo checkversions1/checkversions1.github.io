@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- OneTrust Cookies Consent Notice start for broadcom.com -->
+        <!-- <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="6a5fee8c-80be-4b9a-ab7e-b607e3f8ad3e-test" ></script> -->
+        <script id="cookieScript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="6a5fee8c-80be-4b9a-ab7e-b607e3f8ad3e" ></script>
+        <script type="text/javascript">
+        function OptanonWrapper() { }
+        </script>
+        <!-- OneTrust Cookies Consent Notice end for broadcom.com -->
+
+        <!-- OneTrust Cookies Settings button start -->
+        <button id="ot-sdk-btn" class="ot-sdk-show-settings">Cookie Settings</button>
+        <!-- OneTrust Cookies Settings button end -->     
+        
+        <!-- Google Tag Manager -->
+        <script>
+            (function (w, d, s, l, i) {
+                  w[l] = w[l] || [];
+                  w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                  });
+                  var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                  j.async = true;
+                  j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                  f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-KF7XWD');
+
+        </script>
+        <!-- End Google Tag Manager -->
+        <title>Build numbers and versions of VMware Tools</title>
+        <link rel="icon" type="image/x-icon" href="https://knowledge.broadcom.com/broadcom-log.png">
+        <meta name="description" content="  ">
+        <script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","name":"VMware vCenter Server,VMware vSphere ESXi","alternateName":"VMware vCenter Server,VMware vSphere ESXi","datePublished":"07-15-2025 09:26","dateModified":"07-15-2025 09:26","mainEntityOfPage":{"@type":"Webpage","URL":"https://knowledge.broadcom.com/external/article/304809"},"keywords":"N/A","url":"https://knowledge.broadcom.com/external/article/304809"},"author":"Broadcom Inc","headline":"Build numbers and versions of VMware Tools","publisher":{"@type":"Organization","name":"Broadcom Inc","logo":{"@type":"ImageObject","url":""}},"aggregateRating":{"@type":"AggregateRating","ratingValue":"","ratingCount":""}}
+        </script>
+        <link rel="canonical" href="https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
+
+        <!--SU Scripts-->
+        <script type="text/javascript" src="https://searchunify.broadcom.com/resources/Allow/an.js?uid=1fd47e1f-f7d9-11ea-beba-0242ac12000b" defer=""></script>
+        <style>
+            body {
+                --wolken-primary-color: #CC092F;
+                --wolken-primary-color-light: #CC092F0D;
+                --wolken-primary-complimentory-color:  #2030CC;
+                --wolken-accent-complimentory-color:  #CCBC20;
+                background: #FFFFFF;
+                height: 100vh;
+                padding: 0;
+                /* margin: 0; */
+                font-size: 16px;
+                margin: 12px !important;
+            }
+
+            #onetrust-consent-sdk{
+             font-family: "Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";   
+             font-family: "Gotham-Book",sans-serif;   
+            }
+
+            #ot-sdk-btn.ot-sdk-show-settings{
+                display: none;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4, 
+            h5,
+            h6 {
+                margin: 12px 0;
+            }
+            h1{
+                line-height: 28px;
+            }
+
+            h2{
+                line-height: 24px;
+            }
+            /* newly added for INC01200689 */
+            img {
+                         height: auto !important;
+                         max-width: 100% !important;
+            }
+            .wolken-h3 {
+                font: 500 19px/32px Poppins;
+            }
+
+            .wolken-h4 {
+                font: 400 15px/24px Poppins;
+            }
+
+            .wolken-h5 {
+                font: 400 13px/20px Poppins;
+            }
+
+            .flex-column {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .flex-row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .column-gap-16 > *:not(:last-child) {
+                margin-bottom: 16px;
+            }
+
+            .row-gap-16 > *:not(:last-child) {
+                margin-right: 16px;
+            }
+
+            .row-gap-8 > *:not(:last-child) {
+                margin-right: 8px;
+            }
+
+            .row-gap{
+                margin: 10px 15px;
+            }
+
+            .row-align-space-between-center {
+                place-content: center space-between;
+                align-items: center;
+            }
+
+            .row-align-center-center {
+                place-content: center;
+                align-items: center;
+            }
+
+            .custom-header, .custom-footer {
+                max-height: 100%;
+                width: 100%;
+                display: block;
+                border: 0;
+            }
+
+            .search-bar{
+                border: 1px solid #cacaca;
+                width: calc(100%);
+                outline: none;
+                padding: 12px 0;
+                padding-left: 15px !important;
+                text-indent: 12px;
+                font-family: arial,sans-serif;
+                font-size: 16px;
+                line-height: 24px;
+                height: 30px;
+                white-space: pre;
+                overflow: auto;
+                box-sizing: border-box;
+                display: block;
+                border-radius: 6px;
+            }
+
+            .show_more, .show_less{
+                    width: auto !important;
+            }
+
+            .search-button-container{
+                padding: 0 16px;
+                display: flex;
+                align-items: center;
+                /* place-content: end; */
+                margin-bottom: 5px !important;
+                place-content: center;
+                margin-bottom: 5px !important;
+                width: 100%;
+                background: transparent linear-gradient(90deg, #3D4145 0%, #FAFAFA 100%) 0% 0% no-repeat padding-box !important;
+                background-repeat: no-repeat;
+            }
+
+            .search-bar-container{
+                width: 880px;
+                display: flex;
+                height: 100px;
+                align-items: center;
+            }
+
+            .material-icon-search{
+                cursor:pointer;
+                align-self: center;
+                font-size: 20px;
+                color: #00000061;
+            }
+
+            .article-updated-time {
+                flex: 0 0 auto;
+                align-items: center;
+            }
+
+            .article-updated-date-icon {
+                color: var(--wolken-accent-complimentory-color);
+            }
+
+            .article-updated-date-icon_cal{
+                color: var(--wolken-primary-complimentory-color);
+            }
+
+
+            .article-detail-card {
+                box-shadow: 0px 0px 6px #00000066;
+                border-top: 4px solid var(--wolken-primary-color);
+                border-radius: 10px;
+                width: 100%;
+            }
+
+            .article-detail-card-header {
+                padding: 8px 16px;
+                border-bottom: 1px solid #00000066;
+            }
+
+            .article-detail-card-content {
+                padding: 8px 16px;
+                max-width: 100%;
+                overflow: auto;
+            }
+
+            .like_dislike_btn {
+                cursor: pointer;
+            }
+
+            .product-container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 8px;
+            }
+
+            .product-chip {
+                padding: 4px 12px;
+                margin: 4px;
+                background: var(--wolken-primary-color-light);
+                border: 1px solid #00000066;
+                border-radius: 50px;
+                font: 400 12px/25px Poppins;
+                color: #000000;
+            }
+
+            .attachment-container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .attachment-card {
+                box-shadow: 0px 0px 2px #00000033;
+                border-radius: 4px;
+                margin: 8px;
+            }
+
+            .attachment-card:hover {
+                box-shadow: 0px 0px 4px #00000033;
+            }
+
+            .attachment-name {
+                padding: 0px 8px;
+                font: 400 12px/18px Poppins;
+            }
+
+            .attachment-download {
+                padding: 8px 12px;
+                color: #ffffff;
+                background: var(--wolken-primary-color);
+                border-radius: 4px;
+                height: 100%;
+                cursor: pointer;
+            }
+
+            .attachment-download-icon {
+                font-size: 16px;
+                height: 16px;
+                width: 16px;
+            }
+
+            .text-ellipsis {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .article-page {
+                position: relative;
+            }
+
+            .loader-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                z-index: 1;
+            }
+
+            .article-container {
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 0;
+                width: 100%;
+            }
+
+            .wolken-footer {
+                width: 100%;
+                height: 30px;
+                padding: 0 16px;
+                background-color: var(--wolken-primary-color-light);
+                place-content: center flex-end;
+                align-items: center;
+            }
+
+            .wolken-footer-content {
+                text-decoration: none;
+                cursor: pointer;
+                font: 400 12px/10px Poppins;
+            }
+
+            table {
+                table-layout: fixed;
+                border: 1px solid;
+                border-collapse: collapse;
+                white-space: initial;
+                word-break: break-word;
+            }
+
+            table td, table th {
+                border: 1px solid;
+                border-collapse: collapse;
+                padding: 10px;
+            }
+
+            .alert_style{
+                         background-color: rgb(209, 119, 119);
+                         padding: 5px 5px 5px 5px;
+                         border-radius: 5px 5px 5px 5px;
+                    }
+                    .kb_article_alert {
+                         font-weight: bold; font-size: 15px;
+                    }
+
+            @media all and (min-width: 1200px) {
+              .wolken-content-container {
+                max-width: 1170px;
+                width: 100%;
+                margin: auto;
+                padding: 16px 0px;
+              }
+
+              .article-header {
+                display: flex;
+                flex-direction: row;
+                place-content: flex-start space-between;
+                align-items: flex-start;
+                margin-top: 10px !important;
+              }
+
+              .article-ruler{
+                border: 2px solid var(--wolken-primary-color);
+                    width: 10px;
+                    width: 100%;
+                    position: absolute;
+                    top:135px;
+                    left:0;
+                    right:0;
+              }
+
+              .article-header > div:not(:last-child) {
+                margin-right: 16px;
+              }
+              .article-header-info{
+               display: flex;
+               align-items: center;
+               justify-content: space-between;
+              }
+              .article-header-details{
+                display: flex;
+                flex-direction: row;
+                place-content: flex-start start;
+                align-items: flex-start;
+                gap: 16px;
+              }
+              .article-header-info > div:not(:last-child) {
+                margin-right: 16px;
+              }
+            }
+
+            @media all and (min-width: 1440px) {
+              .wolken-content-container {
+                max-width: 1400px;
+                margin: auto;
+              }
+            }
+
+            @media all and (min-width: 1199px) {
+              .wolken-content-container {
+                max-width: 930px;
+                margin: auto;
+              }
+            }
+
+            @media all and (min-width: 992px) {
+              .wolken-content-container {
+                max-width: 960px;
+                margin: auto;
+              }
+            }
+
+            @media all and (max-width: 1199px){
+                .wolken-content-container {
+                    width: 100%;
+                    padding: 16px;
+                }
+
+                .attachment {
+                    width: 25%;
+                }
+
+                .article-header {
+                    display: flex;
+                    flex-direction: row;
+                    place-content: flex-start space-between;
+                    align-items: flex-start;
+                  }
+
+                  .article-header > div:not(:last-child) {
+                    margin-right: 16px;
+                  }
+                .article-header-info{
+                   display: flex;
+                   flex-direction: row;
+                   place-content: flex-start start;
+                   align-items: flex-start;
+                  }
+                  .article-header-info > div:not(:last-child) {
+                   margin-right: 16px;
+                  }
+            }
+
+            @media all and (min-width: 768px) and (max-width: 959px) {
+                .attachment {
+                    width: 33.333333%;
+                }
+
+                .article-header {
+                    display: flex;
+                    flex-direction: column;
+                  }
+
+                  .article-header > div:not(:last-child) {
+                    margin-bottom: 8px;
+                  }
+            }
+
+            @media all and (max-width: 767px){
+                .attachment {
+                    width: 50%;
+                }
+
+                .article-header {
+                    display: flex;
+                    flex-direction: column;
+                  }
+
+                  .article-header > div:not(:last-child) {
+                    margin-bottom: 8px;
+                  }
+                 .article-header-info{
+                   display: flex;
+                   flex-direction: row;
+                   place-content: flex-start start;
+                   align-items: flex-start;
+                  }
+                  .article-header-info > div:not(:last-child) {
+                   margin-right: 16px;
+                  }
+            }
+
+            .ghost-loader {
+                border-radius: 5px;
+                animation: shine-lines 1.5s infinite linear;
+                background-image: linear-gradient(to right, rgba(211, 211, 211, 0.2) 0%, rgba(211, 211, 211, 0.7) 20%,
+                    rgba(211, 211, 211, 0.9) 40%, rgba(211, 211, 211, 0.2) 100%) ;
+            }
+
+            @keyframes shine-lines {
+                0% {
+                    background-position: -100px;
+                }
+
+                40%, 100% {
+                    background-position: 140px;
+                }
+            }
+
+            .ghost-custom-header {
+                width: 100%;
+                height: 90px;
+            }
+
+            .ghost-article-title {
+                width: 200px;
+                height: 32px;
+            }
+
+            .ghost-article-date {
+                width: 200px;
+                height: 32px;
+            }
+
+            .ghost-article-detail-title {
+                width: 150px;
+                height: 24px;
+            }
+
+            .ghost-product-detail-content>div {
+                width: 20%;
+                height: 30px;
+                padding: 4px 12px;
+                margin: 4px;
+                border-radius: 50px;
+            }
+
+            .ghost-article-detail-content>div:nth-child(1) {
+                width: 70%;
+                height: 20px
+            }
+
+            .ghost-article-detail-content>div:nth-child(2) {
+                width: 20%;
+                height: 30px
+            }
+
+            .ghost-article-detail-content>div:nth-child(3) {
+                width: 40%;
+                height: 20px
+            }
+
+            .ghost-article-detail-content>div:nth-child(4) {
+                width: 30%;
+                height: 15px
+            }
+
+            .ghost-article-detail-content>div:nth-child(5) {
+                width: 50%;
+                height: 25px
+            }
+
+            .ghost-custom-footer {
+                width: 100%;
+                height: 140px;
+            }
+
+            .wolken-primary-button {
+                margin-left: 2px;
+                /* background-color: var(--wolken-primary-color); */
+                background-color: #005C8A;
+                border-radius: 4px;
+                box-shadow: 0 5px 6px 0rgba(0, 0, 0, 0.1);
+                border: none;
+                color: white;
+                border: 1px solid #7e8c9a;
+                border-left: none;
+                text-decoration: none;
+                text-align: center;
+                vertical-align: middle;
+                overflow: hidden;
+                height: 30px;
+                width: 65px;
+                min-width: 65px;
+                cursor: pointer;
+                line-height: 0;
+            }
+
+            .wolken-primary-button .material-icons {
+                font-size: 20px;
+                height: 20px;
+                width: 20px;
+            }
+
+            #feedback_actionMsg, #feedback_actions {
+               margin: 8px 8px 8px 0px;
+            }
+
+            .icon-24{
+              font-size: 20px;
+            }
+
+            span.mat-caption {
+            font: 400 12px/14px Poppins;
+            letter-spacing: normal;
+            }
+
+            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+              /* IE10+ specific styles go here */
+                    .article-updated-date-icon {
+                        color: var(--wolken-primary-complimentory-color);
+                        color: #ccbc20;
+                    }
+
+                    .article-updated-date-icon_cal{
+                        color: var(--wolken-primary-complimentory-color);
+                        color: #2030cc;
+                    }
+
+                    .article-detail-card {
+
+                        box-shadow: 0px 0px 10px 0px rgba(68,68,68,0.6);
+                        border-top: 4px solid var(--wolken-primary-color);
+                        border-top-style: solid;
+                        border-top-width: 4px;
+                        border-top-color: rgb(204, 9, 47);
+                        border-radius: 10px;
+                        width: 100%;
+                    }
+
+                    .article-detail-card-header {
+                        padding: 8px 16px;
+                        border-bottom: 1px solid #00000066;
+                        border-bottom-style: solid;
+                        border-bottom-width: 1px;
+                        border-bottom-color: rgba(0, 0, 0, 0.40);
+                    }
+                     .product-chip {
+                        padding: 4px 12px;
+                        margin: 4px;
+                        background: var(--wolken-primary-color-light);
+                        background: rgba(204, 9, 47, 0.05);
+                        border: 1px solid rgba(0, 0, 0, 0.40);
+                        border-style: solid;
+                        border-width: 1px;
+                        border-color: rgba(0, 0, 0, 0.40);
+                        border-radius: 50px;
+                        font: 400 12px/25px Poppins;
+                        color: #000000;
+                    }
+                    .attachment-card {
+                        box-shadow: 0px 0px 2px 0px rgba(68,68,68,0.6);
+                        border-radius: 4px;
+                        margin: 8px;
+                    }
+
+                    .attachment-card:hover {
+                        box-shadow: 0px 0px 4px 0px rgba(68,68,68,0.6);
+
+                    }
+
+                    .attachment-name {
+                        padding: 0px 8px;
+                        font: 400 12px/18px Poppins;
+                    }
+
+                    .attachment-download {
+                        padding: 8px 12px;
+                        color: #ffffff;
+                        background: var(--wolken-primary-color);
+                        background: rgb(204, 9, 47);
+                        border-radius: 4px;
+                        height: 100%;
+                        cursor: pointer;
+                    }
+                     .wolken-footer {
+                        width: 100%;
+                        height: 30px;
+                        padding: 0 16px;
+                        background-color: var(--wolken-primary-color-light);
+                        background: rgba(204, 9, 47, 0.05);
+                        place-content: center flex-end;
+                        justify-content: flex-end;
+                        align-items: center;
+                    }
+                    .wolken-primary-button {
+                        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+                        background-color: var(--wolken-primary-color);
+                        background-color: rgb(204, 9, 47);
+                        color: #ffffff;
+                        padding: 4px 12px;
+                        font-size: 12px;
+                        line-height: 24px;
+                        cursor: pointer;
+                        outline: 0;
+                        border: none;
+                        transform: translate3d(0,0,0);
+                        transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+                        font-family: Poppins;
+                        font-weight: 500;
+                        border-radius: 4px;
+                    }
+
+                    table {
+                        table-layout: fixed;
+                        border: 1px solid;
+                        border-collapse: collapse;
+                        white-space: initial;
+                        word-break: break-word;
+                    }
+
+                    table td, table th {
+                        border: 1px solid;
+                        border-collapse: collapse;
+                    }
+
+
+
+            }
+
+            pre {
+            white-space: pre-wrap !important;
+            background: #f7f7f7 !important;
+            padding: 5px !important;
+            }
+
+            hr {
+              margin: 20px 0;
+            }
+            
+            hr br[data-mce-bogus] {
+              display: none;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="article-page">
+            <div class="article-container flex-column">
+
+                <iframe  id = "global-header" class="custom-header" title="https://cdn.wolkenservicedesk.com/Broadcom_%20Header.html" src="https://cdn.wolkenservicedesk.com/Broadcom_%20Header.html" height="90px" ></iframe>
+                <div class="search-button-container">
+                    <div class="search-bar-container">
+                        <span class="material-icons material-icon-search" style="margin-left: 5px;position: absolute;">search</span>
+                        <input type="text" placeholder="Search" name="search" class="search-bar" id="searchBox" onkeypress="redirectOnSearch(event)">
+                        <span class="material-icons material-icon-search" style="margin-left: -25px;" onclick="clearSearch()">cancel</span>
+                    </div>
+                    <button onclick="redirectOnSearch()" class="wolken-primary-button">
+                        <!-- <span class="material-icons">search</span> -->
+                        Search
+                    </button>
+                </div>
+                <div class="wolken-content-container flex-column column-gap-16">
+
+                    <!-- <hr class="article-ruler"> -->
+                    <div class="article-header">
+                        <h3 class="wolken-h3">Build numbers and versions of VMware Tools</h3>
+
+                    </div>
+                    <div class="article-header-info">
+                        <div class="article-header-details">
+                            <div class="flex-row row-gap-8 article-updated-time">
+                            <span class="material-icons article-updated-date-icon">book</span>
+                            <h4 class="wolken-h4">Article ID: 304809</h4>
+                        </div>
+                        <div class="flex-row row-gap-8 article-updated-time">
+                            <span class="material-icons article-updated-date-icon_cal">calendar_today</span>
+                            <h4 class="wolken-h4">Updated On: <span id="date_time"></span></h4>
+                        </div>
+                        </div>
+                        <div>
+                        
+                         
+                        </div>
+                    </div>
+                    <div class="article-detail-card">
+                        <div class="article-detail-card-header">
+                            <h4 class="wolken-h4">Products</h4>
+                        </div>
+                        <div class="product-container wolken-h5">
+                            
+                                
+                                 <span class="product-chip">VMware vCenter Server</span>
+                                
+                                 <span class="product-chip">VMware vSphere ESXi</span>
+                                
+                            
+                        </div>
+                        <button class="show_more flex-row row-align-center-center row-gap wolken-primary-button" onclick="showMoreItems()">Show More</button>
+                        <button class="show_less flex-row row-align-center-center row-gap wolken-primary-button" onclick="showLessItems()">Show Less</button>
+                    </div>
+
+                    
+                        <div class="article-detail-card">
+                            <div class="article-detail-card-header">
+                                <h4 class="wolken-h4">Issue/Introduction</h4>
+                            </div>
+                            <div class="article-detail-card-content wolken-h5">
+                                <div><div>
+<div>
+<p>This table lists the VMware Tools&nbsp;build numbers and versions:</p>
+</div>
+</div></div>
+                            </div>
+                        </div>
+                    
+
+                    
+
+                    
+
+
+
+                    
+                        <div class="article-detail-card">
+                            <div class="article-detail-card-header">
+                                <h4 class="wolken-h4">Resolution</h4>
+                            </div>
+                            <div class="article-detail-card-content wolken-h5">
+                                <div><div>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%; height: 1490px;"><colgroup><col><col><col><col></colgroup>
+<tbody>
+<tr style="height: 39.0909px;">
+<td class="xl63" style="height: 39.0909px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="font-weight: bold;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">Version</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="font-weight: bold;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">&nbsp; Release Date&nbsp; &nbsp;</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="font-weight: bold;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">&nbsp; Build Number&nbsp;&nbsp;</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="font-weight: bold;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">Tool Internal Version</span></span></span></span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 13.0.1</span></span></span></span></span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;">07/15/2025</p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">24843032</span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">13313</span></span></span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 13.0.0</span></span></span></span></span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;">06/17/2025</p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">24696409</span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">13312</span></span></span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.5.3</span></span></span></span></span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;">07/15/2025</p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">24819442</span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">12451</span></span></span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.5.2</span></span></span></span></span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;">05/12/2025</p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">24697584</span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">12450</span></span></span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.5.1</span></span></span></span></span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;">03/25/2025</p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">24649672</span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">12449</span></span></span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.5.0</span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;">10/08/2024</p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">24276846</span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">12448</span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td style="width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border: 2px solid black; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.4.5</span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;">06/07/2024</p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">23787635</span></span></span></span></p>
+</td>
+<td style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-style: normal;"><span style="text-decoration: none;">12421</span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.4.0</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;">03/21/2024</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">23259341</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;">12416</td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.3.5</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10/26/2023</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">22544099</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12389</span></span></span></span></span></td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.3.0</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">08/31/2023</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">22234872</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12384</span></span></span></span></span></td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.26</span></span></span></span></span> (Tar Tools and OSP)</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">08/31/2023</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">22085142</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10362</span></span></span></span></span></td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.2.6</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">08/17/2023</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">22229486</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12358</span></span></span></span></span></td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.2.5</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">06/13/2023</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">21855600</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12357</span></span></span></span></span></td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.2.0</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">03/07/2023</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">21223074</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12352</span></span></span></span></span></td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.1.5</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11/29/2022</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">20735119</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12325</span></span></span></span></span></td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.1.0</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">08/23/2022</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">20219665</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12320</span></span></span></span></span></td>
+</tr>
+<tr style="height: 20px;">
+<td class="xl63" style="height: 20px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.25</span></span></span></span></span>&nbsp;(Tar Tools and OSP)</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">08/23/2022</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">20206839</span></span></span></span></span></td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 20px;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10361</span></span></span></span></span></td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl63" style="height: 39.0909px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.0.6</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">07/21/2022</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">20104755</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12294</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl63" style="height: 39.0909px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; border: 2px solid black;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 12.0.5</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">&nbsp;05/24/2022</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">19716617</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12293</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl63" style="height: 39.0909px; width: 242px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border: 2px solid black; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VMware Tools 12.0.0</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 79px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">03/01/2022</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-bottom: 2px solid black; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: 2px solid black; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">&nbsp; &nbsp; &nbsp; 19345655</span></span></span></span></span></p>
+</td>
+<td class="xl63" style="border-color: black black black currentcolor; border-style: solid solid solid none; border-width: 2px 2px 2px medium; width: 83px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12288</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl66" style="border-bottom: 2px solid black; height: 39.0909px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.24</span></span></span></span></span>&nbsp;(Tar Tools and OSP)</p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11/23/2021</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">18733423</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10360</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl66" style="border-bottom: 2px solid black; height: 39.0909px; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.3.5</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">09/23/2021</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">18557794</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11365</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.3.0</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">06/17/2021</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">18090558</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11360</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.2.6</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">04/29/2021</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">17901274</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11334</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.2.5</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">01/12/2021</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">17337674</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11333</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.2.1</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12/10/2020</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">17243207</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11329</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.23 (Tar Tools and OSP)</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11/05/2020</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">17030940</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10359</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.2.0</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10/15/2020</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">16938113</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11328</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.1.5</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">08/18/2020</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">16724464</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11301</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.1.1</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">06/18/2020</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">16303738</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11297</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.1.0</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">05/07/2020</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">16036546</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11296</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.22 (Tar Tools and OSP)</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">05/07/2020</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">15902021</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10358</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.0.6</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">04/07/2020</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">15940789</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11270</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.0.5</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">01/14/2020</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">15389592</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11269</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.0.1</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10/17/2019</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">14773994</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11265</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.21 (Tar Tools and OSP)</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10/17/2019</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">14772444</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10357</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 11.0.0</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">09/19/2019</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">14549434</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11264</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.20 (Tar Tools and OSP)</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">09/19/2019</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">14389227</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10356</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.10</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">03/14/2019</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">12406962</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10346</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.5</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">11/01/2018</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10430147</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10341</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.3.2</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">09/12/2018</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">9925305</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10338</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.2.5</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">04/26/2018</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">8068406</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10309</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.2.1</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">03/29/2018</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">8267844</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10305</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.1.15</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">09/26/2017</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">6677369</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10287</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.1.10</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">07/27/2017</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">6082533</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10282</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.1.7</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">05/18/2017</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">5541682</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10279</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.1.5</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">02/23/2017</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">5055683</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10277</span></span></span></span></span></p>
+</td>
+</tr>
+<tr style="height: 39.0909px;">
+<td class="xl64" style="border-bottom: 2px solid black; height: 39.0909px; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: 2px solid black; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">VMware Tools 10.1.0</span></span></span></span></span></p>
+</td>
+<td class="xl65" style="border-bottom: 2px solid black; vertical-align: top; padding-top: 1px; padding-right: 1px; padding-left: 1px; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10/25/2016</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-bottom: 2px solid black; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; border-top: none; border-right: 2px solid black; border-left: none; height: 39.0909px; text-align: center;" align="right">
+<p style="text-align: center;"><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">4449150</span></span></span></span></span></p>
+</td>
+<td class="xl66" style="border-color: currentcolor black black currentcolor; border-style: none solid solid none; border-width: medium 2px 2px medium; padding-top: 1px; padding-right: 1px; padding-left: 1px; vertical-align: bottom; white-space: nowrap; text-align: center; height: 39.0909px;">
+<p><span style="font-size: 15px;"><span style="color: black;"><span style="font-weight: 400;"><span style="font-style: normal;"><span style="text-decoration: none;">10272</span></span></span></span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><br>Please refer to <a href="https://packages.vmware.com/tools/versions" target="_blank" rel="noopener">VMware version-mapping file</a> for the VMware Tools versions bundled with different VMware ESXi versions.</p>
+</div></div>
+                            </div>
+                        </div>
+                    
+
+                    
+                    
+                    
+
+                    <div class="feedback-section">
+                        <h4 class="wolken-h3">Feedback</h4>
+                        <div class="wolken-h4" id="feedback_actionMsg"></div>
+                        <div class="wolken-h5">
+                             <div id="feedback_actions" class="flex-row row-gap-16">
+                                <div class="flex-row row-align-center-center row-gap-8 like_dislike_btn" onclick="onArticleLike()">
+                                    <span class="material-icons">thumb_up</span>
+                                    <span>Yes</span>
+                                 </div>
+                                 <div class="flex-row row-align-center-center row-gap-8 like_dislike_btn" onclick="onArticleDislike()">
+                                    <span class="material-icons">thumb_down</span>
+                                    <span>No</span>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flex-row wolken-footer">
+                    <span class="mat-caption">Powered by</span>
+                      <a  target="_blank" href="https://www.wolkensoftware.com/">
+                <img src="https://cdn.wolkenservicedesk.com/wolken-footer-image.png" alt="Wolken Software">
+                    </a>
+                </div>
+                <iframe class="custom-footer" frameborder="0" scrolling="no" title="https://cdn.wolkenservicedesk.com/Broadcom_%20Footer.html" src="https://cdn.wolkenservicedesk.com/Broadcom_%20Footer.html" height="118px"></iframe>
+            </div>
+
+            <div class="loader-container flex-column">
+                <div class="ghost-loader ghost-custom-header"></div>
+                <div class="wolken-content-container flex-column column-gap-16">
+                    <div class="flex-row row-gap-16 row-align-space-between-center">
+                        <div class="ghost-loader ghost-article-title"></div>
+                        <div class="ghost-loader ghost-article-date"></div>
+                    </div>
+                    <div class="article-detail-card">
+                        <div class="article-detail-card-header">
+                            <div class="ghost-loader ghost-article-detail-title"></div>
+                        </div>
+                        <div class="article-detail-card-content">
+                            <div class="ghost-product-detail-content flex-row row-gap-16">
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-detail-card">
+                        <div class="article-detail-card-header">
+                            <div class="ghost-loader ghost-article-detail-title"></div>
+                        </div>
+                        <div class="article-detail-card-content">
+                            <div class="ghost-article-detail-content column-gap-16">
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-detail-card">
+                        <div class="article-detail-card-header">
+                            <div class="ghost-loader ghost-article-detail-title"></div>
+                        </div>
+                        <div class="article-detail-card-content">
+                            <div class="ghost-article-detail-content column-gap-16">
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-detail-card">
+                        <div class="article-detail-card-header">
+                            <div class="ghost-loader ghost-article-detail-title"></div>
+                        </div>
+                        <div class="article-detail-card-content">
+                            <div class="ghost-article-detail-content column-gap-16">
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-detail-card">
+                        <div class="article-detail-card-header">
+                            <div class="ghost-loader ghost-article-detail-title"></div>
+                        </div>
+                        <div class="article-detail-card-content">
+                            <div class="ghost-article-detail-content column-gap-16">
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                                <div class="ghost-loader"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ghost-loader ghost-custom-footer"></div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+
+        var apiDomain =  'https://api-broadcomcms-software.wolkenservicedesk.com/';
+        var redirectOnSearchUrl =  'https://support.broadcom.com/web/ecx/search';
+        var uiDomain =  '';
+        var articleId = '304809';
+       var articleTitle = 'Build numbers and versions of VMware Tools';
+        var articlePageUrl = uiDomain+'/wolken-support/article?articleId=';
+        var attachmentVos = '';
+        var kb_public_page_domain = 'broadcomcms-software.wolkenservicedesk.com'
+        var kbDownloadDomain = 'broadcomcms-software.wolkenservicedesk.com';
+        var kbArticleNumber = '304809';
+        var regularAttachment = false;
+        var loginRequired = false;
+
+
+        var feedbackConfigData = {};
+         function onSubscribeArticle(){
+            const url = `https://${kb_public_page_domain}/wolken-support/kbsearch/article?articleNumber=${kbArticleNumber}&subscribe=true`;
+            const a = document.createElement('a');
+            a.href = url;
+            a.target = '_blank'; 
+            a.rel = 'noopener noreferrer'; 
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a); 
+        }
+        function scrollToFeedback(){
+            document.querySelector('.feedback-section').scrollIntoView({
+                behavior:'smooth'
+            })
+        }
+
+        document.getElementById('global-header').addEventListener('load', frameVisibilty);
+        setTimeout(function ()  {
+            document.getElementById('global-header').removeEventListener('load', frameVisibilty);
+            frameVisibilty();
+        }, 5000);
+
+        function frameVisibilty() {
+              setTimeout(function(){
+                  document.getElementsByClassName('article-container')[0].style.display = 'flex';
+                  document.getElementsByClassName('loader-container')[0].style.display = 'none';
+              }, 1000);
+
+            var date = document.getElementById('date_time');
+            var d = '07-15-2025 09:26';
+            date.innerHTML = d;
+            date.innerHTML = d.split(' ')[0];
+
+            var arr = document.getElementsByClassName("product-chip");
+             if(arr.length > 15){
+             document.getElementsByClassName('product-container')[0].style.overflow = 'hidden';
+             document.getElementsByClassName('product-container')[0].style.height = '53px';
+             document.getElementsByClassName('show_more')[0].style.display = 'block';
+             document.getElementsByClassName('show_less')[0].style.display = 'none';
+             }
+             else{
+             document.getElementsByClassName('product-container')[0].style.overflow = 'auto';
+             document.getElementsByClassName('product-container')[0].style.height = 'auto';
+             document.getElementsByClassName('show_more')[0].style.display = 'none';
+             document.getElementsByClassName('show_less')[0].style.display = 'none';
+             }
+        }
+
+          function showMoreItems(){
+            document.getElementsByClassName('product-container')[0].style.overflow = 'auto';
+            document.getElementsByClassName('product-container')[0].style.height = 'auto';
+            document.getElementsByClassName('show_more')[0].style.display = 'none';
+            document.getElementsByClassName('show_less')[0].style.display = 'block';
+        }
+
+        function showLessItems(){
+            document.getElementsByClassName('product-container')[0].style.overflow = 'hidden';
+            document.getElementsByClassName('product-container')[0].style.height = '53px';
+            document.getElementsByClassName('show_more')[0].style.display = 'block';
+            document.getElementsByClassName('show_less')[0].style.display = 'none';
+        }
+
+        function downloadAttachment(uniquefileid) {
+            // var uniqueFileId = element.getAttribute('data-uniquefileid');
+            //var uniqueFileId = element.dataset.uniquefileid;
+            var uniqueFileId = uniquefileid;
+
+            var form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', apiDomain + 'es/attachments/download_attachment?domain='+kbDownloadDomain);
+            form.setAttribute('target', '_self');
+            var hiddenField = document.createElement('input');
+            hiddenField.setAttribute('type', 'hidden');
+            hiddenField.setAttribute('name', 'data');
+            hiddenField.setAttribute('value', JSON.stringify({
+                uniqueFileId: uniqueFileId
+            }));
+            form.appendChild(hiddenField);
+            document.body.appendChild(form);
+            window.open('', '_self');
+            form.submit();
+            form.parentNode.removeChild(form);
+        }
+
+        document.addEventListener('DOMContentLoaded', function(){
+            articleViewed();
+            getFeedbackConfig();
+            saveArticleViewCountHistory();
+        });
+
+        function articleViewed() {
+            try {
+
+                        gza("conversion", {
+                        index:"server_ws_knowledge_article" ,
+                        type: 'ws_knowledge_articles_doc',
+                        id: articleId,
+                        rank: 1,
+                        convUrl: location.href,
+                        convSub: articleTitle
+                    });
+                } catch(error) {
+                    console.log(error);
+                }
+
+            saveArticleCount('views');
+        }
+
+    function getFeedbackConfig() {
+        if (kb_public_page_domain) {
+        var articleFeedbackConfigRequest = new XMLHttpRequest();
+        articleFeedbackConfigRequest.open('GET', apiDomain + 'es/nau/feedback/config');
+            articleFeedbackConfigRequest.setRequestHeader("domain", kb_public_page_domain);
+        articleFeedbackConfigRequest.send();
+        articleFeedbackConfigRequest.onload = function () {
+            if (articleFeedbackConfigRequest.status == 200) {
+                var response = JSON.parse(articleFeedbackConfigRequest.response);
+                if (response && response.data && response.data.feedbackConfigData) {
+                    feedbackConfigData = response.data.feedbackConfigData;
+                    loginRequired = response && response.data && response.data.feedbackConfigData && response.data.feedbackConfigData.loginRequired;
+                    document.getElementById('feedback_actionMsg').innerHTML = feedbackConfigData.actionMsg;
+                } else {
+                    document.getElementsByClassName('feedback-section')[0].remove();
+                }
+            }
+        };
+    } else {
+        console.log('Error! KB public domain is not configrued.');
+    }
+    }
+
+        function saveArticleCount(countType) {
+            var data = {
+                articleId: articleId
+            };
+
+            data[countType] = 1;
+
+            var formData = new FormData();
+            formData.append('data', JSON.stringify(data));
+
+        if (kb_public_page_domain) {
+        var articleLikeRequest = new XMLHttpRequest();
+        articleLikeRequest.open('POST', apiDomain + 'es/nau/feedback/feedback_count');
+            articleLikeRequest.setRequestHeader("domain", kb_public_page_domain);
+        articleLikeRequest.send(formData);
+        articleLikeRequest.onload = function () {
+            if (articleLikeRequest.status == 200) {
+            }
+        };
+    } else {
+        console.log('Error! KB public domain is not configrued.');
+    }
+    }
+
+        function saveArticleViewCountHistory() {
+            let articleViewData = new FormData();
+            articleViewData.append('data', JSON.stringify({
+                "articleId":articleId,
+                "countType":"VIEWS"
+            }));
+
+        if (kb_public_page_domain) {
+        var articleViewRequest = new XMLHttpRequest();
+        articleViewRequest.open('POST', apiDomain + 'es/nau/count/save_article_count');
+            articleViewRequest.setRequestHeader("domain", kb_public_page_domain);
+        //articleViewRequest.withCredentials = true;
+        articleViewRequest.send(articleViewData);
+        articleViewRequest.onload = function () {
+            if (articleViewRequest.status == 200) {
+                console.log(articleViewRequest.response);
+            }
+        };
+    } else {
+        console.log('Error! KB public domain is not configrued.');
+    }
+    }
+
+        function onArticleLike() {
+            try {
+                gza("pageRating", {
+                    referer: document.referrer,
+                    url: window.location.href,
+                    t: document.getElementsByTagName('title')[0] ? document.getElementsByTagName('title')[0].innerText : window.location.href,
+                    uid: '1fd47e1f-f7d9-11ea-beba-0242ac12000b',
+                    feedback: 1
+                });
+                if(loginRequired === true){
+                    const url = `https://${kb_public_page_domain}/wolken-support/kbsearch/article?articleNumber=${kbArticleNumber}&feedback=like`;
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.target = '_blank'; 
+                    a.rel = 'noopener noreferrer'; 
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a); 
+                }
+            } catch(error) {
+                console.log(error);
+            }
+
+
+            document.getElementById('feedback_actionMsg').innerHTML = feedbackConfigData.yesMsg;
+            document.getElementById('feedback_actions').remove();
+
+            saveArticleCount('likes');
+        }
+
+        function onArticleDislike() {
+            saveArticleDisLikeCount();
+             document.getElementById('feedback_actionMsg').innerHTML = feedbackConfigData.yesMsg;
+             document.getElementById('feedback_actions').remove();
+            if(loginRequired === true){
+                const url = `https://${kb_public_page_domain}/wolken-support/kbsearch/article?articleNumber=${kbArticleNumber}&feedback=dislike`;
+                const a = document.createElement('a');
+                a.href = url;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a); 
+            }
+        }
+
+        function redirectToFeedbackPage() {
+            window.open(articlePageUrl + articleId +'&action=feedback', '_self');
+        }
+
+        function saveArticleDisLikeCount() {
+            try {
+                gza("pageRating", {
+                    referer: document.referrer,
+                    url: window.location.href,
+                    t: document.getElementsByTagName('title')[0] ? document.getElementsByTagName('title')[0].innerText : window.location.href,
+                    uid: '1fd47e1f-f7d9-11ea-beba-0242ac12000b',
+                    feedback: 0
+                });
+            } catch(error) {
+                console.log(error);
+            }
+
+            saveArticleCount('dislikes');
+        }
+
+        function clearSearch(){
+            document.getElementById('searchBox').value = '';
+        }
+
+        function redirectOnSearch(e){
+        if(e && e.keyCode === 13 || e === undefined){
+        const searchText = document.getElementById('searchBox').value;
+        var redirectOnSearchUrl = 'https://support.broadcom.com/web/ecx/search?searchString=' + searchText;
+        window.open(redirectOnSearchUrl, '_blank');
+      }
+        }
+    </script>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe title="No Script" src="https://www.googletagmanager.com/ns.html?id=GTM-KF7XWD" height="0" width="0"
+        style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+</html>
