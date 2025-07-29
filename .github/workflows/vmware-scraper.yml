@@ -31,15 +31,24 @@ jobs:
     - name: Run VMware scraper
       run: |
         python vmware_tools_scraper.py
-    - name: Rename vmware-versions.html to index.html
-      run: mv vmware-versions.html index.html
+    # - name: Rename vmware-versions.html to index.html
+    #   run: mv vmware-versions.html index.html
+    #   shell: bash
+    - name: Add last updated date/time to footer
+      run: |
+        LAST_UPDATED="$(date -u '+%Y-%m-%d %H:%M UTC')"
+        FOOTER="<footer style=\"text-align:center;margin-top:2em;font-size:small;color:#888;\">Last updated: $LAST_UPDATED</footer>"
+        # Remove any existing last updated footer
+        sed -i '/<footer.*Last updated:/d' index.html
+        # Add the new footer before </body>
+        sed -i "s|</body>|$FOOTER\n</body>|" index.html
       shell: bash
         
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add -f vmware-versions.json index.html
+        git add -f vmware-versions.json vmware-versions.html
         git diff --quiet && git diff --staged --quiet || git commit -m "Update VMware versions - $(date)"
         git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF}
       env:
