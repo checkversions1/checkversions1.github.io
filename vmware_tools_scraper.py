@@ -29,54 +29,7 @@ class VMwareVersionScraper:
         self.esxi_url = "https://knowledge.broadcom.com/external/article?legacyId=2143832"
         self.vcenter_url = "https://knowledge.broadcom.com/external/article?articleNumber=326316"
         
-        # Fallback data from web search results
-        self.tools_fallback_data = {
-            "Version": "VMware Tools 13.0.1",
-            "ReleaseDate": "07/15/2025",
-            "BuildNumber": "24843032",
-            "ToolInternalVersion": "13313"
-        }
-        
-        self.esxi_fallback_data = {
-            "ESX_9_0": {
-                "Version": "ESX 9.0.0.0100",
-                "ReleaseDate": "2025/07/15",
-                "BuildNumber": "24813472",
-                "AvailableAs": "Patch"
-            },
-            "ESXi_8_0": {
-                "Version": "ESXi 8.0.3 EP5",
-                "ReleaseDate": "2025/07/15",
-                "BuildNumber": "24784735",
-                "AvailableAs": "Patch"
-            },
-            "ESXi_7_0": {
-                "Version": "ESXi 7.0.3 EP14",
-                "ReleaseDate": "2025/07/15",
-                "BuildNumber": "24784735",
-                "AvailableAs": "Patch"
-            }
-        }
-        
-        self.vcenter_fallback_data = {
-            "vCenter_9_0": {
-                "Version": "9.0.0.0",
-                "ReleaseDate": "2025-06-17",
-                "BuildNumber": "24755230"
-            },
-            "vCenter_8_0": {
-                "Version": "8.0.3.00500",
-                "ReleaseName": "vCenter Server 8.0 Update 3e",
-                "ReleaseDate": "2025-04-11",
-                "BuildNumber": "24674346"
-            },
-            "vCenter_7_0": {
-                "Version": "7.0.3.02400",
-                "ReleaseName": "vCenter Server 7.0 Update 3v",
-                "ReleaseDate": "2025-05-20",
-                "BuildNumber": "24730281"
-            }
-        }
+
     
     def get_timestamp(self) -> str:
         """Get current timestamp in ISO format."""
@@ -120,16 +73,7 @@ class VMwareVersionScraper:
                 return version_info
             else:
                 logger.warning("Could not parse VMware Tools version information from the webpage")
-                logger.info("Using fallback data for VMware Tools...")
-                
-                # Use fallback data
-                fallback_info = self.tools_fallback_data.copy()
-                fallback_info.update({
-                    "LastUpdated": self.get_timestamp(),
-                    "SourceUrl": self.tools_url,
-                    "Note": "Using fallback data - webpage parsing incomplete"
-                })
-                return fallback_info
+                return None
                 
         except requests.RequestException as e:
             logger.error(f"Error fetching VMware Tools version: {e}")
@@ -176,16 +120,7 @@ class VMwareVersionScraper:
                 return version_info
             else:
                 logger.warning("Could not parse ESXi version information from the webpage")
-                logger.info("Using fallback data for ESXi...")
-                
-                # Use fallback data
-                fallback_info = self.esxi_fallback_data.copy()
-                fallback_info.update({
-                    "LastUpdated": self.get_timestamp(),
-                    "SourceUrl": self.esxi_url,
-                    "Note": "Using fallback data - webpage parsing incomplete"
-                })
-                return fallback_info
+                return None
                 
         except requests.RequestException as e:
             logger.error(f"Error fetching ESXi version: {e}")
@@ -232,16 +167,7 @@ class VMwareVersionScraper:
                 return version_info
             else:
                 logger.warning("Could not parse vCenter version information from the webpage")
-                logger.info("Using fallback data for vCenter...")
-                
-                # Use fallback data
-                fallback_info = self.vcenter_fallback_data.copy()
-                fallback_info.update({
-                    "LastUpdated": self.get_timestamp(),
-                    "SourceUrl": self.vcenter_url,
-                    "Note": "Using fallback data - webpage parsing incomplete"
-                })
-                return fallback_info
+                return None
                 
         except requests.RequestException as e:
             logger.error(f"Error fetching vCenter version: {e}")
@@ -261,46 +187,33 @@ class VMwareVersionScraper:
             Dict with version information or None if parsing fails
         """
         try:
-            # Pattern to find the first (latest) version entry
-            version_pattern = r'VMware Tools ([^<]+)'
-            date_pattern = r'VMware Tools [^<]+.*?<p[^>]*>(\d{2}/\d{2}/\d{4})</p>'
-            build_pattern = r'VMware Tools [^<]+.*?<p[^>]*>\d{2}/\d{2}/\d{4}</p>.*?<p[^>]*><span[^>]*>(\d+)</span>'
-            tool_version_pattern = r'VMware Tools [^<]+.*?<p[^>]*>\d{2}/\d{2}/\d{4}</p>.*?<p[^>]*><span[^>]*>\d+</span>.*?<p><span[^>]*>(\d+)</span>'
+            # Pattern to find the first (latest) version entry in the table
+            # Look for the first row in the table that contains VMware Tools version
+            row_pattern = r'<td[^>]*>.*?VMware Tools ([^<]+).*?</td>.*?<td[^>]*>.*?<p[^>]*>(\d{2}/\d{2}/\d{4})</p>.*?</td>.*?<td[^>]*>.*?<p[^>]*>.*?<span[^>]*>(\d+)</span>.*?</p>.*?</td>.*?<td[^>]*>.*?<p>.*?<span[^>]*>(\d+)</span>.*?</p>.*?</td>'
             
-            # Extract version
-            version_match = re.search(version_pattern, content)
-            if not version_match:
-                logger.warning("Could not find VMware Tools version information")
+            # Extract all data from the first row
+            row_match = re.search(row_pattern, content, re.DOTALL | re.IGNORECASE)
+            if not row_match:
+                logger.warning("Could not find VMware Tools version information in table format")
                 return None
             
-            version = version_match.group(1).strip()
+            version = row_match.group(1).strip()
+            release_date = row_match.group(2).strip()
+            build_number = row_match.group(3).strip()
+            tool_internal_version = row_match.group(4).strip()
+            
             logger.info(f"Found VMware Tools version: {version}")
-            
-            # Extract release date
-            date_match = re.search(date_pattern, content, re.DOTALL)
-            release_date = date_match.group(1).strip() if date_match else None
-            if release_date:
-                logger.info(f"Found VMware Tools release date: {release_date}")
-            
-            # Extract build number
-            build_match = re.search(build_pattern, content, re.DOTALL)
-            build_number = build_match.group(1).strip() if build_match else None
-            if build_number:
-                logger.info(f"Found VMware Tools build number: {build_number}")
-            
-            # Extract tool internal version
-            tool_version_match = re.search(tool_version_pattern, content, re.DOTALL)
-            tool_internal_version = tool_version_match.group(1).strip() if tool_version_match else None
-            if tool_internal_version:
-                logger.info(f"Found VMware Tools internal version: {tool_internal_version}")
+            logger.info(f"Found VMware Tools release date: {release_date}")
+            logger.info(f"Found VMware Tools build number: {build_number}")
+            logger.info(f"Found VMware Tools internal version: {tool_internal_version}")
             
             # Return data if we have at least the version
             if version:
                 return {
                     "Version": version,
-                    "ReleaseDate": release_date or self.tools_fallback_data["ReleaseDate"],
-                    "BuildNumber": build_number or self.tools_fallback_data["BuildNumber"],
-                    "ToolInternalVersion": tool_internal_version or self.tools_fallback_data["ToolInternalVersion"]
+                    "ReleaseDate": release_date,
+                    "BuildNumber": build_number,
+                    "ToolInternalVersion": tool_internal_version
                 }
             
             return None
@@ -382,81 +295,77 @@ class VMwareVersionScraper:
                                 logger.info(f"Found {version_key} build number: {build_number}")
                                 logger.info(f"Found {version_key} availability: {available_as}")
                             else:
-                                # Fallback for ESX 9.0
-                                esxi_versions[version_key] = {
-                                    "Version": version,
-                                    "ReleaseName": "ESX 9.0.0.0100",
-                                    "ReleaseDate": "2025/07/15",
-                                    "BuildNumber": "24813472",
-                                    "AvailableAs": "Patch"
-                                }
-                                logger.info(f"Using fallback data for {version_key}")
+                                logger.warning(f"Could not find complete data for {version_key}")
                         elif version_key == "ESXi_8_0":
-                            # For ESXi 8.0, always use the latest version "ESXi 8.0.3 EP5"
-                            row_pattern = r'<td[^>]*>ESXi 8\.0\.3 EP5</td>.*?<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*>(\d{4}/\d{2}/\d{2})</td>.*?<td[^>]*><span[^>]*>(\d+)</span></td>.*?<td[^>]*>([^<]+)</td>'
-                            row_match = re.search(row_pattern, section_content, re.DOTALL | re.IGNORECASE)
-                            
-                            if row_match:
-                                release_name = row_match.group(1).strip()
-                                release_date = row_match.group(2)
-                                build_number = row_match.group(3)
-                                available_as = row_match.group(4).strip()
+                            # For ESXi 8.0, look for the latest version dynamically
+                            # Find all ESXi 8.0 versions in the section
+                            all_versions = re.findall(r'<td[^>]*>(ESXi 8\.0[^<]*)</td>', section_content, re.IGNORECASE)
+                            if all_versions:
+                                # Get the first (latest) version
+                                latest_version = all_versions[0].strip()
+                                logger.info(f"Found {version_key} latest version: {latest_version}")
                                 
-                                esxi_versions[version_key] = {
-                                    "Version": "ESXi 8.0.3 EP5",
-                                    "ReleaseName": release_name,
-                                    "ReleaseDate": release_date,
-                                    "BuildNumber": build_number,
-                                    "AvailableAs": available_as
-                                }
+                                # Look for the row with this version (handle both span and non-span build numbers)
+                                row_pattern = rf'<td[^>]*>{re.escape(latest_version)}</td>.*?<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*>(\d{{4}}/\d{{2}}/\d{{2}})</td>.*?<td[^>]*>(?:<span[^>]*>)?(\d+)(?:</span>)?</td>.*?<td[^>]*>([^<]+)</td>'
+                                row_match = re.search(row_pattern, section_content, re.DOTALL | re.IGNORECASE)
                                 
-                                logger.info(f"Found {version_key} release name: {release_name}")
-                                logger.info(f"Found {version_key} release date: {release_date}")
-                                logger.info(f"Found {version_key} build number: {build_number}")
-                                logger.info(f"Found {version_key} availability: {available_as}")
+                                if row_match:
+                                    release_name = row_match.group(1).strip()
+                                    release_date = row_match.group(2)
+                                    build_number = row_match.group(3)
+                                    available_as = row_match.group(4).strip()
+                                    
+                                    esxi_versions[version_key] = {
+                                        "Version": latest_version,
+                                        "ReleaseName": release_name,
+                                        "ReleaseDate": release_date,
+                                        "BuildNumber": build_number,
+                                        "AvailableAs": available_as
+                                    }
+                                    
+                                    logger.info(f"Found {version_key} release name: {release_name}")
+                                    logger.info(f"Found {version_key} release date: {release_date}")
+                                    logger.info(f"Found {version_key} build number: {build_number}")
+                                    logger.info(f"Found {version_key} availability: {available_as}")
+                                else:
+                                    logger.warning(f"Could not find complete data for {version_key}")
                             else:
-                                # Fallback for ESXi 8.0
-                                esxi_versions[version_key] = {
-                                    "Version": "ESXi 8.0.3 EP5",
-                                    "ReleaseName": "ESXi - Update 3f",
-                                    "ReleaseDate": "2025/07/15",
-                                    "BuildNumber": "24784735",
-                                    "AvailableAs": "Patch"
-                                }
-                                logger.info(f"Using fallback data for {version_key}")
+                                logger.warning(f"Could not find any versions for {version_key}")
                         elif version_key == "ESXi_7_0":
-                            # For ESXi 7.0, always use the latest version "ESXi 7.0.3 EP14"
-                            row_pattern = r'<td[^>]*>ESXi 7\.0\.3 EP14</td>.*?<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*>(\d{4}/\d{2}/\d{2})</td>.*?<td[^>]*><span[^>]*>(\d+)</span></td>.*?<td[^>]*>([^<]+)</td>'
-                            row_match = re.search(row_pattern, section_content, re.DOTALL | re.IGNORECASE)
-                            
-                            if row_match:
-                                release_name = row_match.group(1).strip()
-                                release_date = row_match.group(2)
-                                build_number = row_match.group(3)
-                                available_as = row_match.group(4).strip()
+                            # For ESXi 7.0, look for the latest version dynamically
+                            # Find all ESXi 7.0 versions in the section
+                            all_versions = re.findall(r'<td[^>]*>(ESXi 7\.0[^<]*)</td>', section_content, re.IGNORECASE)
+                            if all_versions:
+                                # Get the first (latest) version
+                                latest_version = all_versions[0].strip()
+                                logger.info(f"Found {version_key} latest version: {latest_version}")
                                 
-                                esxi_versions[version_key] = {
-                                    "Version": "ESXi 7.0.3 EP14",
-                                    "ReleaseName": release_name,
-                                    "ReleaseDate": release_date,
-                                    "BuildNumber": build_number,
-                                    "AvailableAs": available_as
-                                }
+                                # Look for the row with this version
+                                row_pattern = rf'<td[^>]*>{re.escape(latest_version)}</td>.*?<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*>(\d{{4}}/\d{{2}}/\d{{2}})</td>.*?<td[^>]*><span[^>]*>(\d+)</span></td>.*?<td[^>]*>([^<]+)</td>'
+                                row_match = re.search(row_pattern, section_content, re.DOTALL | re.IGNORECASE)
                                 
-                                logger.info(f"Found {version_key} release name: {release_name}")
-                                logger.info(f"Found {version_key} release date: {release_date}")
-                                logger.info(f"Found {version_key} build number: {build_number}")
-                                logger.info(f"Found {version_key} availability: {available_as}")
+                                if row_match:
+                                    release_name = row_match.group(1).strip()
+                                    release_date = row_match.group(2)
+                                    build_number = row_match.group(3)
+                                    available_as = row_match.group(4).strip()
+                                    
+                                    esxi_versions[version_key] = {
+                                        "Version": latest_version,
+                                        "ReleaseName": release_name,
+                                        "ReleaseDate": release_date,
+                                        "BuildNumber": build_number,
+                                        "AvailableAs": available_as
+                                    }
+                                    
+                                    logger.info(f"Found {version_key} release name: {release_name}")
+                                    logger.info(f"Found {version_key} release date: {release_date}")
+                                    logger.info(f"Found {version_key} build number: {build_number}")
+                                    logger.info(f"Found {version_key} availability: {available_as}")
+                                else:
+                                    logger.warning(f"Could not find complete data for {version_key}")
                             else:
-                                # Fallback for ESXi 7.0
-                                esxi_versions[version_key] = {
-                                    "Version": "ESXi 7.0.3 EP14",
-                                    "ReleaseName": "ESXi 7.0 Update 3w",
-                                    "ReleaseDate": "2025/07/15",
-                                    "BuildNumber": "24784741",
-                                    "AvailableAs": "Patch"
-                                }
-                                logger.info(f"Using fallback data for {version_key}")
+                                logger.warning(f"Could not find any versions for {version_key}")
                         else:
                             # For other versions, use the first occurrence approach
                             date_match = re.search(pattern_info["date"], section_content)
@@ -543,27 +452,25 @@ class VMwareVersionScraper:
                         if version_key in ["vCenter_8_0", "vCenter_7_0"]:
                             # Look for the specific row with the latest version to get release name
                             if version_key == "vCenter_8_0":
-                                # For vCenter 8.0, look for the row with 8.0.3.00500
-                                row_pattern = r'<td[^>]*>([^<]+)</td>.*?<td[^>]*>8\.0\.3\.00500</td>.*?<td[^>]*>(\d{4}-\d{2}-\d{2})</td>.*?<td[^>]*>(\d+)</td>'
+                                # For vCenter 8.0, look for the row with the latest version
+                                row_pattern = rf'<td[^>]*>([^<]+)</td>.*?<td[^>]*>{re.escape(version)}</td>.*?<td[^>]*>(\d{{4}}-\d{{2}}-\d{{2}})</td>.*?<td[^>]*>(\d+)</td>'
                                 row_match = re.search(row_pattern, section_content, re.DOTALL | re.IGNORECASE)
                                 if row_match:
                                     release_name = row_match.group(1).strip()
                                     vcenter_data["ReleaseName"] = release_name
                                     logger.info(f"Found {version_key} release name: {release_name}")
                                 else:
-                                    vcenter_data["ReleaseName"] = "vCenter Server 8.0 Update 3e"
-                                    logger.info(f"Using default release name for {version_key}")
+                                    logger.warning(f"Could not find release name for {version_key}")
                             elif version_key == "vCenter_7_0":
-                                # For vCenter 7.0, look for the row with 7.0.3.02400
-                                row_pattern = r'<td[^>]*>\s*<p>([^<]+)</p>\s*</td>.*?<td[^>]*>7\.0\.3\.02400</td>.*?<td[^>]*>(\d{4}-\d{2}-\d{2})</td>.*?<td[^>]*>(\d+)</td>'
+                                # For vCenter 7.0, look for the row with the latest version
+                                row_pattern = rf'<td[^>]*>\s*<p>([^<]+)</p>\s*</td>.*?<td[^>]*>{re.escape(version)}</td>.*?<td[^>]*>(\d{{4}}-\d{{2}}-\d{{2}})</td>.*?<td[^>]*>(\d+)</td>'
                                 row_match = re.search(row_pattern, section_content, re.DOTALL | re.IGNORECASE)
                                 if row_match:
                                     release_name = row_match.group(1).strip()
                                     vcenter_data["ReleaseName"] = release_name
                                     logger.info(f"Found {version_key} release name: {release_name}")
                                 else:
-                                    vcenter_data["ReleaseName"] = "vCenter Server 7.0 Update 3v"
-                                    logger.info(f"Using default release name for {version_key}")
+                                    logger.warning(f"Could not find release name for {version_key}")
                         
                         vcenter_versions[version_key] = vcenter_data
                         
@@ -601,28 +508,11 @@ class VMwareVersionScraper:
                 "vCenter": vcenter_info
             }
             
-            # Load existing data
-            existing_data = []
-            if Path(self.output_path).exists():
-                try:
-                    with open(self.output_path, 'r', encoding='utf-8') as f:
-                        existing_data = json.load(f)
-                except (json.JSONDecodeError, FileNotFoundError):
-                    logger.warning("Could not read existing JSON file, starting fresh")
-                    existing_data = []
-            
-            # Add new entry
-            existing_data.append(new_entry)
-            
-            # Keep only the last 10 entries
-            if len(existing_data) > 10:
-                existing_data = existing_data[-10:]
-            
-            # Write back to file
+            # Write new data to file (overwriting existing content)
             with open(self.output_path, 'w', encoding='utf-8') as f:
-                json.dump(existing_data, f, indent=2, ensure_ascii=False)
+                json.dump(new_entry, f, indent=2, ensure_ascii=False)
             
-            logger.info(f"Updated JSON file: {self.output_path}")
+            logger.info(f"Overwrote JSON file: {self.output_path}")
             return True
             
         except Exception as e:
