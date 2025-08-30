@@ -642,6 +642,16 @@ class VMwareVersionScraper:
             True if successful, False otherwise
         """
         try:
+            # Helper function to safely get nested dictionary values
+            def safe_get(data, *keys, default="N/A"):
+                """Safely get nested dictionary values with fallback."""
+                try:
+                    for key in keys:
+                        data = data[key]
+                    return data if data is not None else default
+                except (KeyError, TypeError, AttributeError):
+                    return default
+            
             # Get last updated timestamp
             last_updated = self.get_timestamp()
             # Generate HTML content
@@ -836,19 +846,19 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{tools_info['Version']}</div>
+                        <div class="info-value">{safe_get(tools_info, 'Version')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{tools_info['ReleaseDate']}</div>
+                        <div class="info-value">{safe_get(tools_info, 'ReleaseDate')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{tools_info['BuildNumber']}</div>
+                        <div class="info-value">{safe_get(tools_info, 'BuildNumber')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Tool Internal Version</div>
-                        <div class="info-value">{tools_info['ToolInternalVersion']}</div>
+                        <div class="info-value">{safe_get(tools_info, 'ToolInternalVersion')}</div>
                     </div>
                 </div>
                 <div style="margin-top: 20px; text-align: center;">
@@ -863,23 +873,23 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['Version']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESX_9_0', 'Version')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['ReleaseName']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESX_9_0', 'ReleaseName')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['ReleaseDate']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESX_9_0', 'ReleaseDate')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['BuildNumber']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESX_9_0', 'BuildNumber')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Available As</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['AvailableAs']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESX_9_0', 'AvailableAs')}</div>
                     </div>
                 </div>
             </div>
@@ -889,23 +899,23 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['Version']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_8_0', 'Version')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['ReleaseName']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_8_0', 'ReleaseName')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['ReleaseDate']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_8_0', 'ReleaseDate')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['BuildNumber']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_8_0', 'BuildNumber')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Available As</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['AvailableAs']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_8_0', 'AvailableAs')}</div>
                     </div>
                 </div>
             </div>
@@ -915,23 +925,23 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['Version']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_7_0', 'Version')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['ReleaseName']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_7_0', 'ReleaseName')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['ReleaseDate']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_7_0', 'ReleaseDate')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['BuildNumber']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_7_0', 'BuildNumber')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Available As</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['AvailableAs']}</div>
+                        <div class="info-value">{safe_get(esxi_info, 'ESXi_7_0', 'AvailableAs')}</div>
                     </div>
                 </div>
             </div>
@@ -941,15 +951,15 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_info['vCenter_9_0']['Version']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_9_0', 'Version')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_info['vCenter_9_0']['ReleaseDate']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_9_0', 'ReleaseDate')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_info['vCenter_9_0']['BuildNumber']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_9_0', 'BuildNumber')}</div>
                     </div>
                 </div>
             </div>
@@ -959,19 +969,19 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_info['vCenter_8_0']['Version']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_8_0', 'Version')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{vcenter_info['vCenter_8_0']['ReleaseName']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_8_0', 'ReleaseName')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_info['vCenter_8_0']['ReleaseDate']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_8_0', 'ReleaseDate')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_info['vCenter_8_0']['BuildNumber']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_8_0', 'BuildNumber')}</div>
                     </div>
                 </div>
             </div>
@@ -981,19 +991,19 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_info['vCenter_7_0']['Version']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_7_0', 'Version')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{vcenter_info['vCenter_7_0']['ReleaseName']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_7_0', 'ReleaseName')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_info['vCenter_7_0']['ReleaseDate']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_7_0', 'ReleaseDate')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_info['vCenter_7_0']['BuildNumber']}</div>
+                        <div class="info-value">{safe_get(vcenter_info, 'vCenter_7_0', 'BuildNumber')}</div>
                     </div>
                 </div>
             </div>
@@ -1040,25 +1050,25 @@ class VMwareVersionScraper:
         vcenter_info = self.scrape_vcenter_version_info()
         
         if tools_info:
-            logger.info(f"Latest VMware Tools Version: {tools_info['Version']}")
-            logger.info(f"Release Date: {tools_info['ReleaseDate']}")
-            logger.info(f"Build Number: {tools_info['BuildNumber']}")
-            logger.info(f"Tool Internal Version: {tools_info['ToolInternalVersion']}")
+            logger.info(f"Latest VMware Tools Version: {tools_info.get('Version', 'N/A')}")
+            logger.info(f"Release Date: {tools_info.get('ReleaseDate', 'N/A')}")
+            logger.info(f"Build Number: {tools_info.get('BuildNumber', 'N/A')}")
+            logger.info(f"Tool Internal Version: {tools_info.get('ToolInternalVersion', 'N/A')}")
         
         if esxi_info:
             for version_key, version_data in esxi_info.items():
                 if isinstance(version_data, dict) and "Version" in version_data:
-                    logger.info(f"Latest {version_key}: {version_data['Version']}")
-                    logger.info(f"Release Date: {version_data['ReleaseDate']}")
-                    logger.info(f"Build Number: {version_data['BuildNumber']}")
-                    logger.info(f"Available As: {version_data['AvailableAs']}")
+                    logger.info(f"Latest {version_key}: {version_data.get('Version', 'N/A')}")
+                    logger.info(f"Release Date: {version_data.get('ReleaseDate', 'N/A')}")
+                    logger.info(f"Build Number: {version_data.get('BuildNumber', 'N/A')}")
+                    logger.info(f"Available As: {version_data.get('AvailableAs', 'N/A')}")
         
         if vcenter_info:
             for version_key, version_data in vcenter_info.items():
                 if isinstance(version_data, dict) and "Version" in version_data:
-                    logger.info(f"Latest {version_key}: {version_data['Version']}")
-                    logger.info(f"Release Date: {version_data['ReleaseDate']}")
-                    logger.info(f"Build Number: {version_data['BuildNumber']}")
+                    logger.info(f"Latest {version_key}: {version_data.get('Version', 'N/A')}")
+                    logger.info(f"Release Date: {version_data.get('ReleaseDate', 'N/A')}")
+                    logger.info(f"Build Number: {version_data.get('BuildNumber', 'N/A')}")
         
         if tools_info or esxi_info or vcenter_info:
             # Update JSON file

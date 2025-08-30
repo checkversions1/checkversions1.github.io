@@ -29,8 +29,31 @@ jobs:
         pip install -r requirements.txt
         
     - name: Run VMware scraper
+      id: run-scraper
       run: |
         python vmware_tools_scraper.py
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
+        
+    - name: Check if scraper succeeded
+      if: steps.run-scraper.outputs.exit_code != '0'
+      run: |
+        echo "❌ VMware scraper failed with exit code ${{ steps.run-scraper.outputs.exit_code }}"
+        echo "This might be due to network issues or changes in the VMware website structure."
+        echo "The script will continue to use fallback data if available."
+        exit 1
+        
+    - name: Verify output files
+      run: |
+        if [ ! -f "vmware-versions.json" ]; then
+          echo "❌ vmware-versions.json was not created"
+          exit 1
+        fi
+        if [ ! -f "vmware-versions.html" ]; then
+          echo "❌ vmware-versions.html was not created"
+          exit 1
+        fi
+        echo "✅ Output files created successfully"
+        
     - name: Add last updated date/time to footer
       run: |
         LAST_UPDATED="$(date -u '+%Y-%m-%d %H:%M UTC')"
