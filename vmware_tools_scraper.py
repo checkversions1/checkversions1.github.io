@@ -341,7 +341,7 @@ class VMwareVersionScraper:
                                 logger.info(f"Found {version_key} latest version: {latest_version}")
                                 
                                 # Look for the row with this version
-                                row_pattern = rf'<td[^>]*>{re.escape(latest_version)}</td>.*?<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*>(\d{{4}}/\d{{2}}/\d{{2}})</td>.*?<td[^>]*><span[^>]*>(\d+)</span></td>.*?<td[^>]*>([^<]+)</td>'
+                                row_pattern = rf'<td[^>]*>{re.escape(latest_version)}</td>.*?<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*>(\d{{4}}/\d{{2}}/\d{{2}})</td>.*?<td[^>]*>(?:<span[^>]*>)?(\d+)(?:</span>)?</td>.*?<td[^>]*>([^<]+)</td>'
                                 row_match = re.search(row_pattern, section_content, re.DOTALL | re.IGNORECASE)
                                 
                                 if row_match:
