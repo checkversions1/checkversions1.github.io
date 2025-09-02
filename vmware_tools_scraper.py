@@ -534,6 +534,16 @@ class VMwareVersionScraper:
         try:
             # Get last updated timestamp
             last_updated = self.get_timestamp()
+
+            # Safe access to dictionaries
+            tools_info_safe = tools_info or {}
+            esx_9_0_info = esxi_info.get('ESX_9_0', {})
+            esxi_8_0_info = esxi_info.get('ESXi_8_0', {})
+            esxi_7_0_info = esxi_info.get('ESXi_7_0', {})
+            vcenter_9_0_info = vcenter_info.get('vCenter_9_0', {})
+            vcenter_8_0_info = vcenter_info.get('vCenter_8_0', {})
+            vcenter_7_0_info = vcenter_info.get('vCenter_7_0', {})
+
             # Generate HTML content
             html_content = f"""
 <!DOCTYPE html>
@@ -726,19 +736,19 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{tools_info['Version']}</div>
+                        <div class="info-value">{tools_info_safe.get('Version', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{tools_info['ReleaseDate']}</div>
+                        <div class="info-value">{tools_info_safe.get('ReleaseDate', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{tools_info['BuildNumber']}</div>
+                        <div class="info-value">{tools_info_safe.get('BuildNumber', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Tool Internal Version</div>
-                        <div class="info-value">{tools_info['ToolInternalVersion']}</div>
+                        <div class="info-value">{tools_info_safe.get('ToolInternalVersion', 'Not Found')}</div>
                     </div>
                 </div>
                 <div style="margin-top: 20px; text-align: center;">
@@ -753,23 +763,23 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['Version']}</div>
+                        <div class="info-value">{esx_9_0_info.get('Version', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['ReleaseName']}</div>
+                        <div class="info-value">{esx_9_0_info.get('ReleaseName', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['ReleaseDate']}</div>
+                        <div class="info-value">{esx_9_0_info.get('ReleaseDate', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['BuildNumber']}</div>
+                        <div class="info-value">{esx_9_0_info.get('BuildNumber', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Available As</div>
-                        <div class="info-value">{esxi_info['ESX_9_0']['AvailableAs']}</div>
+                        <div class="info-value">{esx_9_0_info.get('AvailableAs', 'Not Found')}</div>
                     </div>
                 </div>
             </div>
@@ -779,23 +789,23 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['Version']}</div>
+                        <div class="info-value">{esxi_8_0_info.get('Version', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['ReleaseName']}</div>
+                        <div class="info-value">{esxi_8_0_info.get('ReleaseName', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['ReleaseDate']}</div>
+                        <div class="info-value">{esxi_8_0_info.get('ReleaseDate', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['BuildNumber']}</div>
+                        <div class="info-value">{esxi_8_0_info.get('BuildNumber', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Available As</div>
-                        <div class="info-value">{esxi_info['ESXi_8_0']['AvailableAs']}</div>
+                        <div class="info-value">{esxi_8_0_info.get('AvailableAs', 'Not Found')}</div>
                     </div>
                 </div>
             </div>
@@ -805,23 +815,23 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['Version']}</div>
+                        <div class="info-value">{esxi_7_0_info.get('Version', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['ReleaseName']}</div>
+                        <div class="info-value">{esxi_7_0_info.get('ReleaseName', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['ReleaseDate']}</div>
+                        <div class="info-value">{esxi_7_0_info.get('ReleaseDate', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['BuildNumber']}</div>
+                        <div class="info-value">{esxi_7_0_info.get('BuildNumber', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Available As</div>
-                        <div class="info-value">{esxi_info['ESXi_7_0']['AvailableAs']}</div>
+                        <div class="info-value">{esxi_7_0_info.get('AvailableAs', 'Not Found')}</div>
                     </div>
                 </div>
             </div>
@@ -831,15 +841,15 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_info['vCenter_9_0']['Version']}</div>
+                        <div class="info-value">{vcenter_9_0_info.get('Version', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_info['vCenter_9_0']['ReleaseDate']}</div>
+                        <div class="info-value">{vcenter_9_0_info.get('ReleaseDate', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_info['vCenter_9_0']['BuildNumber']}</div>
+                        <div class="info-value">{vcenter_9_0_info.get('BuildNumber', 'Not Found')}</div>
                     </div>
                 </div>
             </div>
@@ -849,19 +859,19 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_info['vCenter_8_0']['Version']}</div>
+                        <div class="info-value">{vcenter_8_0_info.get('Version', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{vcenter_info['vCenter_8_0']['ReleaseName']}</div>
+                        <div class="info-value">{vcenter_8_0_info.get('ReleaseName', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_info['vCenter_8_0']['ReleaseDate']}</div>
+                        <div class="info-value">{vcenter_8_0_info.get('ReleaseDate', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_info['vCenter_8_0']['BuildNumber']}</div>
+                        <div class="info-value">{vcenter_8_0_info.get('BuildNumber', 'Not Found')}</div>
                     </div>
                 </div>
             </div>
@@ -871,19 +881,19 @@ class VMwareVersionScraper:
                 <div class="version-info">
                     <div class="info-item">
                         <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_info['vCenter_7_0']['Version']}</div>
+                        <div class="info-value">{vcenter_7_0_info.get('Version', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Name</div>
-                        <div class="info-value">{vcenter_info['vCenter_7_0']['ReleaseName']}</div>
+                        <div class="info-value">{vcenter_7_0_info.get('ReleaseName', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_info['vCenter_7_0']['ReleaseDate']}</div>
+                        <div class="info-value">{vcenter_7_0_info.get('ReleaseDate', 'Not Found')}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_info['vCenter_7_0']['BuildNumber']}</div>
+                        <div class="info-value">{vcenter_7_0_info.get('BuildNumber', 'Not Found')}</div>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,11 @@
 {
-  "LastUpdated": "2025-08-29 02:20:31",
+  "LastUpdated": "2025-09-02 20:33:43",
   "VMwareTools": {
     "Version": "13.0.1",
     "ReleaseDate": "07/15/2025",
     "BuildNumber": "24843032",
     "ToolInternalVersion": "13313",
-    "LastUpdated": "2025-08-29 02:20:31",
+    "LastUpdated": "2025-09-02 20:33:41",
     "SourceUrl": "https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html"
   },
   "ESXi": {
@@ -14,7 +14,7 @@
       "ReleaseName": "ESX 9.0.0.0100",
       "ReleaseDate": "2025/07/15",
       "BuildNumber": "24813472",
-      "AvailableAs": "Patch"
+      "AvailableAs": "ISO"
     },
     "ESXi_8_0": {
       "Version": "ESXi 8.0 P06",
@@ -23,14 +23,7 @@
       "BuildNumber": "24859861",
       "AvailableAs": "Patch"
     },
-    "ESXi_7_0": {
-      "Version": "ESXi 7.0.3 EP14",
-      "ReleaseName": "ESXi 7.0 Update 3w",
-      "ReleaseDate": "2025/07/15",
-      "BuildNumber": "24784741",
-      "AvailableAs": "Patch"
-    },
-    "LastUpdated": "2025-08-29 02:20:31",
+    "LastUpdated": "2025-09-02 20:33:42",
     "SourceUrl": "https://knowledge.broadcom.com/external/article?legacyId=2143832"
   },
   "vCenter": {
@@ -45,208 +38,13 @@
       "BuildNumber": "24853646",
       "ReleaseName": "vCenter Server 8.0 Update 3g"
     },
-<<<<<<< HEAD
-    "vCenter": {
-      "vCenter_9_0": {
-        "Version": "9.0.0.0",
-        "ReleaseDate": "2025-06-17",
-        "BuildNumber": "24755230"
-      },
-      "vCenter_8_0": {
-        "Version": "8.0.3.00500",
-        "ReleaseDate": "2025-04-11",
-        "BuildNumber": "24674346",
-        "ReleaseName": "vCenter Server 8.0 Update 3e"
-      },
-      "vCenter_7_0": {
-        "Version": "7.0.3.02400",
-        "ReleaseDate": "2025-05-20",
-        "BuildNumber": "24730281",
-        "ReleaseName": "vCenter Server 7.0 Update 3v"
-      },
-      "LastUpdated": "2025-07-29 10:16:42",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article?articleNumber=326316"
-    }
-  },
-  {
-    "LastUpdated": "2025-08-30 08:26:29",
-    "VMwareTools": {
-      "Version": "13.0.1",
-      "ReleaseDate": "07/15/2025",
-      "BuildNumber": "24843032",
-      "ToolInternalVersion": "13313",
-      "LastUpdated": "2025-08-30 08:26:25",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html"
-    },
-    "ESXi": {
-      "ESX_9_0": {
-        "Version": "ESX 9.0.0.0100",
-        "ReleaseName": "ESX 9.0.0.0100",
-        "ReleaseDate": "2025/07/15",
-        "BuildNumber": "24813472",
-        "AvailableAs": "ISO"
-      },
-      "ESXi_8_0": {
-        "Version": "ESXi 8.0.3 EP5",
-        "ReleaseName": "ESXi - Update 3f",
-        "ReleaseDate": "2025/07/15",
-        "BuildNumber": "24784735",
-        "AvailableAs": "Patch"
-      },
-      "ESXi_7_0": {
-        "Version": "ESXi 7.0.3 EP14",
-        "ReleaseName": "ESXi 7.0 Update 3w",
-        "ReleaseDate": "2025/07/15",
-        "BuildNumber": "24784741",
-        "AvailableAs": "Patch"
-      },
-      "LastUpdated": "2025-08-30 08:26:28",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article?legacyId=2143832"
-    },
-    "vCenter": {
-      "vCenter_9_0": {
-        "Version": "9.0.0.0",
-        "ReleaseDate": "2025-06-17",
-        "BuildNumber": "24755230"
-      },
-      "vCenter_8_0": {
-        "Version": "8.0.3.00600",
-        "ReleaseDate": "2025-07-29",
-        "BuildNumber": "24853646",
-        "ReleaseName": "vCenter Server 8.0 Update 3g"
-      },
-      "vCenter_7_0": {
-        "Version": "7.0.3.02400",
-        "ReleaseDate": "2025-05-20",
-        "BuildNumber": "24730281",
-        "ReleaseName": "vCenter Server 7.0 Update 3v"
-      },
-      "LastUpdated": "2025-08-30 08:26:29",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article?articleNumber=326316"
-    }
-  },
-  {
-    "LastUpdated": "2025-08-30 08:37:33",
-    "VMwareTools": {
-      "Version": "13.0.1",
-      "ReleaseDate": "07/15/2025",
-      "BuildNumber": "24843032",
-      "ToolInternalVersion": "13313",
-      "LastUpdated": "2025-08-30 08:37:31",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html"
-    },
-    "ESXi": {
-      "ESX_9_0": {
-        "Version": "ESX 9.0.0.0100",
-        "ReleaseName": "ESX 9.0.0.0100",
-        "ReleaseDate": "2025/07/15",
-        "BuildNumber": "24813472",
-        "AvailableAs": "ISO"
-      },
-      "ESXi_8_0": {
-        "Version": "ESXi 8.0.3 EP5",
-        "ReleaseName": "ESXi - Update 3f",
-        "ReleaseDate": "2025/07/15",
-        "BuildNumber": "24784735",
-        "AvailableAs": "Patch"
-      },
-      "ESXi_7_0": {
-        "Version": "ESXi 7.0.3 EP14",
-        "ReleaseName": "ESXi 7.0 Update 3w",
-        "ReleaseDate": "2025/07/15",
-        "BuildNumber": "24784741",
-        "AvailableAs": "Patch"
-      },
-      "LastUpdated": "2025-08-30 08:37:32",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article?legacyId=2143832"
-    },
-    "vCenter": {
-      "vCenter_9_0": {
-        "Version": "9.0.0.0",
-        "ReleaseDate": "2025-06-17",
-        "BuildNumber": "24755230"
-      },
-      "vCenter_8_0": {
-        "Version": "8.0.3.00600",
-        "ReleaseDate": "2025-07-29",
-        "BuildNumber": "24853646",
-        "ReleaseName": "vCenter Server 8.0 Update 3g"
-      },
-      "vCenter_7_0": {
-        "Version": "7.0.3.02400",
-        "ReleaseDate": "2025-05-20",
-        "BuildNumber": "24730281",
-        "ReleaseName": "vCenter Server 7.0 Update 3v"
-      },
-      "LastUpdated": "2025-08-30 08:37:33",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article?articleNumber=326316"
-    }
-  },
-  {
-    "LastUpdated": "2025-08-30 08:38:52",
-    "VMwareTools": {
-      "Version": "13.0.1",
-      "ReleaseDate": "07/15/2025",
-      "BuildNumber": "24843032",
-      "ToolInternalVersion": "13313",
-      "LastUpdated": "2025-08-30 08:38:50",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html"
-    },
-    "ESXi": {
-      "ESX_9_0": {
-        "Version": "ESX 9.0.0.0100",
-        "ReleaseName": "ESX 9.0.0.0100",
-        "ReleaseDate": "2025/07/15",
-        "BuildNumber": "24813472",
-        "AvailableAs": "ISO"
-      },
-      "ESXi_8_0": {
-        "Version": "ESXi 8.0.3 EP5",
-        "ReleaseName": "ESXi - Update 3f",
-        "ReleaseDate": "2025/07/15",
-        "BuildNumber": "24784735",
-        "AvailableAs": "Patch"
-      },
-      "ESXi_7_0": {
-        "Version": "ESXi 7.0.3 EP14",
-        "ReleaseName": "ESXi 7.0 Update 3w",
-        "ReleaseDate": "2025/07/15",
-        "BuildNumber": "24784741",
-        "AvailableAs": "Patch"
-      },
-      "LastUpdated": "2025-08-30 08:38:51",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article?legacyId=2143832"
-    },
-    "vCenter": {
-      "vCenter_9_0": {
-        "Version": "9.0.0.0",
-        "ReleaseDate": "2025-06-17",
-        "BuildNumber": "24755230"
-      },
-      "vCenter_8_0": {
-        "Version": "8.0.3.00600",
-        "ReleaseDate": "2025-07-29",
-        "BuildNumber": "24853646",
-        "ReleaseName": "vCenter Server 8.0 Update 3g"
-      },
-      "vCenter_7_0": {
-        "Version": "7.0.3.02400",
-        "ReleaseDate": "2025-05-20",
-        "BuildNumber": "24730281",
-        "ReleaseName": "vCenter Server 7.0 Update 3v"
-      },
-      "LastUpdated": "2025-08-30 08:38:52",
-      "SourceUrl": "https://knowledge.broadcom.com/external/article?articleNumber=326316"
-    }
-=======
     "vCenter_7_0": {
       "Version": "7.0.3.02400",
       "ReleaseDate": "2025-05-20",
       "BuildNumber": "24730281",
       "ReleaseName": "vCenter Server 7.0 Update 3v"
     },
-    "LastUpdated": "2025-08-29 02:20:31",
+    "LastUpdated": "2025-09-02 20:33:43",
     "SourceUrl": "https://knowledge.broadcom.com/external/article?articleNumber=326316"
->>>>>>> d7e632d33f148af46d25b989df333db3116247b7
   }
 }
