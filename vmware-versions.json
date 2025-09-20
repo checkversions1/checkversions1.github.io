@@ -1,11 +1,11 @@
 {
-  "LastUpdated": "2025-09-20 08:12:04",
+  "LastUpdated": "2025-09-20 09:08:57",
   "VMwareTools": {
     "Version": "13.0.1",
     "ReleaseDate": "07/15/2025",
     "BuildNumber": "24843032",
     "ToolInternalVersion": "13313",
-    "LastUpdated": "2025-09-20 08:12:02",
+    "LastUpdated": "2025-09-20 09:08:57",
     "SourceUrl": "https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html"
   },
   "ESXi": {},
