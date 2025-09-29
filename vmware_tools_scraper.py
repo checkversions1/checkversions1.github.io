@@ -257,7 +257,7 @@ class VMwareVersionScraper:
                     "version": r'<td[^>]*>(ESXi 7\.0[^<]*)</td>',
                     "date": r'<td[^>]*>(\d{4}/\d{2}/\d{2})</td>',
                     "build": r'<td[^>]*>(\d+)</td>',
-                    "available": r'<td[^>]*><strong>([^<]+)</strong></td>'
+                    "available": r'<td[^>]*>([^<]+)</td>'
                 }
             }
             
@@ -273,36 +273,64 @@ class VMwareVersionScraper:
                         version = version_match.group(1).strip()
                         logger.info(f"Found {version_key} version: {version}")
                         
-                        # For ESX 9.0, extract data from the specific row containing the version
-                        if version_key == "ESX_9_0":
+                        # For ESX 9.0 and ESXi 7.0, extract data from the specific row containing the version
+                        if version_key in ["ESX_9_0", "ESXi_7_0"]:
                             # Find the complete row containing the version
-                            row_pattern = rf'<tr>.*?<td[^>]*><a[^>]*>{re.escape(version)}</a></td>.*?</tr>'
+                            if version_key == "ESX_9_0":
+                                row_pattern = rf'<tr>.*?<td[^>]*><a[^>]*>{re.escape(version)}</a></td>.*?</tr>'
+                            else:  # ESXi_7_0
+                                row_pattern = rf'<tr>.*?<td[^>]*>{re.escape(version)}</td>.*?</tr>'
+                            
                             row_match = re.search(row_pattern, section_content, re.DOTALL | re.IGNORECASE)
                             if row_match:
                                 row_content = row_match.group(0)
                                 
-                                # Extract all data from this specific row
-                                # Pattern: Version | Release Name | Date | Build | Available
-                                row_data_pattern = r'<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*>([^<]+)</td>.*?<td[^>]*>([^<]+)</td>.*?<td[^>]*>([^<]+)</td>'
-                                row_data_match = re.search(row_data_pattern, row_content, re.DOTALL | re.IGNORECASE)
-                                if row_data_match:
-                                    release_name = row_data_match.group(2).strip()
-                                    release_date = row_data_match.group(3).strip()
-                                    build_number = row_data_match.group(4).strip()
-                                    available_as = row_data_match.group(5).strip()
-                                    
-                                    esxi_versions[version_key] = {
-                                        "Version": version,
-                                        "ReleaseName": release_name,
-                                        "ReleaseDate": release_date,
-                                        "BuildNumber": build_number,
-                                        "AvailableAs": available_as
-                                    }
-                                    
-                                    logger.info(f"Found {version_key} release name: {release_name}")
-                                    logger.info(f"Found {version_key} release date: {release_date}")
-                                    logger.info(f"Found {version_key} build number: {build_number}")
-                                    logger.info(f"Found {version_key} availability: {available_as}")
+                                if version_key == "ESX_9_0":
+                                    # Extract all data from this specific row
+                                    # Pattern: Version | Release Name | Date | Build | Available
+                                    row_data_pattern = r'<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*>([^<]+)</td>.*?<td[^>]*>([^<]+)</td>.*?<td[^>]*>([^<]+)</td>'
+                                    row_data_match = re.search(row_data_pattern, row_content, re.DOTALL | re.IGNORECASE)
+                                    if row_data_match:
+                                        release_name = row_data_match.group(2).strip()
+                                        release_date = row_data_match.group(3).strip()
+                                        build_number = row_data_match.group(4).strip()
+                                        available_as = row_data_match.group(5).strip()
+                                        
+                                        esxi_versions[version_key] = {
+                                            "Version": version,
+                                            "ReleaseName": release_name,
+                                            "ReleaseDate": release_date,
+                                            "BuildNumber": build_number,
+                                            "AvailableAs": available_as
+                                        }
+                                        
+                                        logger.info(f"Found {version_key} release name: {release_name}")
+                                        logger.info(f"Found {version_key} release date: {release_date}")
+                                        logger.info(f"Found {version_key} build number: {build_number}")
+                                        logger.info(f"Found {version_key} availability: {available_as}")
+                                else:  # ESXi_7_0
+                                    # Extract all data from this specific row
+                                    # Pattern: Version | Release Name | Date | Build | Available
+                                    row_data_pattern = r'<td[^>]*>([^<]+)</td>.*?<td[^>]*><a[^>]*>([^<]+)</a></td>.*?<td[^>]*>([^<]+)</td>.*?<td[^>]*>([^<]+)</td>.*?<td[^>]*>([^<]+)</td>'
+                                    row_data_match = re.search(row_data_pattern, row_content, re.DOTALL | re.IGNORECASE)
+                                    if row_data_match:
+                                        release_name = row_data_match.group(2).strip()
+                                        release_date = row_data_match.group(3).strip()
+                                        build_number = row_data_match.group(4).strip()
+                                        available_as = row_data_match.group(5).strip()
+                                        
+                                        esxi_versions[version_key] = {
+                                            "Version": version,
+                                            "ReleaseName": release_name,
+                                            "ReleaseDate": release_date,
+                                            "BuildNumber": build_number,
+                                            "AvailableAs": available_as
+                                        }
+                                        
+                                        logger.info(f"Found {version_key} release name: {release_name}")
+                                        logger.info(f"Found {version_key} release date: {release_date}")
+                                        logger.info(f"Found {version_key} build number: {build_number}")
+                                        logger.info(f"Found {version_key} availability: {available_as}")
                         else:
                             # For other versions, use the original approach
                             date_match = re.search(pattern_info["date"], section_content)
