@@ -1,11 +1,11 @@
 {
-  "LastUpdated": "2025-10-30 20:11:15",
+  "LastUpdated": "2025-10-30 21:09:16",
   "VMwareTools": {
     "Version": "13.0.5",
     "ReleaseDate": "09/29/2025",
     "BuildNumber": "24915695",
     "ToolInternalVersion": "13317",
-    "LastUpdated": "2025-10-30 20:11:14",
+    "LastUpdated": "2025-10-30 21:09:15",
     "SourceUrl": "https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html"
   },
   "ESXi": {
@@ -16,7 +16,7 @@
       "AvailableAs": "Version",
       "ReleaseName": "ESXi 8.0 Update 3g"
     },
-    "LastUpdated": "2025-10-30 20:11:15",
+    "LastUpdated": "2025-10-30 21:09:16",
     "SourceUrl": "https://knowledge.broadcom.com/external/article?legacyId=2143832"
   },
   "vCenter": {
@@ -32,7 +32,7 @@
       "BuildNumber": "24927011",
       "ReleaseName": "vCenter Server 7.0 Update 3w"
     },
-    "LastUpdated": "2025-10-30 20:11:15",
+    "LastUpdated": "2025-10-30 21:09:16",
     "SourceUrl": "https://knowledge.broadcom.com/external/article?articleNumber=326316"
   }
 }
