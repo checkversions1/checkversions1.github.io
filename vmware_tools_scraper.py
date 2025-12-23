@@ -401,7 +401,7 @@ class VMwareVersionScraper:
             # Patterns for different vCenter versions - updated for current HTML structure
             patterns = {
                 "vCenter_9_0": {
-                    "section": r'<h2 id="mcetoc_1j59lojof9">vCenter Server 9\.0.*?</h2>.*?<table.*?<tbody>.*?</tbody>.*?</table>',
+                    "section": r'<h2 id="mcetoc_1j59lojof9">vCenter 9\.0.*?</h2>(.*?)<h2 id="mcetoc_1j59lojogb">',
                     "version": r'<td[^>]*>(\d+\.\d+\.\d+\.\d+)</td>',
                     "date": r'<td[^>]*>(\d{4}-\d{2}-\d{2})</td>',
                     "build": r'<td[^>]*><a[^>]*>(\d+)</a></td>'
@@ -427,6 +427,45 @@ class VMwareVersionScraper:
                 section_match = re.search(pattern_info["section"], content, re.DOTALL | re.IGNORECASE)
                 if section_match:
                     section_content = section_match.group(0)
+                    
+                    # For vCenter 9.0, extract from the first data row (skip header row)
+                    if version_key == "vCenter_9_0":
+                        # Extract tbody content if available, otherwise use full section
+                        tbody_match = re.search(r'<tbody>(.*?)</tbody>', section_content, re.DOTALL | re.IGNORECASE)
+                        if tbody_match:
+                            tbody_content = tbody_match.group(1)
+                            # Find all table rows
+                            rows = re.findall(r'<tr[^>]*>.*?</tr>', tbody_content, re.DOTALL | re.IGNORECASE)
+                            # Skip the first row (header) and find the first data row
+                            for row in rows:
+                                # Skip rows with <strong> tags (header row)
+                                if '<strong>' in row:
+                                    continue
+                                # Extract version, date, and build from this row
+                                row_pattern = r'<td[^>]*>(\d+\.\d+\.\d+\.\d+)</td>.*?<td[^>]*>(\d{4}-\d{2}-\d{2})</td>.*?<td[^>]*><a[^>]*>(\d+)</a></td>'
+                                row_match = re.search(row_pattern, row, re.DOTALL | re.IGNORECASE)
+                                if row_match:
+                                    version = row_match.group(1).strip()
+                                    release_date = row_match.group(2).strip()
+                                    build_number = row_match.group(3).strip()
+                                    
+                                    vcenter_data = {
+                                        "Version": version,
+                                        "ReleaseDate": release_date,
+                                        "BuildNumber": build_number
+                                    }
+                                    
+                                    logger.info(f"Found {version_key} version: {version}")
+                                    logger.info(f"Found {version_key} release date: {release_date}")
+                                    logger.info(f"Found {version_key} build number: {build_number}")
+                                    
+                                    vcenter_versions[version_key] = vcenter_data
+                                    break
+                            else:
+                                logger.warning(f"Could not find data row for {version_key}")
+                        else:
+                            logger.warning(f"Could not find tbody for {version_key}")
+                        continue
                     
                     # Find the first (latest) version in this section
                     version_match = re.search(pattern_info["version"], section_content, re.IGNORECASE)
