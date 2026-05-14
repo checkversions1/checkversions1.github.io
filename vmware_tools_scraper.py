@@ -238,6 +238,13 @@ class VMwareVersionScraper:
             
             # Patterns for different ESXi versions - updated for current HTML structure
             patterns = {
+                "ESX_9_1": {
+                    "section": r'<h2[^>]*>.*?ESX 9\.1.*?</h2>.*?(?=<h2 id="mcetoc_1j59lbt3g6")',
+                    "version": r'<td[^>]*>(ESX 9\.1[^<]*)</td>',
+                    "date": r'<td[^>]*>(\d{4}/\d{2}/\d{2})</td>',
+                    "build": r'<td[^>]*>.*?(\d{8,})</td>',
+                    "available": r'<td[^>]*>(?:<strong>)?([^<]+)(?:</strong>)?</td>'
+                },
                 "ESX_9_0": {
                     "section": r'<h2 id="mcetoc_1j59lbt3g6">ESX 9\.0</h2>.*?<h2 id="mcetoc_1j59le42r12">',
                     "version": r'<td[^>]*>(ESX 9\.0[^<]*)</td>',
@@ -273,8 +280,8 @@ class VMwareVersionScraper:
                         version = version_match.group(1).strip()
                         logger.info(f"Found {version_key} version: {version}")
                         
-                        # For ESX 9.0 and ESXi 7.0, extract data from the specific row containing the version
-                        if version_key in ["ESX_9_0", "ESXi_7_0"]:
+                        # For ESX 9.x and ESXi 7.0, extract data from the specific row containing the version
+                        if version_key in ["ESX_9_1", "ESX_9_0", "ESXi_7_0"]:
                             # Find the complete row containing the version (first data row after header)
                             # Version might be in plain text or in an <a> tag
                             row_pattern = rf'<tr[^>]*>.*?<td[^>]*>(?:<a[^>]*>)?{re.escape(version)}(?:</a>)?</td>.*?</tr>'
@@ -283,7 +290,7 @@ class VMwareVersionScraper:
                             if row_match:
                                 row_content = row_match.group(0)
                                 
-                                if version_key == "ESX_9_0":
+                                if version_key in ["ESX_9_0", "ESX_9_1"]:
                                     # Extract all data from this specific row
                                     # Pattern: Version (plain text) | Release Name (in <a>) | Date | Build (may have span) | Available (may have <strong>)
                                     # The row structure is: <td>Version</td><td><a>Release Name</a></td><td>Date</td><td><span>Build</span></td><td><strong>Available</strong></td>
@@ -400,17 +407,23 @@ class VMwareVersionScraper:
             
             # Patterns for different vCenter versions - updated for current HTML structure
             patterns = {
+                "vCenter_9_1": {
+                    "section": r'<h2[^>]*>.*?vCenter\s+(?:Server\s+)?9\.1.*?</h2>(.*?)(?=<h2 id="mcetoc_1j59lojof9">)',
+                    "version": r'<td[^>]*>(\d+(?:\.\d+)+)</td>',
+                    "date": r'<td[^>]*>(\d{4}-\d{2}-\d{2})</td>',
+                    "build": r'<td[^>]*><a[^>]*>(\d+)</a></td>'
+                },
                 "vCenter_9_0": {
-                    "section": r'<h2 id="mcetoc_1j59lojof9">vCenter 9\.0.*?</h2>(.*?)<h2 id="mcetoc_1j59lojogb">',
+                    "section": r'<h2 id="mcetoc_1j59lojof9">.*?vCenter 9\.0.*?</h2>(.*?)<h2 id="mcetoc_1j59lojogb">',
                     "version": r'<td[^>]*>(\d+\.\d+\.\d+\.\d+)</td>',
                     "date": r'<td[^>]*>(\d{4}-\d{2}-\d{2})</td>',
                     "build": r'<td[^>]*><a[^>]*>(\d+)</a></td>'
                 },
                 "vCenter_8_0": {
-                    "section": r'<h2 id="mcetoc_1j59lojogb">vCenter Server 8\.0</h2>.*?<table.*?<tbody>.*?</tbody>.*?</table>',
+                    "section": r'<h2 id="mcetoc_1j59lojogb">.*?vCenter Server 8\.0.*?</h2>.*?<table.*?<tbody>.*?</tbody>.*?</table>',
                     "version": r'<td[^>]*>(\d+\.\d+\.\d+\.\d+)</td>',
                     "date": r'<td[^>]*>(\d{4}-\d{2}-\d{2})</td>',
-                    "build": r'<td[^>]*>(\d+)</td>',
+                    "build": r'<td[^>]*><a[^>]*>(\d+)</a></td>',
                     "release_name": r'<td[^>]*>([^<]+)</td>'
                 },
                 "vCenter_7_0": {
@@ -428,8 +441,8 @@ class VMwareVersionScraper:
                 if section_match:
                     section_content = section_match.group(0)
                     
-                    # For vCenter 9.0, extract from the first data row (skip header row)
-                    if version_key == "vCenter_9_0":
+                    # For vCenter 9.x, extract from the first data row (skip header row)
+                    if version_key in ["vCenter_9_1", "vCenter_9_0"]:
                         # Extract tbody content if available, otherwise use full section
                         tbody_match = re.search(r'<tbody>(.*?)</tbody>', section_content, re.DOTALL | re.IGNORECASE)
                         if tbody_match:
@@ -442,7 +455,7 @@ class VMwareVersionScraper:
                                 if '<strong>' in row:
                                     continue
                                 # Extract version, date, and build from this row
-                                row_pattern = r'<td[^>]*>(\d+\.\d+\.\d+\.\d+)</td>.*?<td[^>]*>(\d{4}-\d{2}-\d{2})</td>.*?<td[^>]*><a[^>]*>(\d+)</a></td>'
+                                row_pattern = r'<td[^>]*>(\d+(?:\.\d+)+)</td>.*?<td[^>]*>(\d{4}-\d{2}-\d{2})</td>.*?<td[^>]*><a[^>]*>(\d+)</a></td>'
                                 row_match = re.search(row_pattern, row, re.DOTALL | re.IGNORECASE)
                                 if row_match:
                                     version = row_match.group(1).strip()
@@ -488,7 +501,7 @@ class VMwareVersionScraper:
                             # Look for the specific row with the latest version to get release name
                             if version_key == "vCenter_8_0":
                                 # For vCenter 8.0, look for the row with the latest version
-                                row_pattern = rf'<td[^>]*>([^<]+)</td>.*?<td[^>]*>{re.escape(version)}</td>.*?<td[^>]*>(\d{{4}}-\d{{2}}-\d{{2}})</td>.*?<td[^>]*>(\d+)</td>'
+                                row_pattern = rf'<td[^>]*>([^<]+)</td>.*?<td[^>]*>{re.escape(version)}</td>.*?<td[^>]*>(\d{{4}}-\d{{2}}-\d{{2}})</td>.*?<td[^>]*>(?:<a[^>]*>)?(\d+)(?:</a>)?</td>'
                                 row_match = re.search(row_pattern, section_content, re.DOTALL | re.IGNORECASE)
                                 if row_match:
                                     release_name = row_match.group(1).strip()
@@ -572,9 +585,11 @@ class VMwareVersionScraper:
 
             # Safe access to dictionaries
             tools_info_safe = tools_info or {}
+            esx_9_1_info = esxi_info.get('ESX_9_1', {})
             esx_9_0_info = esxi_info.get('ESX_9_0', {})
             esxi_8_0_info = esxi_info.get('ESXi_8_0', {})
             esxi_7_0_info = esxi_info.get('ESXi_7_0', {})
+            vcenter_9_1_info = vcenter_info.get('vCenter_9_1', {})
             vcenter_9_0_info = vcenter_info.get('vCenter_9_0', {})
             vcenter_8_0_info = vcenter_info.get('vCenter_8_0', {})
             vcenter_7_0_info = vcenter_info.get('vCenter_7_0', {})
@@ -794,6 +809,32 @@ class VMwareVersionScraper:
             </div>
             
             <div class="version-card">
+                <h3>ESX 9.1</h3>
+                <div class="version-info">
+                    <div class="info-item">
+                        <div class="info-label">Version</div>
+                        <div class="info-value">{esx_9_1_info.get('Version', 'Not Found')}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Release Name</div>
+                        <div class="info-value">{esx_9_1_info.get('ReleaseName', 'Not Found')}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Release Date</div>
+                        <div class="info-value">{esx_9_1_info.get('ReleaseDate', 'Not Found')}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Build Number</div>
+                        <div class="info-value">{esx_9_1_info.get('BuildNumber', 'Not Found')}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Available As</div>
+                        <div class="info-value">{esx_9_1_info.get('AvailableAs', 'Not Found')}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="version-card">
                 <h3>ESX 9.0</h3>
                 <div class="version-info">
                     <div class="info-item">
@@ -871,6 +912,24 @@ class VMwareVersionScraper:
                 </div>
             </div>
             
+            <div class="version-card">
+                <h3>vCenter 9.1</h3>
+                <div class="version-info">
+                    <div class="info-item">
+                        <div class="info-label">Version</div>
+                        <div class="info-value">{vcenter_9_1_info.get('Version', 'Not Found')}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Release Date</div>
+                        <div class="info-value">{vcenter_9_1_info.get('ReleaseDate', 'Not Found')}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Build Number</div>
+                        <div class="info-value">{vcenter_9_1_info.get('BuildNumber', 'Not Found')}</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="version-card">
                 <h3>vCenter 9.0</h3>
                 <div class="version-info">
