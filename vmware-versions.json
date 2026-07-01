@@ -1,11 +1,11 @@
 {
-  "LastUpdated": "2026-07-01 14:03:11",
+  "LastUpdated": "2026-07-01 17:03:55",
   "VMwareTools": {
     "Version": "13.1.0.0",
     "ReleaseDate": "09/29/2025",
     "BuildNumber": "24915695",
     "ToolInternalVersion": "13317",
-    "LastUpdated": "2026-07-01 14:03:10",
+    "LastUpdated": "2026-07-01 17:03:54",
     "SourceUrl": "https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html"
   },
   "ESXi": {
@@ -37,7 +37,7 @@
       "BuildNumber": "24784741",
       "AvailableAs": "Patch"
     },
-    "LastUpdated": "2026-07-01 14:03:11",
+    "LastUpdated": "2026-07-01 17:03:55",
     "SourceUrl": "https://knowledge.broadcom.com/external/article?legacyId=2143832"
   },
   "vCenter": {}
