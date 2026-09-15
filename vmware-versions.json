@@ -1,19 +1,19 @@
 {
-  "LastUpdated": "2026-09-15 12:19:16",
+  "LastUpdated": "2026-09-15 17:22:40",
   "VMwareTools": {
     "Version": "13.1.5.0",
     "ReleaseDate": "09/03/2026",
     "BuildNumber": "25544008",
     "ToolInternalVersion": "13349",
-    "LastUpdated": "2026-09-15 12:19:16",
+    "LastUpdated": "2026-09-15 17:22:39",
     "SourceUrl": "https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html"
   },
   "ESXi": {
     "ESX_9_1": {
-      "Version": "ESX 9.1.0.0200",
-      "ReleaseName": "ESX 9.1.0.0200",
-      "ReleaseDate": "2026/07/13",
-      "BuildNumber": "25557999",
+      "Version": "ESX 9.1.1.0",
+      "ReleaseName": "ESX 9.1.1.0",
+      "ReleaseDate": "2026/09/03",
+      "BuildNumber": "25714478",
       "AvailableAs": "ISO"
     },
     "ESX_9_0": {
@@ -37,7 +37,7 @@
       "BuildNumber": "24784741",
       "AvailableAs": "Patch"
     },
-    "LastUpdated": "2026-09-15 12:19:16",
+    "LastUpdated": "2026-09-15 17:22:40",
     "SourceUrl": "https://knowledge.broadcom.com/external/article?legacyId=2143832"
   },
   "vCenter": {
@@ -63,7 +63,7 @@
       "ReleaseDate": "2025-09-29",
       "BuildNumber": "24927011"
     },
-    "LastUpdated": "2026-09-15 12:19:16",
+    "LastUpdated": "2026-09-15 17:22:40",
     "SourceUrl": "https://knowledge.broadcom.com/external/article?articleNumber=326316"
   }
 }
