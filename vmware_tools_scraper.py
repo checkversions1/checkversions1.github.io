@@ -7,6 +7,7 @@ and updates a JSON file with version information.
 
 import requests
 import json
+import html as html_lib
 import re
 from datetime import datetime
 from pathlib import Path
@@ -434,452 +435,358 @@ class VMwareVersionScraper:
             logger.error(f"Error updating JSON file: {e}")
             return False
     
+    @staticmethod
+    def _iso_date(value: str) -> str:
+        """Normalise the KB date formats (YYYY/MM/DD, YYYY-MM-DD, MM/DD/YYYY) to YYYY-MM-DD."""
+        if not value:
+            return ""
+        for fmt in ("%Y/%m/%d", "%Y-%m-%d", "%m/%d/%Y"):
+            try:
+                return datetime.strptime(value.strip(), fmt).strftime("%Y-%m-%d")
+            except ValueError:
+                continue
+        return ""
+
+    @staticmethod
+    def _pretty_date(iso: str, fallback: str) -> str:
+        """Format an ISO date as '12 Oct 2026', or return the raw value if it could not be parsed."""
+        if not iso:
+            return fallback or "Date not found"
+        d = datetime.strptime(iso, "%Y-%m-%d")
+        return f"{d.day} {d.strftime('%b %Y')}"
+
+    def _release_cell(self, info: Dict, product_label: str, prefixes: List[str]) -> str:
+        """Render one ESX or vCenter cell of the release matrix."""
+        esc = html_lib.escape
+        if not info or not info.get('Version'):
+            return (f'<div class="cell" role="cell"><span class="cell-product">{esc(product_label)}</span>'
+                    '<p class="missing">Not found in the Broadcom KB on the last run.</p></div>')
+
+        def strip(text: str) -> str:
+            for p in prefixes:
+                if text.startswith(p):
+                    return text[len(p):]
+            return text
+
+        version = strip(info.get('Version', ''))
+        release = strip(info.get('ReleaseName', '') or '')
+        title, subtitle = (release, version) if release and release != version else (version, '')
+        build = info.get('BuildNumber', '')
+        iso = self._iso_date(info.get('ReleaseDate', ''))
+        available = info.get('AvailableAs', '')
+
+        parts = [f'<div class="cell" role="cell" data-date="{iso}">',
+                 f'<span class="cell-product">{esc(product_label)}</span>',
+                 '<div class="cell-head">',
+                 f'<h3 class="release">{esc(title)}</h3>']
+        if available:
+            parts.append(f'<span class="kind" title="Available as">{esc(available)}</span>')
+        parts.append('</div>')
+        if subtitle:
+            parts.append(f'<p class="version">{esc(subtitle)}</p>')
+        parts.append('<div class="build-row">'
+                     f'<span class="build" title="Build number">{esc(build)}</span>'
+                     f'<button type="button" class="copy" data-copy="{esc(build)}" '
+                     f'aria-label="Copy build {esc(build)}">Copy</button></div>')
+        parts.append(f'<p class="date"><time datetime="{iso}">'
+                     f'{esc(self._pretty_date(iso, info.get("ReleaseDate", "")))}</time>'
+                     '<span class="age"></span></p>')
+        parts.append('</div>')
+        return "".join(parts)
+
     def create_html_display(self, tools_info: Dict, esxi_info: Dict, vcenter_info: Dict) -> bool:
         """
         Create an HTML display page with the version information.
-        
+
         Args:
             tools_info: Dictionary containing VMware Tools version information
             esxi_info: Dictionary containing ESXi version information
             vcenter_info: Dictionary containing vCenter version information
-            
+
         Returns:
             True if successful, False otherwise
         """
         try:
-            # Get last updated timestamp
+            esc = html_lib.escape
             last_updated = self.get_timestamp()
+            tools = tools_info or {}
+            esxi_info = esxi_info or {}
+            vcenter_info = vcenter_info or {}
 
-            # Safe access to dictionaries
-            tools_info_safe = tools_info or {}
-            esx_9_1_info = esxi_info.get('ESX_9_1', {})
-            esx_9_0_info = esxi_info.get('ESX_9_0', {})
-            esxi_8_0_info = esxi_info.get('ESXi_8_0', {})
-            esxi_7_0_info = esxi_info.get('ESXi_7_0', {})
-            vcenter_9_1_info = vcenter_info.get('vCenter_9_1', {})
-            vcenter_9_0_info = vcenter_info.get('vCenter_9_0', {})
-            vcenter_8_0_info = vcenter_info.get('vCenter_8_0', {})
-            vcenter_7_0_info = vcenter_info.get('vCenter_7_0', {})
+            # Release lines, newest first: (line, ESX key, vCenter key, note)
+            lines = [
+                ("9.1", "ESX_9_1", "vCenter_9_1", ""),
+                ("9.0", "ESX_9_0", "vCenter_9_0", ""),
+                ("8.0", "ESXi_8_0", "vCenter_8_0", ""),
+                ("7.0", "ESXi_7_0", "vCenter_7_0", "General support ended October 2025"),
+            ]
 
-            # Generate HTML content
-            html_content = f"""
-<!DOCTYPE html>
+            rows = []
+            for line, esx_key, vc_key, note in lines:
+                note_html = f'<span class="line-note">{esc(note)}</span>' if note else ''
+                rows.append(
+                    '<div class="line" role="row">'
+                    f'<div class="spine" role="rowheader"><span class="line-no">{line}</span>{note_html}</div>'
+                    + self._release_cell(esxi_info.get(esx_key, {}), "ESX / ESXi", ["ESXi ", "ESX "])
+                    + self._release_cell(vcenter_info.get(vc_key, {}), "vCenter Server", ["vCenter Server "])
+                    + '</div>')
+
+            tools_iso = self._iso_date(tools.get('ReleaseDate', ''))
+            tools_build = esc(tools.get('BuildNumber', ''))
+            if tools.get('Version'):
+                tools_html = f"""
+    <div class="tools-body" data-date="{tools_iso}">
+      <dl class="tools-facts">
+        <div><dt>Version</dt><dd><span class="big">{esc(tools.get('Version', ''))}</span></dd></div>
+        <div><dt>Build</dt><dd><span class="big">{tools_build}</span>
+          <button type="button" class="copy" data-copy="{tools_build}" aria-label="Copy build {tools_build}">Copy</button></dd></div>
+        <div><dt>Internal version</dt><dd>{esc(tools.get('ToolInternalVersion', ''))}</dd></div>
+        <div><dt>Released</dt><dd><span><time datetime="{tools_iso}">{esc(self._pretty_date(tools_iso, tools.get('ReleaseDate', '')))}</time><span class="age"></span></span></dd></div>
+      </dl>
+      <a class="download" href="https://packages-prod.broadcom.com/tools/releases/latest/windows/" target="_blank" rel="noopener">Download for Windows</a>
+    </div>"""
+            else:
+                tools_html = '<div class="tools-body"><p class="missing">Not found in the Broadcom KB on the last run.</p></div>'
+
+            year = datetime.now().year
+            html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VMware by Broadcom Versions Dashboard</title>
-    <style>
-        * {{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }}
-        
-        body {{
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            padding: 20px;
-        }}
-        
-        .container {{
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }}
-        
-        .header {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }}
-            <p>Latest version information for VMware products</p>
-            <p style='font-size:1em;color:#eee;margin-top:10px;'>Last updated: {last_updated}</p>
-        .header h1 {{
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }}
-        
-        .header p {{
-            font-size: 1.1em;
-            opacity: 0.9;
-        }}
-        
-        .content {{
-            padding: 40px;
-        }}
-        
-        .version-card {{
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-left: 5px solid #667eea;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }}
-        
-        .version-card:hover {{
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }}
-        
-        .version-card h2, .version-card h3 {{
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            font-weight: 600;
-        }}
-        
-        .version-info {{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }}
-        
-        .info-item {{
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }}
-        
-        .info-label {{
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 5px;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }}
-        
-        .info-value {{
-            font-size: 1.1em;
-            color: #333;
-            font-weight: 500;
-        }}
-        
-        .refresh-btn {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: block;
-            margin: 30px auto 0;
-        }}
-        
-        .refresh-btn:hover {{
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }}
-        
-        .footer {{
-            background: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #e9ecef;
-        }}
-        
-        .footer p {{
-            margin: 5px 0;
-            color: #666;
-            font-size: 0.9em;
-        }}
-        
-        .footer a {{
-            color: #667eea;
-            text-decoration: none;
-        }}
-        
-        .footer a:hover {{
-            text-decoration: underline;
-        }}
-        
-        .download-btn {{
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            color: white;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: 600;
-            display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
-        }}
-        
-        .download-btn:hover {{
-            background: linear-gradient(135deg, #229954 0%, #27ae60 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
-            color: white;
-            text-decoration: none;
-        }}
-        
-        @media (max-width: 768px) {{
-            .header h1 {{
-                font-size: 2em;
-            }}
-            
-            .content {{
-                padding: 20px;
-            }}
-            
-            .version-info {{
-                grid-template-columns: 1fr;
-            }}
-        }}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VMware Versions</title>
+<meta name="description" content="Latest ESX, vCenter Server and VMware Tools builds, read from the Broadcom knowledge base.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>{self._DASHBOARD_CSS}</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>VMware by Broadcom Versions Dashboard</h1>
-            <p>Latest version information for VMware products</p>
-        </div>
-        
-        <div class="content">
-            <div class="version-card">
-                <h2>VMware Tools</h2>
-                <div class="version-info">
-                    <div class="info-item">
-                        <div class="info-label">Version</div>
-                        <div class="info-value">{tools_info_safe.get('Version', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Date</div>
-                        <div class="info-value">{tools_info_safe.get('ReleaseDate', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Build Number</div>
-                        <div class="info-value">{tools_info_safe.get('BuildNumber', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Tool Internal Version</div>
-                        <div class="info-value">{tools_info_safe.get('ToolInternalVersion', 'Not Found')}</div>
-                    </div>
-                </div>
-                <div style="margin-top: 20px; text-align: center;">
-                    <a href="https://packages-prod.broadcom.com/tools/releases/latest/windows/" target="_blank" class="download-btn">
-                        Download the latest VMware Tools
-                    </a>
-                </div>
-            </div>
-            
-            <div class="version-card">
-                <h3>ESX 9.1</h3>
-                <div class="version-info">
-                    <div class="info-item">
-                        <div class="info-label">Version</div>
-                        <div class="info-value">{esx_9_1_info.get('Version', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Name</div>
-                        <div class="info-value">{esx_9_1_info.get('ReleaseName', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Date</div>
-                        <div class="info-value">{esx_9_1_info.get('ReleaseDate', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Build Number</div>
-                        <div class="info-value">{esx_9_1_info.get('BuildNumber', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Available As</div>
-                        <div class="info-value">{esx_9_1_info.get('AvailableAs', 'Not Found')}</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="version-card">
-                <h3>ESX 9.0</h3>
-                <div class="version-info">
-                    <div class="info-item">
-                        <div class="info-label">Version</div>
-                        <div class="info-value">{esx_9_0_info.get('Version', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Name</div>
-                        <div class="info-value">{esx_9_0_info.get('ReleaseName', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Date</div>
-                        <div class="info-value">{esx_9_0_info.get('ReleaseDate', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Build Number</div>
-                        <div class="info-value">{esx_9_0_info.get('BuildNumber', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Available As</div>
-                        <div class="info-value">{esx_9_0_info.get('AvailableAs', 'Not Found')}</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="version-card">
-                <h3>ESXi 8.0</h3>
-                <div class="version-info">
-                    <div class="info-item">
-                        <div class="info-label">Version</div>
-                        <div class="info-value">{esxi_8_0_info.get('Version', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Name</div>
-                        <div class="info-value">{esxi_8_0_info.get('ReleaseName', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Date</div>
-                        <div class="info-value">{esxi_8_0_info.get('ReleaseDate', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Build Number</div>
-                        <div class="info-value">{esxi_8_0_info.get('BuildNumber', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Available As</div>
-                        <div class="info-value">{esxi_8_0_info.get('AvailableAs', 'Not Found')}</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="version-card">
-                <h3>ESXi 7.0</h3>
-                <div class="version-info">
-                    <div class="info-item">
-                        <div class="info-label">Version</div>
-                        <div class="info-value">{esxi_7_0_info.get('Version', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Name</div>
-                        <div class="info-value">{esxi_7_0_info.get('ReleaseName', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Date</div>
-                        <div class="info-value">{esxi_7_0_info.get('ReleaseDate', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Build Number</div>
-                        <div class="info-value">{esxi_7_0_info.get('BuildNumber', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Available As</div>
-                        <div class="info-value">{esxi_7_0_info.get('AvailableAs', 'Not Found')}</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="version-card">
-                <h3>vCenter 9.1</h3>
-                <div class="version-info">
-                    <div class="info-item">
-                        <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_9_1_info.get('Version', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_9_1_info.get('ReleaseDate', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_9_1_info.get('BuildNumber', 'Not Found')}</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="version-card">
-                <h3>vCenter 9.0</h3>
-                <div class="version-info">
-                    <div class="info-item">
-                        <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_9_0_info.get('Version', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_9_0_info.get('ReleaseDate', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_9_0_info.get('BuildNumber', 'Not Found')}</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="version-card">
-                <h3>vCenter Server 8.0</h3>
-                <div class="version-info">
-                    <div class="info-item">
-                        <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_8_0_info.get('Version', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Name</div>
-                        <div class="info-value">{vcenter_8_0_info.get('ReleaseName', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_8_0_info.get('ReleaseDate', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_8_0_info.get('BuildNumber', 'Not Found')}</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="version-card">
-                <h3>vCenter Server 7.0</h3>
-                <div class="version-info">
-                    <div class="info-item">
-                        <div class="info-label">Version</div>
-                        <div class="info-value">{vcenter_7_0_info.get('Version', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Name</div>
-                        <div class="info-value">{vcenter_7_0_info.get('ReleaseName', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Release Date</div>
-                        <div class="info-value">{vcenter_7_0_info.get('ReleaseDate', 'Not Found')}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Build Number</div>
-                        <div class="info-value">{vcenter_7_0_info.get('BuildNumber', 'Not Found')}</div>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="refresh-btn" onclick="location.reload()">Refresh Page</button>
-        </div>
-        
-        <div class="footer">
-            <p>Data sources: <a href="https://knowledge.broadcom.com/external/article/304809/build-numbers-and-versions-of-vmware-too.html" target="_blank">VMware Tools</a> | <a href="https://knowledge.broadcom.com/external/article?legacyId=2143832" target="_blank">ESXi Versions</a> | <a href="https://knowledge.broadcom.com/external/article?articleNumber=326316" target="_blank">vCenter Versions</a></p>
-            <p>&copy; 2025 by <a href="https://www.ivobeerens.nl" target="_blank">www.ivobeerens.nl</a></p>
-        </div>
+<main class="page">
+  <header class="masthead">
+    <div>
+      <h1>VMware versions</h1>
+      <p class="lede">The latest ESX, vCenter Server and VMware Tools builds for each release line, read from the Broadcom knowledge base.</p>
     </div>
+    <p class="checked">Last checked<br><time datetime="{esc(last_updated.replace(' ', 'T'))}">{esc(last_updated)}</time></p>
+  </header>
+
+  <section class="matrix" role="table" aria-label="Latest builds per release line">
+    <div class="matrix-head" role="row">
+      <span role="columnheader"><span class="sr-only">Release line</span></span>
+      <span role="columnheader">ESX / ESXi</span>
+      <span role="columnheader">vCenter Server</span>
+    </div>
+    {''.join(rows)}
+  </section>
+
+  <section class="tools" aria-labelledby="tools-title">
+    <h2 id="tools-title">VMware Tools</h2>
+    {tools_html}
+  </section>
+
+  <p class="legend"><span class="dot" aria-hidden="true"></span>Released in the last 30 days</p>
+
+  <footer class="footer">
+    <p>Sources: <a href="{esc(self.tools_url)}" target="_blank" rel="noopener">VMware Tools builds</a>,
+      <a href="{esc(self.esxi_url)}" target="_blank" rel="noopener">ESX builds</a> and
+      <a href="{esc(self.vcenter_url)}" target="_blank" rel="noopener">vCenter Server builds</a> on knowledge.broadcom.com.</p>
+    <p>&copy; {year} <a href="https://www.ivobeerens.nl" target="_blank" rel="noopener">www.ivobeerens.nl</a></p>
+  </footer>
+</main>
+<div class="toast" role="status" aria-live="polite"></div>
+<script>{self._DASHBOARD_JS}</script>
 </body>
 </html>
 """
-            
             with open(self.web_page_path, 'w', encoding='utf-8') as f:
                 f.write(html_content)
-            
+
             logger.info(f"Created HTML display page: {self.web_page_path}")
             return True
-            
+
         except Exception as e:
             logger.error(f"Error creating HTML display: {e}")
             return False
+
+    _DASHBOARD_CSS = """
+:root {
+  --bg: #E9EEF2; --panel: #FFFFFF; --ink: #14243A; --muted: #56677A;
+  --rule: #CFD8E0; --spine: #1D3A5F; --spine-ink: #E4ECF4; --spine-muted: #A9BCCF;
+  --new: #C77700; --link: #1F5FA8; --on-link: #FFFFFF; --kind-bg: #E2E9F0;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1A29; --panel: #15243A; --ink: #E3EAF1; --muted: #9AABBD;
+    --rule: #263A52; --spine: #0A1320; --spine-ink: #E3EAF1; --spine-muted: #8296AB;
+    --new: #F2A900; --link: #84B6EE; --on-link: #0A1320; --kind-bg: #1F3350;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1A29; --panel: #15243A; --ink: #E3EAF1; --muted: #9AABBD;
+  --rule: #263A52; --spine: #0A1320; --spine-ink: #E3EAF1; --spine-muted: #8296AB;
+  --new: #F2A900; --link: #84B6EE; --on-link: #0A1320; --kind-bg: #1F3350;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: "Barlow", system-ui, sans-serif; font-size: 1rem; line-height: 1.5;
+  font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
+}
+a { color: var(--link); text-underline-offset: 0.18em; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-radius: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.page { max-width: 1080px; margin: 0 auto; padding: 56px 24px 40px; }
+
+.masthead { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 36px; }
+.masthead h1 {
+  font-family: "Barlow Condensed", sans-serif; font-weight: 700;
+  font-size: clamp(2.6rem, 6vw, 4rem); line-height: 0.95; letter-spacing: -0.01em;
+}
+.lede { margin-top: 12px; max-width: 52ch; color: var(--muted); font-size: 1.0625rem; }
+.checked { text-align: right; color: var(--muted); font-size: 0.875rem; line-height: 1.35; white-space: nowrap; }
+.checked time { color: var(--ink); font-weight: 600; font-size: 1rem; }
+
+/* Release matrix: one row per release line, ESX and vCenter side by side */
+.matrix { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.matrix-head, .line { display: grid; grid-template-columns: 148px 1fr 1fr; }
+.matrix-head { background: var(--spine); color: var(--spine-muted); font-weight: 500; font-size: 0.9375rem; }
+.matrix-head > span { padding: 12px 28px; }
+.line + .line { border-top: 1px solid var(--rule); }
+.line + .line .spine { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+
+.spine { background: var(--spine); color: var(--spine-ink); padding: 18px 20px 20px 24px; display: flex; flex-direction: column; gap: 6px; }
+.line-no {
+  font-family: "Barlow Condensed", sans-serif; font-weight: 600;
+  font-size: 4.25rem; line-height: 0.9; letter-spacing: -0.02em;
+}
+.line-note { font-size: 0.8125rem; line-height: 1.3; color: var(--spine-muted); max-width: 13ch; }
+
+.cell { position: relative; padding: 22px 28px; min-width: 0; }
+.cell + .cell { border-left: 1px solid var(--rule); }
+.cell-product { display: none; color: var(--muted); font-size: 0.875rem; font-weight: 500; margin-bottom: 4px; }
+.cell-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.release { font-size: 1.1875rem; font-weight: 600; line-height: 1.25; }
+.kind { flex: none; font-size: 0.8125rem; font-weight: 500; color: var(--muted); background: var(--kind-bg); padding: 1px 8px; border-radius: 3px; }
+.version { color: var(--muted); font-size: 0.9375rem; margin-top: 2px; }
+.build-row { display: flex; align-items: baseline; gap: 12px; margin-top: 10px; }
+.build, .big {
+  font-family: "Barlow Condensed", sans-serif; font-weight: 600;
+  font-size: 1.875rem; line-height: 1.05; letter-spacing: 0.01em;
+}
+.copy {
+  font: inherit; font-size: 0.875rem; font-weight: 500; color: var(--link);
+  background: none; border: 0; padding: 2px 0; cursor: pointer;
+  text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.18em;
+}
+.copy:hover { text-decoration-color: currentColor; }
+.date { margin-top: 8px; color: var(--muted); font-size: 0.9375rem; }
+.age:not(:empty)::before { content: ", "; }
+.is-new::before {
+  content: ""; position: absolute; left: 0; top: 24px; width: 4px; height: 28px;
+  background: var(--new); border-radius: 0 2px 2px 0;
+}
+.is-new .age { color: var(--ink); font-weight: 600; }
+.missing { color: var(--muted); font-style: italic; }
+
+/* VMware Tools strip */
+.tools {
+  margin-top: 24px; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px;
+  display: grid; grid-template-columns: 148px 1fr; overflow: hidden;
+}
+.tools h2 {
+  background: var(--spine); color: var(--spine-ink); padding: 20px 20px 20px 24px;
+  font-family: "Barlow Condensed", sans-serif; font-weight: 600; font-size: 1.625rem; line-height: 1.05;
+}
+.tools-body { position: relative; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px 32px; flex-wrap: wrap; }
+.tools-facts { display: flex; flex-wrap: wrap; gap: 8px 40px; }
+.tools-facts dt { color: var(--muted); font-size: 0.875rem; }
+.tools-facts dd { font-weight: 500; font-size: 1.0625rem; display: flex; align-items: baseline; gap: 10px; min-height: 2rem; align-items: flex-end; }
+.download {
+  flex: none; font-weight: 600; text-decoration: none; color: var(--on-link); background: var(--link);
+  padding: 10px 18px; border-radius: 4px;
+}
+.download:hover { text-decoration: underline; }
+
+.legend { margin-top: 16px; color: var(--muted); font-size: 0.875rem; display: flex; align-items: center; gap: 8px; }
+.legend .dot { width: 4px; height: 16px; background: var(--new); border-radius: 1px; }
+
+.footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.875rem; }
+.footer p { max-width: 75ch; }
+.footer p + p { margin-top: 4px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 12px); opacity: 0;
+  background: var(--spine); color: var(--spine-ink); padding: 8px 16px; border-radius: 4px; font-weight: 500;
+  transition: opacity .18s ease, transform .18s ease; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 760px) {
+  .page { padding: 32px 16px; }
+  .masthead { flex-direction: column; align-items: flex-start; margin-bottom: 24px; }
+  .checked { text-align: left; }
+  .matrix-head { display: none; }
+  .line { grid-template-columns: 1fr; }
+  .spine { flex-direction: row; align-items: baseline; gap: 14px; padding: 10px 16px; }
+  .line-no { font-size: 2.75rem; }
+  .line-note { max-width: none; }
+  .cell { padding: 18px 16px; }
+  .cell + .cell { border-left: 0; border-top: 1px solid var(--rule); }
+  .cell-product { display: block; }
+  .tools { grid-template-columns: 1fr; }
+  .tools h2 { padding: 12px 16px; }
+  .tools-body { padding: 18px 16px; }
+  .tools-facts { gap: 12px 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+"""
+
+    _DASHBOARD_JS = """
+(function () {
+  var DAY = 86400000, today = new Date(); today.setHours(0, 0, 0, 0);
+  document.querySelectorAll('[data-date]').forEach(function (el) {
+    var iso = el.getAttribute('data-date'); if (!iso) return;
+    var p = iso.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
+    var days = Math.round((today - d) / DAY), text;
+    if (days < 0) return;
+    if (days === 0) text = 'today';
+    else if (days === 1) text = 'yesterday';
+    else if (days < 60) text = days + ' days ago';
+    else if (days < 730) text = Math.round(days / 30.44) + ' months ago';
+    else text = Math.floor(days / 365.25) + ' years ago';
+    var age = el.querySelector('.age'); if (age) age.textContent = text;
+    if (days <= 30) el.classList.add('is-new');
+  });
+  var toast = document.querySelector('.toast'), timer;
+  function show(msg) {
+    toast.textContent = msg; toast.classList.add('show');
+    clearTimeout(timer); timer = setTimeout(function () { toast.classList.remove('show'); }, 1800);
+  }
+  var FAIL = 'Copy failed. Select the build number and copy it manually.';
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var value = btn.getAttribute('data-copy');
+      var done = function () {
+        btn.textContent = 'Copied'; show('Copied build ' + value);
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1800);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(value).then(done, function () { show(FAIL); });
+      } else {
+        var ta = document.createElement('textarea'); ta.value = value; document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy') ? done() : show(FAIL); } catch (e) { show(FAIL); }
+        ta.remove();
+      }
+    });
+  });
+})();
+"""
     
     def run(self) -> bool:
         """
